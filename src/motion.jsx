@@ -1,6 +1,6 @@
 // Helpers de animación con Motion (Framer Motion).
 // Se usa `m` + LazyMotion(domAnimation) en App.jsx para cargar solo las features necesarias.
-import { m } from "motion/react";
+import * as m from "motion/react-m";
 
 export const ease = [0.22, 1, 0.36, 1];
 
@@ -16,9 +16,12 @@ export const stagger = (gap = 0.07, delay = 0) => ({
 
 const viewport = { once: true, margin: "0px 0px -8% 0px" };
 
+// Acceso estático a cada etiqueta para que el bundler descarte las que no se usan.
+const TAGS = { div: m.div, p: m.p, h2: m.h2, ol: m.ol, fieldset: m.fieldset };
+
 // Aparece al entrar en pantalla. `as` elige la etiqueta (div, h2, p, li, article...).
 export function Reveal({ as = "div", delay = 0, children, ...props }) {
-  const Comp = m[as];
+  const Comp = TAGS[as];
   return (
     <Comp
       initial="hidden"
@@ -34,7 +37,7 @@ export function Reveal({ as = "div", delay = 0, children, ...props }) {
 
 // Contenedor que escalona la aparición de sus hijos (que deben usar variants={fadeUp}).
 export function Stagger({ as = "div", gap, delay, inView = true, children, ...props }) {
-  const Comp = m[as];
+  const Comp = TAGS[as];
   const trigger = inView ? { whileInView: "show", viewport } : { animate: "show" };
   return (
     <Comp initial="hidden" {...trigger} variants={stagger(gap, delay)} {...props}>

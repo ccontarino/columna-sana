@@ -1,4 +1,4 @@
-import { m } from "motion/react";
+import * as m from "motion/react-m";
 import { FAQ } from "../data.jsx";
 import { Reveal, Stagger, fadeUp } from "../motion.jsx";
 

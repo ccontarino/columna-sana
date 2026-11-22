@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { EXERCISES } from "../data.jsx";
 import { ExerciseFigure } from "./Illustrations.jsx";
-import { m } from "motion/react";
+import * as m from "motion/react-m";
 import { Reveal, fadeUp, stagger } from "../motion.jsx";
 
 const FILTERS = [

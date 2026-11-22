@@ -1,5 +1,5 @@
 import { ERGONOMICS } from "../data.jsx";
-import { m } from "motion/react";
+import * as m from "motion/react-m";
 import { DeskScene } from "./Illustrations.jsx";
 import { Reveal, Stagger, fadeUp } from "../motion.jsx";
 

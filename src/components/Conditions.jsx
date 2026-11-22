@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { m, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { CONDITIONS, STATS } from "../data.jsx";
 import { SpineDiagram } from "./Illustrations.jsx";
 import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";

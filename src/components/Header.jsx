@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { m, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { useActiveSection, useTheme } from "../hooks.js";
 
 const LINKS = [

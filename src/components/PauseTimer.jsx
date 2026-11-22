@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { m, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { PAUSE_TIPS } from "../data.jsx";
 import { Reveal, ease } from "../motion.jsx";
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { m, AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { RED_FLAGS } from "../data.jsx";
 import { Reveal, ease } from "../motion.jsx";
 

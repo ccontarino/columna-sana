@@ -1,4 +1,7 @@
-import { LazyMotion, domAnimation, MotionConfig } from "motion/react";
+import { LazyMotion, MotionConfig } from "motion/react";
+
+// Las features de animación se cargan aparte, después del primer render.
+const loadFeatures = () => import("./motion-features.js").then((r) => r.default);
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
 import Conditions from "./components/Conditions.jsx";
@@ -12,7 +15,7 @@ import { Reveal } from "./motion.jsx";
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <LazyMotion features={domAnimation} strict>
+      <LazyMotion features={loadFeatures} strict>
         <Header />
         <main>
           <Hero />
