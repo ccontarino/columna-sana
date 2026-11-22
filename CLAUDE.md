@@ -1,11 +1,12 @@
 # CLAUDE.md
 
-Proyecto: sitio estático "Columna Sana" sobre cervicalgia y lumbalgia.
+Proyecto: sitio estático "Columna Sana": guía de la columna vertebral. Orden: hero (columna frontal animada) → anatomía interactiva (vista lateral) → vértebra y disco (vista superior, sano/protrusión/hernia) → cervicalgia y lumbalgia → alarmas → ejercicios → ergonomía → pausas → FAQ.
 
 - Idioma del contenido: español rioplatense (voseo: "hacé", "consultá").
 - Stack: React (JSX + hooks, importando de "react") con Vite; el runtime es Preact vía @preact/preset-vite para que el bundle sea mínimo. Prioridad: liviano y performante. No agregar librerías (UI kits, routers, CSS-in-JS, iconos) salvo pedido explícito. Única librería extra: Motion para animaciones.
 - Usar `className` (estilo React). Estilos en `src/styles.css`, sin preprocesadores.
-- Contenido: todo vive en `src/data.jsx` (CONDITIONS, RED_FLAGS, EXERCISES, ERGONOMICS, PAUSE_TIPS, FAQ). Para agregar contenido, editar ahí.
+- Contenido: todo vive en `src/data.jsx` (SPINE_STATS, FUNCTIONS, REGIONS, VERTEBRA_PARTS, DISC_STATES, CONDITIONS, RED_FLAGS, EXERCISES, ERGONOMICS, PAUSE_TIPS, FAQ). Para agregar contenido, editar ahí.
+- Columna lateral: la geometría (curva en S, 24 vértebras móviles, 23 discos, médula hasta L1–L2) se calcula en `src/spine-geometry.js`; ajustar ahí la forma, no en el componente. Anatomía debe ser correcta (anterior = izquierda).
 - Deploy: GitHub Actions (`.github/workflows/deploy.yml`) buildea y publica en GitHub Pages en cada push a `main`. `base` en vite.config.js es `/columna-sana/`.
 - En el entorno de Claude puede no haber acceso a npm: validar sintaxis con esbuild si está disponible y dejar que CI haga el build.
 - Contenido médico: mantener tono prudente, sin dosis de medicamentos, siempre con aviso de que no reemplaza la consulta. Las señales de alarma deben seguir guías clínicas estándar.

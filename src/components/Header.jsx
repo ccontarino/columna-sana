@@ -4,11 +4,12 @@ import { AnimatePresence } from "motion/react";
 import { useActiveSection, useTheme } from "../hooks.js";
 
 const LINKS = [
-  ["condiciones", "Condiciones"],
+  ["anatomia", "Anatomía"],
+  ["vertebra", "Vértebra y disco"],
+  ["condiciones", "Dolor"],
   ["alarma", "Alarmas"],
   ["ejercicios", "Ejercicios"],
   ["ergonomia", "Ergonomía"],
-  ["pausas", "Pausas"],
   ["faq", "Preguntas"],
 ];
 

@@ -148,3 +148,67 @@ export const FAQ = [
   { q: "¿Una hernia de disco siempre se opera?", a: "No. La mayoría de las hernias mejoran con tratamiento conservador (kinesiología, ejercicio, analgesia), e incluso pueden reabsorberse con el tiempo. La cirugía se reserva para casos con déficit neurológico importante o dolor que no responde al tratamiento." },
   { q: "¿El estrés influye?", a: "Sí. El estrés, el mal descanso y el miedo al movimiento aumentan la tensión muscular y la percepción del dolor. Dormir bien, moverse y manejar el estrés también son parte del tratamiento." },
 ];
+
+// ===== Anatomía =====
+export const SPINE_STATS = [
+  { num: "33", txt: "vértebras: 24 móviles más el sacro y el cóccix, que están fusionados" },
+  { num: "23", txt: "discos intervertebrales que amortiguan y permiten el movimiento" },
+  { num: "31", txt: "pares de nervios espinales que salen hacia todo el cuerpo" },
+];
+
+export const FUNCTIONS = [
+  { title: "Sostén", text: "Sostiene la cabeza y el tronco, y transmite el peso del cuerpo hacia la pelvis y las piernas." },
+  { title: "Protección", text: "Forma un canal óseo que protege a la médula espinal y a las raíces nerviosas." },
+  { title: "Movimiento", text: "La suma de pequeños movimientos entre vértebras permite inclinarse, girar y extenderse." },
+];
+
+export const REGIONS = {
+  cervical: {
+    name: "Cervical",
+    range: "C1 – C7",
+    count: "7 vértebras",
+    curve: "Lordosis cervical",
+    text: "Es la zona más móvil. Las primeras dos son especiales: el atlas (C1) sostiene el cráneo y el axis (C2) permite girar la cabeza. Sus vértebras son las más pequeñas.",
+    pain: "Cervicalgia",
+    link: "cervical",
+  },
+  dorsal: {
+    name: "Dorsal o torácica",
+    range: "T1 – T12",
+    count: "12 vértebras",
+    curve: "Cifosis dorsal",
+    text: "Cada vértebra se articula con un par de costillas. Eso la hace estable y poco móvil, y por eso duele con menos frecuencia que el cuello o la zona lumbar.",
+  },
+  lumbar: {
+    name: "Lumbar",
+    range: "L1 – L5",
+    count: "5 vértebras",
+    curve: "Lordosis lumbar",
+    text: "Son las vértebras más grandes porque cargan la mayor parte del peso. Los discos L4-L5 y L5-S1 son los que más se lesionan.",
+    pain: "Lumbalgia",
+    link: "lumbar",
+  },
+  sacro: {
+    name: "Sacro y cóccix",
+    range: "S1 – S5 · Co",
+    count: "5 + 3 a 5 fusionadas",
+    curve: "Cifosis sacra",
+    text: "El sacro son cinco vértebras soldadas que se unen a la pelvis por las articulaciones sacroilíacas. El cóccix es el pequeño remate final.",
+  },
+};
+
+export const VERTEBRA_PARTS = [
+  { title: "Anillo fibroso", text: "Capas de fibras resistentes que rodean y contienen al núcleo." },
+  { title: "Núcleo pulposo", text: "Centro gelatinoso del disco: reparte la presión como un amortiguador." },
+  { title: "Médula espinal", text: "Viaja dentro del canal y termina a la altura de L1–L2. Más abajo siguen las raíces nerviosas (la \"cola de caballo\")." },
+  { title: "Raíz nerviosa", text: "Sale por un orificio lateral hacia brazos o piernas. Si se irrita, el dolor baja por el miembro (braquialgia o ciática)." },
+  { title: "Articulación facetaria", text: "Guía el movimiento entre una vértebra y la siguiente. Con los años puede desgastarse (artrosis)." },
+  { title: "Apófisis transversa", text: "Saliente lateral donde se anclan músculos y ligamentos." },
+  { title: "Apófisis espinosa", text: "La saliente que se palpa en la espalda. También es anclaje muscular." },
+];
+
+export const DISC_STATES = {
+  sano: { label: "Sano", text: "El núcleo está centrado y el disco reparte la carga en forma pareja." },
+  protrusion: { label: "Protrusión", text: "El disco se abomba hacia atrás, pero el núcleo sigue contenido por el anillo. Es muy frecuente y muchas veces no da ningún síntoma." },
+  hernia: { label: "Hernia", text: "Parte del núcleo atraviesa el anillo y puede irritar una raíz nerviosa: aparece dolor u hormigueo que baja por el brazo o la pierna. La mayoría mejora sin cirugía." },
+};

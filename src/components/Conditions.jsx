@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { CONDITIONS, STATS } from "../data.jsx";
@@ -7,12 +7,22 @@ import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
 
 export default function Conditions() {
   const [tab, setTab] = useState("cervical");
+  // Permite que la sección de anatomía abra directamente la pestaña correspondiente.
+  useEffect(() => {
+    const onSelect = (e) => CONDITIONS[e.detail] && setTab(e.detail);
+    window.addEventListener("select-condition", onSelect);
+    return () => window.removeEventListener("select-condition", onSelect);
+  }, []);
   const current = CONDITIONS[tab];
   return (
     <section id="condiciones" className="section">
       <div className="container">
-        <Reveal as="p" className="eyebrow">Conocé el problema</Reveal>
-        <Reveal as="h2">¿Qué son?</Reveal>
+        <Reveal as="p" className="eyebrow">Cuando la columna duele</Reveal>
+        <Reveal as="h2">Cervicalgia y lumbalgia</Reveal>
+        <Reveal as="p" className="section-intro">
+          Las dos zonas más móviles de la columna, el cuello y la cintura, son también las que más duelen. En la mayoría
+          de los casos el dolor es mecánico: viene de músculos, articulaciones o discos, y mejora en pocas semanas.
+        </Reveal>
         <div className="tabs" role="tablist">
           {Object.entries(CONDITIONS).map(([key, c]) => (
             <button

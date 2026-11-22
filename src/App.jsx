@@ -1,6 +1,8 @@
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import Header from "./components/Header.jsx";
 import Hero from "./components/Hero.jsx";
+import Anatomy from "./components/Anatomy.jsx";
+import VertebraDetail from "./components/VertebraDetail.jsx";
 import Conditions from "./components/Conditions.jsx";
 import RedFlags from "./components/RedFlags.jsx";
 import Exercises from "./components/Exercises.jsx";
@@ -22,6 +24,8 @@ export default function App() {
               con un profesional de la salud.
             </Reveal>
           </div>
+          <Anatomy />
+          <VertebraDetail />
           <Conditions />
           <RedFlags />
           <Exercises />

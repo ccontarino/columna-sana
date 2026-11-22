@@ -4,7 +4,7 @@ import { AnimatePresence } from "motion/react";
 import { PAUSE_TIPS } from "../data.jsx";
 import { Reveal, ease } from "../motion.jsx";
 
-const TITLE = "Columna Sana · Cervicalgia y Lumbalgia";
+const TITLE = "Columna Sana · Tu columna, cervicalgia y lumbalgia";
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
 export default function PauseTimer() {
