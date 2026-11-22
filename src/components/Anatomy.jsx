@@ -2,126 +2,13 @@ import { useState } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { REGIONS, SPINE_STATS, FUNCTIONS } from "../data.jsx";
-import {
-  VERTEBRAE, DISCS, SACRUM_PATH, SACRUM_LINES, COCCYX, CORD_PATH, CAUDA_PATHS, CURVES,
-} from "../spine-geometry.js";
+import Spine3D from "./Spine3D.jsx";
 import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
 
 const ORDER = ["cervical", "dorsal", "lumbar", "sacro"];
 
-// Silueta lateral de una vértebra: cuerpo + arco posterior con apófisis espinosa.
-function Vertebra({ v, index, selected, onSelect }) {
-  const { w, h, proc } = v;
-  const back = w / 2;
-  const arch = `M${back} ${-h * 0.42} L${back + 9} ${-h * 0.42} L${back + 9 + proc} ${h * 0.55} L${back + 5 + proc * 0.7} ${h * 0.62} L${back + 6} ${h * 0.25} L${back} ${h * 0.25} Z`;
-  return (
-    <g transform={`translate(${v.cx.toFixed(1)} ${v.cy.toFixed(1)}) rotate(${v.angle.toFixed(1)})`}>
-      <m.g
-        className={`vertebra ${v.region}${selected ? " on" : ""}`}
-        variants={{
-          hidden: { opacity: 0, y: -40 },
-          show: { opacity: 1, y: 0, transition: { duration: 0.5, ease, delay: 0.1 + index * 0.035 } },
-        }}
-        onClick={() => onSelect(v.region)}
-      >
-        <title>{v.id}</title>
-        <path className="v-arch" d={arch} />
-        <rect className="v-body" x={-w / 2} y={-h / 2} width={w} height={h} rx="3.5" />
-      </m.g>
-    </g>
-  );
-}
-
-function SpineSide({ selected, onSelect, showCurves, showCord }) {
-  return (
-    <m.svg
-      viewBox="-56 0 360 700"
-      className="illus anatomy-svg"
-      role="img"
-      aria-label="Columna vertebral vista de perfil con sus regiones"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-    >
-      <text x="96" y="12" className="dir-label" textAnchor="end">← Adelante</text>
-      <text x="176" y="12" className="dir-label">Atrás →</text>
-
-      {/* médula y cola de caballo */}
-      <m.g
-        className={`cord-layer${showCord ? "" : " dim"}`}
-        variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.2, duration: 0.8 } } }}
-      >
-        <path className="cord" d={CORD_PATH} />
-        {CAUDA_PATHS.map((d, i) => (
-          <path key={i} className="cauda" d={d} />
-        ))}
-      </m.g>
-
-      {DISCS.map((d, i) => (
-        <g key={i} transform={`translate(${d.cx.toFixed(1)} ${d.cy.toFixed(1)}) rotate(${d.angle.toFixed(1)})`}>
-          <m.rect
-            className="v-disc"
-            x={-d.w / 2}
-            y={-d.h / 2}
-            width={d.w}
-            height={d.h}
-            rx={d.h / 2}
-            variants={{ hidden: { opacity: 0, scaleX: 0.3 }, show: { opacity: 1, scaleX: 1, transition: { delay: 0.9 + i * 0.02 } } }}
-          />
-        </g>
-      ))}
-
-      {VERTEBRAE.map((v, i) => (
-        <Vertebra key={v.id} v={v} index={i} selected={selected === v.region} onSelect={onSelect} />
-      ))}
-
-      <m.g
-        className={`vertebra sacro${selected === "sacro" ? " on" : ""}`}
-        onClick={() => onSelect("sacro")}
-        variants={{ hidden: { opacity: 0, y: -40 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease, delay: 0.1 + 24 * 0.035 } } }}
-      >
-        <title>Sacro y cóccix</title>
-        <path className="v-body" d={SACRUM_PATH} />
-        {SACRUM_LINES.map((d) => (
-          <path key={d} className="v-fuse" d={d} />
-        ))}
-        {COCCYX.map((c) => (
-          <circle key={c.cy} className="v-body" cx={c.x} cy={c.cy} r={c.r} />
-        ))}
-      </m.g>
-
-      <AnimatePresence>
-        {showCurves &&
-          CURVES.map((c) => (
-            <m.g
-              key={c.label}
-              className="curve-label"
-              initial={{ opacity: 0, x: c.side === "left" ? 10 : -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease }}
-            >
-              <path
-                d={c.side === "left" ? `M${c.x - 22} ${c.y} L${c.x - 44} ${c.y}` : `M${c.x + 48} ${c.y} L${c.x + 66} ${c.y}`}
-                className="curve-tick"
-              />
-              <text
-                x={c.side === "left" ? c.x - 48 : c.x + 70}
-                y={c.y + 4}
-                textAnchor={c.side === "left" ? "end" : "start"}
-              >
-                {c.label}
-              </text>
-            </m.g>
-          ))}
-      </AnimatePresence>
-    </m.svg>
-  );
-}
-
 export default function Anatomy() {
   const [selected, setSelected] = useState("cervical");
-  const [showCurves, setShowCurves] = useState(true);
   const [showCord, setShowCord] = useState(true);
   const r = REGIONS[selected];
 
@@ -133,17 +20,20 @@ export default function Anatomy() {
         <Reveal as="p" className="section-intro">
           La columna es una pila de vértebras unidas por discos, articulaciones, ligamentos y músculos. Vista de perfil
           no es recta: tiene cuatro curvas que forman una "S" y funcionan como un resorte para absorber los impactos.
-          Tocá una zona para conocerla.
+          Girala, mirala de perfil y tocá una zona para conocerla.
         </Reveal>
 
         <div className="anatomy-layout">
           <div className="anatomy-figure">
-            <SpineSide selected={selected} onSelect={setSelected} showCurves={showCurves} showCord={showCord} />
+            <Spine3D
+              detail
+              controls
+              selected={selected}
+              onSelect={setSelected}
+              showCord={showCord}
+              label="Columna vertebral en 3D con la región seleccionada resaltada. Arrastrá para girarla."
+            />
             <div className="anatomy-toggles">
-              <label className="switch">
-                <input type="checkbox" checked={showCurves} onChange={(e) => setShowCurves(e.currentTarget.checked)} />
-                <span>Curvaturas</span>
-              </label>
               <label className="switch">
                 <input type="checkbox" checked={showCord} onChange={(e) => setShowCord(e.currentTarget.checked)} />
                 <span>Médula espinal</span>

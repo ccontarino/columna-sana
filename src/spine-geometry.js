@@ -125,3 +125,6 @@ export const CURVES = [
   { label: "Lordosis lumbar", y: 468, side: "left" },
   { label: "Cifosis sacra", y: 600, side: "right" },
 ].map((c) => ({ ...c, x: at(c.y).x }));
+
+// Punto de la curva a una altura dada (para construir otras vistas, p. ej. 3D).
+export const pointAt = at;

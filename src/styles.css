@@ -313,17 +313,6 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
 :root { --dorsal: #94a3b8; --disc: #7dd3fc; --cord: #a78bfa; --bone: #e7ecef; --bone-line: #b8c6ce; }
 [data-theme="dark"] { --dorsal: #64748b; --disc: #38bdf8; --cord: #c4b5fd; --bone: #24363d; --bone-line: #3d555e; }
 .hero-art-spine { display: flex; justify-content: center; padding: clamp(1.2rem, 3vw, 2.2rem); }
-.hero-spine { max-width: 300px; max-height: 520px; }
-.hs-body { fill: var(--dorsal); }
-.hs-wing { fill: var(--bone); }
-.hs-block.cervical .hs-body { fill: var(--cervical); animation: glow 2.8s ease-in-out 2.2s infinite; }
-.hs-block.lumbar .hs-body { fill: var(--lumbar); animation: glow 2.8s ease-in-out 3.6s infinite; }
-.hs-sacro { fill: var(--bone-line); }
-.hs-label path { stroke: var(--border); stroke-width: 1.5; }
-.hs-label text { font: 700 13px var(--font); fill: var(--muted); }
-.hs-label.cervical text { fill: color-mix(in srgb, var(--cervical) 75%, var(--text)); }
-.hs-label.lumbar text { fill: color-mix(in srgb, var(--lumbar) 70%, var(--text)); }
-
 /* ========== Anatomía ========== */
 .anatomy-layout { display: grid; grid-template-columns: minmax(280px, 0.9fr) 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
 .anatomy-figure { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 1.2rem 1rem 1rem; box-shadow: var(--shadow); }
@@ -413,6 +402,46 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
 .part p { margin: 0; color: var(--muted); font-size: 0.94rem; }
 .part .ergo-num { background: var(--text); color: var(--surface); }
 
+
+/* ========== Columna 3D ========== */
+:root { --bone-3d: #dfe6ea; }
+[data-theme="dark"] { --bone-3d: #a9bcc5; }
+.spine3d { position: relative; user-select: none; -webkit-user-select: none; }
+.s3-stage {
+  --s3: 0.62; height: 470px; perspective: 1400px; perspective-origin: 50% 40%;
+  position: relative; overflow: hidden; cursor: grab; touch-action: pan-y;
+}
+.s3-stage:active { cursor: grabbing; }
+.spine3d.detail .s3-stage { --s3: 0.86; height: 640px; }
+.s3-scale { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; transform: scale(var(--s3)); }
+.s3-scene { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.p3 { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.p-face { position: absolute; left: 0; top: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 2px; }
+.p-cap { position: absolute; left: 0; top: 0; border-radius: 50%; background: color-mix(in srgb, var(--vc) 78%, #fff); }
+.p-proc {
+  position: absolute; left: 0; top: 0; transform-origin: 0 50%; border-radius: 3px 40% 40% 3px;
+  background: color-mix(in srgb, var(--vc) 82%, #0b1416);
+}
+.p-ring { position: absolute; left: 0; top: 0; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--vc) 85%, #0b1416); }
+.p-trans { position: absolute; left: 0; top: 0; border-radius: 999px; background: color-mix(in srgb, var(--vc) 75%, #0b1416); }
+.p-cord { position: absolute; left: 0; top: 0; width: 5px; height: 15px; margin: -7.5px 0 0 -2.5px; background: var(--cord); border-radius: 3px; }
+.p-cord.cauda { width: 2px; margin-left: -1px; opacity: 0.7; }
+.v3 { --vc: var(--bone-3d); }
+.v3.on.cervical { --vc: var(--cervical); }
+.v3.on.dorsal { --vc: var(--dorsal); }
+.v3.on.lumbar { --vc: var(--lumbar); }
+.v3.on.sacro { --vc: #c9a27e; }
+.d3 { --vc: var(--disc); }
+.d3 .p-cap { background: color-mix(in srgb, var(--disc) 60%, #fff); }
+.s3-controls { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+.s3-views { display: flex; gap: 0.4rem; }
+.s3-hint { margin: 0.2rem 0 0; text-align: center; font-size: 0.8rem; color: var(--muted); }
+.hero-legend { display: flex; justify-content: center; gap: 1.2rem; font-size: 0.85rem; font-weight: 700; margin-top: 0.2rem; }
+.hero-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 0.4rem; vertical-align: -1px; }
+.hero-legend .cervical::before { background: var(--cervical); }
+.hero-legend .lumbar::before { background: var(--lumbar); }
+.hero-art-spine { flex-direction: column; }
+
 /* ========== Responsive ========== */
 @media (max-width: 980px) {
   .nav-links { display: none; }
@@ -428,7 +457,7 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
   .ergo-art { position: static; }
   .anatomy-layout, .vertebra-layout { grid-template-columns: 1fr; }
   .vertebra-figure { position: static; }
-  .anatomy-svg { max-height: 560px; }
+  .spine3d.detail .s3-stage { --s3: 0.72; height: 540px; }
 }
 @media (max-width: 760px) {
   body { font-size: 16px; }
@@ -438,7 +467,8 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
   .condition-art { position: static; display: flex; justify-content: center; padding: 0.8rem; }
   .spine-illus { max-width: 70px; }
   .stat-row, .func-grid { grid-template-columns: 1fr; }
-  .hero-spine { max-height: 300px; }
+  .s3-stage { --s3: 0.48; height: 360px; }
+  .spine3d.detail .s3-stage { --s3: 0.66; height: 490px; }
   .checker { grid-template-columns: 1fr; }
   .hero-actions .btn { flex: 1 1 auto; }
 }
