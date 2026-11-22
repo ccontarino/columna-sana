@@ -195,8 +195,11 @@ export default function Anatomy() {
 
             {showCord && (
               <p className="cord-note">
-                <span className="cord-swatch" /> La médula termina a la altura de L1–L2. Más abajo, el canal lleva solo
-                raíces nerviosas: la <em>cola de caballo</em>.
+                <span className="cord-swatch" />
+                <span>
+                  La médula termina a la altura de L1–L2. Más abajo, el canal lleva solo raíces nerviosas: la{" "}
+                  <em>cola de caballo</em>.
+                </span>
               </p>
             )}
           </div>
