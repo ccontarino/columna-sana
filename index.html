@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Columna Sana · Cervicalgia y Lumbalgia</title>
+  <meta name="description" content="Guía clara sobre dolor cervical y lumbar: causas, síntomas, señales de alarma, ejercicios y ergonomía." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="#inicio" class="logo">Columna<span>Sana</span></a>
+      <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <ul class="nav-links">
+        <li><a href="#condiciones">Condiciones</a></li>
+        <li><a href="#alarma">Señales de alarma</a></li>
+        <li><a href="#ejercicios">Ejercicios</a></li>
+        <li><a href="#ergonomia">Ergonomía</a></li>
+        <li><a href="#pausas">Pausas activas</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Guía práctica</p>
+          <h1>Entendé tu dolor de cuello y espalda baja</h1>
+          <p class="lead">La cervicalgia y la lumbalgia son de las consultas más frecuentes. En la mayoría de los casos mejoran en pocas semanas con movimiento, buena postura y paciencia. Acá vas a encontrar qué son, cuándo preocuparte y qué podés hacer hoy.</p>
+          <div class="hero-actions">
+            <a href="#alarma" class="btn btn-primary">Revisar señales de alarma</a>
+            <a href="#ejercicios" class="btn btn-ghost">Ver ejercicios</a>
+          </div>
+        </div>
+        <div class="spine-visual" aria-hidden="true">
+          <svg viewBox="0 0 120 300" class="spine-svg">
+            <g class="zone zone-cervical">
+              <rect x="45" y="20" width="30" height="14" rx="6"/>
+              <rect x="44" y="38" width="32" height="14" rx="6"/>
+              <rect x="43" y="56" width="34" height="14" rx="6"/>
+            </g>
+            <g class="zone zone-dorsal">
+              <rect x="42" y="78" width="36" height="16" rx="6"/>
+              <rect x="41" y="98" width="38" height="16" rx="6"/>
+              <rect x="41" y="118" width="38" height="16" rx="6"/>
+              <rect x="42" y="138" width="36" height="16" rx="6"/>
+            </g>
+            <g class="zone zone-lumbar">
+              <rect x="38" y="162" width="44" height="20" rx="7"/>
+              <rect x="37" y="186" width="46" height="20" rx="7"/>
+              <rect x="38" y="210" width="44" height="20" rx="7"/>
+            </g>
+            <path class="zone-sacro" d="M42 238 L78 238 L68 280 L52 280 Z"/>
+            <text x="92" y="48" class="lbl">Cervical</text>
+            <text x="92" y="200" class="lbl">Lumbar</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCLAIMER -->
+    <div class="container">
+      <p class="disclaimer">⚕️ Este sitio es informativo y no reemplaza la consulta médica. Si tenés dudas sobre tu caso, consultá con un profesional de la salud.</p>
+    </div>
+
+    <!-- CONDICIONES -->
+    <section id="condiciones" class="section">
+      <div class="container">
+        <h2>¿Qué son?</h2>
+        <div class="tabs" role="tablist">
+          <button class="tab active" role="tab" aria-selected="true" data-tab="cervical">Cervicalgia</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="lumbar">Lumbalgia</button>
+        </div>
+
+        <div class="tab-panel active" id="panel-cervical" role="tabpanel">
+          <p class="panel-intro"><strong>Cervicalgia</strong> es el dolor en la zona del cuello (vértebras C1 a C7). Puede quedarse en el cuello o irradiarse hacia los hombros, la cabeza o los brazos.</p>
+          <div class="cards">
+            <article class="card">
+              <h3>Causas frecuentes</h3>
+              <ul>
+                <li>Contractura muscular por estrés o tensión</li>
+                <li>Postura sostenida con la cabeza adelantada (pantallas, celular)</li>
+                <li>Dormir en mala posición o con almohada inadecuada</li>
+                <li>Desgaste articular (cervicoartrosis) con la edad</li>
+                <li>Hernia o protrusión discal cervical</li>
+                <li>Latigazo cervical tras un accidente</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Síntomas típicos</h3>
+              <ul>
+                <li>Dolor y rigidez al girar o inclinar la cabeza</li>
+                <li>Tensión en trapecios y hombros</li>
+                <li>Dolor de cabeza que nace en la nuca</li>
+                <li>Hormigueo o dolor que baja por el brazo (si hay compromiso de una raíz nerviosa: <em>cervicobraquialgia</em>)</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Qué suele ayudar</h3>
+              <ul>
+                <li>Mantenerse activo con movimientos suaves</li>
+                <li>Calor local 15–20 minutos</li>
+                <li>Pausas frecuentes frente a la pantalla</li>
+                <li>Pantalla a la altura de los ojos</li>
+                <li>Kinesiología si el dolor persiste</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panel-lumbar" role="tabpanel" hidden>
+          <p class="panel-intro"><strong>Lumbalgia</strong> es el dolor en la parte baja de la espalda (vértebras L1 a L5 y sacro). Es una de las principales causas de consulta y de ausentismo laboral en el mundo.</p>
+          <div class="cards">
+            <article class="card">
+              <h3>Causas frecuentes</h3>
+              <ul>
+                <li>Lumbalgia inespecífica: sin una causa estructural clara (la más común)</li>
+                <li>Sobreesfuerzo o levantar peso con mala técnica</li>
+                <li>Sedentarismo y debilidad de la musculatura del tronco</li>
+                <li>Hernia discal lumbar</li>
+                <li>Artrosis de las articulaciones facetarias</li>
+                <li>Estenosis del canal lumbar (más en mayores)</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Síntomas típicos</h3>
+              <ul>
+                <li>Dolor en la cintura que empeora con ciertas posturas</li>
+                <li>Rigidez al levantarse de la cama o de la silla</li>
+                <li>Dolor que baja por la pierna, por detrás del muslo y hasta el pie (<em>lumbociatalgia</em>)</li>
+                <li>Hormigueo o adormecimiento en la pierna</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Qué suele ayudar</h3>
+              <ul>
+                <li>Evitar el reposo prolongado en cama: moverse acelera la recuperación</li>
+                <li>Caminar todos los días, aunque sea poco</li>
+                <li>Calor local</li>
+                <li>Fortalecer abdomen, glúteos y espalda</li>
+                <li>Kinesiología y ejercicio supervisado</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num">~80%</span><span class="stat-txt">de las personas tendrá dolor lumbar alguna vez</span></div>
+          <div class="stat"><span class="stat-num">2–6</span><span class="stat-txt">semanas suele durar un episodio agudo inespecífico</span></div>
+          <div class="stat"><span class="stat-num">+12</span><span class="stat-txt">semanas de dolor: se considera crónico y conviene un plan con un profesional</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÑALES DE ALARMA -->
+    <section id="alarma" class="section section-alt">
+      <div class="container">
+        <h2>Señales de alarma</h2>
+        <p class="section-intro">Marcá lo que te pase. Estas señales (llamadas "banderas rojas") no significan que algo grave esté ocurriendo, pero sí que necesitás que te evalúe un médico.</p>
+
+        <form class="checker" id="redflag-form">
+          <fieldset>
+            <legend>Requieren atención <strong>urgente</strong> (guardia hoy)</legend>
+            <label><input type="checkbox" data-level="urgent" /> Dificultad para orinar, pérdida de control de orina o materia fecal</label>
+            <label><input type="checkbox" data-level="urgent" /> Adormecimiento en la zona genital, entre las piernas o en los glúteos ("zona de la montura")</label>
+            <label><input type="checkbox" data-level="urgent" /> Debilidad en piernas o brazos que empeora rápido</label>
+            <label><input type="checkbox" data-level="urgent" /> Dolor después de un golpe fuerte, caída o accidente</label>
+            <label><input type="checkbox" data-level="urgent" /> Torpeza nueva en las manos o inestabilidad al caminar</label>
+            <label><input type="checkbox" data-level="urgent" /> Dolor de cuello con fiebre alta y rigidez marcada, o dolor de cabeza súbito e intenso</label>
+          </fieldset>
+          <fieldset>
+            <legend>Consultá con un médico <strong>pronto</strong> (en los próximos días)</legend>
+            <label><input type="checkbox" data-level="soon" /> Fiebre o malestar general junto con el dolor</label>
+            <label><input type="checkbox" data-level="soon" /> Pérdida de peso sin explicación</label>
+            <label><input type="checkbox" data-level="soon" /> Antecedente de cáncer</label>
+            <label><input type="checkbox" data-level="soon" /> Dolor que no cede con el reposo y empeora de noche</label>
+            <label><input type="checkbox" data-level="soon" /> Primer episodio de dolor fuerte después de los 50 años</label>
+            <label><input type="checkbox" data-level="soon" /> Dolor u hormigueo que baja por brazo o pierna y no mejora</label>
+            <label><input type="checkbox" data-level="soon" /> Uso prolongado de corticoides o inmunosupresión</label>
+            <label><input type="checkbox" data-level="soon" /> El dolor no mejora después de 4–6 semanas</label>
+          </fieldset>
+          <div class="checker-result" id="redflag-result" aria-live="polite">
+            <p>Marcá las opciones que correspondan para ver una orientación.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- EJERCICIOS -->
+    <section id="ejercicios" class="section">
+      <div class="container">
+        <h2>Ejercicios suaves</h2>
+        <p class="section-intro">Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por el brazo o la pierna, pará. Si estás en un cuadro agudo fuerte o tenés alguna señal de alarma, consultá antes.</p>
+
+        <div class="filter">
+          <button class="chip active" data-filter="all">Todos</button>
+          <button class="chip" data-filter="cervical">Cuello</button>
+          <button class="chip" data-filter="lumbar">Lumbar</button>
+        </div>
+
+        <div class="exercise-grid" id="exercise-grid"><!-- generado por JS --></div>
+      </div>
+    </section>
+
+    <!-- ERGONOMÍA -->
+    <section id="ergonomia" class="section section-alt">
+      <div class="container">
+        <h2>Ergonomía en el escritorio</h2>
+        <p class="section-intro">Pasamos horas sentados frente a la computadora. Pequeños ajustes reducen mucho la carga sobre el cuello y la zona lumbar.</p>
+        <div class="ergo-grid">
+          <div class="ergo-item"><span class="ergo-icon">🖥️</span><h3>Monitor</h3><p>El borde superior a la altura de los ojos, a un brazo de distancia. Con notebook, usá un soporte y teclado externo.</p></div>
+          <div class="ergo-item"><span class="ergo-icon">🪑</span><h3>Silla</h3><p>Espalda apoyada, con soporte en la zona lumbar. Caderas un poco más altas que las rodillas.</p></div>
+          <div class="ergo-item"><span class="ergo-icon">🦶</span><h3>Pies</h3><p>Apoyados planos en el piso o en un apoyapiés. Evitá cruzar las piernas por mucho tiempo.</p></div>
+          <div class="ergo-item"><span class="ergo-icon">⌨️</span><h3>Brazos</h3><p>Codos a 90° cerca del cuerpo, hombros relajados, muñecas neutras.</p></div>
+          <div class="ergo-item"><span class="ergo-icon">📱</span><h3>Celular</h3><p>Subí el teléfono a la altura de la vista en vez de bajar la cabeza.</p></div>
+          <div class="ergo-item"><span class="ergo-icon">⏱️</span><h3>Movimiento</h3><p>La mejor postura es la próxima: cambiá de posición y levantate cada 30–45 minutos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAUSAS ACTIVAS -->
+    <section id="pausas" class="section">
+      <div class="container narrow">
+        <h2>Pausas activas</h2>
+        <p class="section-intro">Configurá un recordatorio para levantarte y moverte. Dejá esta pestaña abierta mientras trabajás.</p>
+        <div class="timer-card">
+          <div class="timer-display" id="timer-display">30:00</div>
+          <div class="timer-controls">
+            <label for="timer-minutes">Cada</label>
+            <select id="timer-minutes">
+              <option value="20">20 min</option>
+              <option value="30" selected>30 min</option>
+              <option value="45">45 min</option>
+              <option value="60">60 min</option>
+            </select>
+            <button class="btn btn-primary" id="timer-start">Iniciar</button>
+            <button class="btn btn-ghost" id="timer-reset">Reiniciar</button>
+          </div>
+          <div class="timer-tip" id="timer-tip" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section section-alt">
+      <div class="container narrow">
+        <h2>Preguntas frecuentes</h2>
+        <details>
+          <summary>¿Necesito una resonancia o una radiografía?</summary>
+          <p>En la mayoría de los casos de dolor cervical o lumbar sin señales de alarma, no. Las guías clínicas no recomiendan estudios de imagen de rutina en las primeras semanas, porque no cambian el tratamiento y suelen mostrar hallazgos (como discos "gastados") que también aparecen en personas sin dolor. Tu médico decide si hacen falta.</p>
+        </details>
+        <details>
+          <summary>¿Tengo que hacer reposo?</summary>
+          <p>Reposo absoluto en cama, no. Puede que necesites bajar la intensidad unos días, pero mantenerse activo dentro de lo tolerable ayuda a recuperarse más rápido.</p>
+        </details>
+        <details>
+          <summary>¿Frío o calor?</summary>
+          <p>En general el calor alivia la contractura y la rigidez. El frío puede servir en las primeras horas después de un golpe. Usá lo que te haga sentir mejor, siempre con una tela entre la piel y la fuente, 15–20 minutos.</p>
+        </details>
+        <details>
+          <summary>¿Puedo tomar analgésicos?</summary>
+          <p>Algunos analgésicos y antiinflamatorios de venta libre pueden ayudar por pocos días. Respetá siempre el prospecto y consultá a tu médico o farmacéutico, sobre todo si tenés problemas de estómago, riñón, presión, tomás otros medicamentos o estás embarazada.</p>
+        </details>
+        <details>
+          <summary>¿Una hernia de disco siempre se opera?</summary>
+          <p>No. La mayoría de las hernias mejoran con tratamiento conservador (kinesiología, ejercicio, analgesia), e incluso pueden reabsorberse con el tiempo. La cirugía se reserva para casos con déficit neurológico importante o dolor que no responde al tratamiento.</p>
+        </details>
+        <details>
+          <summary>¿El estrés influye?</summary>
+          <p>Sí. El estrés, el mal descanso y el miedo al movimiento aumentan la tensión muscular y la percepción del dolor. Dormir bien, moverse y manejar el estrés también son parte del tratamiento.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>Columna Sana</strong> · Información general, no es consejo médico.</p>
+      <p class="muted">Ante una emergencia en Argentina llamá al 107 (emergencias médicas) o acudí a la guardia más cercana.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
