@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { m, AnimatePresence } from "motion/react";
 import { CONDITIONS, STATS } from "../data.jsx";
 import { SpineDiagram } from "./Illustrations.jsx";
+import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
 
 export default function Conditions() {
   const [tab, setTab] = useState("cervical");
@@ -8,8 +10,8 @@ export default function Conditions() {
   return (
     <section id="condiciones" className="section">
       <div className="container">
-        <p className="eyebrow reveal">Conocé el problema</p>
-        <h2 className="reveal">¿Qué son?</h2>
+        <Reveal as="p" className="eyebrow">Conocé el problema</Reveal>
+        <Reveal as="h2">¿Qué son?</Reveal>
         <div className="tabs" role="tablist">
           {Object.entries(CONDITIONS).map(([key, c]) => (
             <button
@@ -23,34 +25,42 @@ export default function Conditions() {
             </button>
           ))}
         </div>
-        <div role="tabpanel" className="condition-layout" key={tab}>
+        <div role="tabpanel" className="condition-layout">
           <div className="condition-art">
             <SpineDiagram zone={tab} />
           </div>
-          <div>
-            <p className="panel-intro">{current.intro}</p>
-            <div className="cards">
-              {current.cards.map((card) => (
-                <article className={`card card-${tab}`} key={card.title}>
-                  <h3>{card.title}</h3>
-                  <ul>
-                    {card.items.map((i) => (
-                      <li key={i}>{i}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
+              key={tab}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.35, ease }}
+            >
+              <p className="panel-intro">{current.intro}</p>
+              <Stagger className="cards" inView={false} gap={0.08} delay={0.05}>
+                {current.cards.map((card) => (
+                  <m.article variants={fadeUp} className={`card card-${tab}`} key={card.title}>
+                    <h3>{card.title}</h3>
+                    <ul>
+                      {card.items.map((i) => (
+                        <li key={i}>{i}</li>
+                      ))}
+                    </ul>
+                  </m.article>
+                ))}
+              </Stagger>
+            </m.div>
+          </AnimatePresence>
         </div>
-        <div className="stat-row">
+        <Stagger className="stat-row" gap={0.12}>
           {STATS.map((s) => (
-            <div className="stat reveal" key={s.num}>
+            <m.div variants={fadeUp} className="stat" key={s.num}>
               <span className="stat-num">{s.num}</span>
               <span className="stat-txt">{s.txt}</span>
-            </div>
+            </m.div>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

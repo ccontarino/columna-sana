@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { EXERCISES } from "../data.jsx";
 import { ExerciseFigure } from "./Illustrations.jsx";
-import { useReveal } from "../hooks.js";
+import { m } from "motion/react";
+import { Reveal, fadeUp, stagger } from "../motion.jsx";
 
 const FILTERS = [
   ["all", "Todos"],
@@ -25,7 +26,11 @@ function ExerciseCard({ e }) {
   const label = left === null ? `Iniciar · ${fmt(e.seconds)}` : left < 0 ? "✔ Listo" : fmt(left);
 
   return (
-    <article className={`exercise reveal${running ? " running" : ""}`}>
+    <m.article
+      variants={fadeUp}
+      whileHover={{ y: -4 }}
+      className={`exercise${running ? " running" : ""}`}
+    >
       <div className={`exercise-art ${e.zone}`}>
         <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
       </div>
@@ -48,27 +53,26 @@ function ExerciseCard({ e }) {
           </button>
         </div>
         <div className="progress" aria-hidden="true">
-          <span style={{ transform: `scaleX(${progress})` }} />
+          <m.span initial={false} animate={{ scaleX: progress }} transition={{ duration: left === null ? 0.3 : 1, ease: "linear" }} />
         </div>
       </div>
-    </article>
+    </m.article>
   );
 }
 
 export default function Exercises() {
   const [filter, setFilter] = useState("all");
-  useReveal();
   const list = EXERCISES.filter((e) => filter === "all" || e.zone === filter);
 
   return (
     <section id="ejercicios" className="section">
       <div className="container">
-        <p className="eyebrow reveal">Movimiento</p>
-        <h2 className="reveal">Ejercicios suaves</h2>
-        <p className="section-intro reveal">
+        <Reveal as="p" className="eyebrow">Movimiento</Reveal>
+        <Reveal as="h2">Ejercicios suaves</Reveal>
+        <Reveal as="p" className="section-intro">
           Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por el brazo o la
           pierna, pará. Si estás en un cuadro agudo fuerte o tenés alguna señal de alarma, consultá antes.
-        </p>
+        </Reveal>
         <div className="filter" role="group" aria-label="Filtrar ejercicios">
           {FILTERS.map(([key, label]) => (
             <button
@@ -81,11 +85,18 @@ export default function Exercises() {
             </button>
           ))}
         </div>
-        <div className="exercise-grid">
+        <m.div
+          key={filter}
+          className="exercise-grid"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "0px 0px -5% 0px" }}
+          variants={stagger(0.06)}
+        >
           {list.map((e) => (
             <ExerciseCard e={e} key={e.id} />
           ))}
-        </div>
+        </m.div>
       </div>
     </section>
   );

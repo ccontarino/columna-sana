@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { m, AnimatePresence } from "motion/react";
 import { RED_FLAGS } from "../data.jsx";
+import { Reveal, ease } from "../motion.jsx";
 
 const RESULTS = {
   none: { cls: "", text: "Marcá las opciones que correspondan para ver una orientación." },
@@ -45,8 +47,8 @@ export default function RedFlags() {
   const status = !touched ? "none" : has("urgent") ? "urgent" : has("soon") ? "soon" : "ok";
   const result = RESULTS[status];
 
-  const group = (level, legend) => (
-    <fieldset>
+  const group = (level, legend, delay) => (
+    <Reveal as="fieldset" delay={delay}>
       <legend>{legend}</legend>
       {RED_FLAGS[level].map((text, i) => {
         const id = `${level}-${i}`;
@@ -57,24 +59,34 @@ export default function RedFlags() {
           </label>
         );
       })}
-    </fieldset>
+    </Reveal>
   );
 
   return (
     <section id="alarma" className="section section-alt">
       <div className="container">
-        <p className="eyebrow reveal">Cuándo consultar</p>
-        <h2 className="reveal">Señales de alarma</h2>
-        <p className="section-intro reveal">
+        <Reveal as="p" className="eyebrow">Cuándo consultar</Reveal>
+        <Reveal as="h2">Señales de alarma</Reveal>
+        <Reveal as="p" className="section-intro">
           Marcá lo que te pase. Estas señales ("banderas rojas") no significan que algo grave esté ocurriendo, pero sí
           que necesitás que te evalúe un médico.
-        </p>
+        </Reveal>
         <div className="checker">
-          {group("urgent", <>Requieren atención <strong>urgente</strong> (guardia hoy)</>)}
-          {group("soon", <>Consultá con un médico <strong>pronto</strong> (próximos días)</>)}
-          <div className={`checker-result ${result.cls}`} aria-live="polite">
-            <p>{result.text}</p>
-          </div>
+          {group("urgent", <>Requieren atención <strong>urgente</strong> (guardia hoy)</>, 0)}
+          {group("soon", <>Consultá con un médico <strong>pronto</strong> (próximos días)</>, 0.1)}
+          <m.div className={`checker-result ${result.cls}`} aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <m.p
+                key={status}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease }}
+              >
+                {result.text}
+              </m.p>
+            </AnimatePresence>
+          </m.div>
         </div>
       </div>
     </section>

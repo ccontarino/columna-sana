@@ -1,17 +1,21 @@
+import { m } from "motion/react";
 import { FAQ } from "../data.jsx";
+import { Reveal, Stagger, fadeUp } from "../motion.jsx";
 
 export default function Faq() {
   return (
     <section id="faq" className="section section-alt">
       <div className="container narrow">
-        <p className="eyebrow reveal">Dudas comunes</p>
-        <h2 className="reveal">Preguntas frecuentes</h2>
+        <Reveal as="p" className="eyebrow">Dudas comunes</Reveal>
+        <Reveal as="h2">Preguntas frecuentes</Reveal>
+        <Stagger gap={0.06}>
         {FAQ.map(({ q, a }) => (
-          <details key={q} className="reveal">
+          <m.details key={q} variants={fadeUp}>
             <summary>{q}</summary>
             <p>{a}</p>
-          </details>
+          </m.details>
         ))}
+        </Stagger>
       </div>
     </section>
   );

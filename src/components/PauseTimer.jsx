@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { m, AnimatePresence } from "motion/react";
 import { PAUSE_TIPS } from "../data.jsx";
+import { Reveal, ease } from "../motion.jsx";
 
 const TITLE = "Columna Sana · Cervicalgia y Lumbalgia";
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -59,13 +61,15 @@ export default function PauseTimer() {
   return (
     <section id="pausas" className="section">
       <div className="container narrow">
-        <p className="eyebrow reveal">Hábitos</p>
-        <h2 className="reveal">Pausas activas</h2>
-        <p className="section-intro reveal">
+        <Reveal as="p" className="eyebrow">Hábitos</Reveal>
+        <Reveal as="h2">Pausas activas</Reveal>
+        <Reveal as="p" className="section-intro">
           Configurá un recordatorio para levantarte y moverte. Dejá esta pestaña abierta mientras trabajás.
-        </p>
-        <div className="timer-card reveal">
-          <div className="timer-display">{fmt(remaining)}</div>
+        </Reveal>
+        <Reveal className="timer-card">
+          <m.div className="timer-display" animate={running ? { scale: [1, 1.015, 1] } : { scale: 1 }} transition={running ? { duration: 1, repeat: Infinity, ease } : {}}>
+            {fmt(remaining)}
+          </m.div>
           <div className="timer-controls">
             <label htmlFor="timer-minutes">Cada</label>
             <select
@@ -90,8 +94,20 @@ export default function PauseTimer() {
               Reiniciar
             </button>
           </div>
-          {tip && <div className="timer-tip">¡Hora de moverse! {tip}</div>}
-        </div>
+          <AnimatePresence>
+            {tip && (
+              <m.div
+                className="timer-tip"
+                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 380, damping: 24 }}
+              >
+                ¡Hora de moverse! {tip}
+              </m.div>
+            )}
+          </AnimatePresence>
+        </Reveal>
       </div>
     </section>
   );
