@@ -8,7 +8,8 @@ import { ease } from "../motion.jsx";
 
 const CENTER_Y = 350; // centro vertical de la geometría
 const CENTER_X = 130; // eje anteroposterior de referencia
-const LATERAL = 1.45; // los cuerpos vertebrales son más anchos que profundos
+const LATERAL = 1.6;
+const BODY = 1.15; // engrosa los cuerpos para que se lean mejor en pantalla // los cuerpos vertebrales son más anchos que profundos
 
 const toZ = (cx) => -(cx - CENTER_X); // anterior (izquierda en 2D) → hacia adelante (+z)
 
@@ -71,8 +72,8 @@ function Prism({ r, h, n, className = "" }) {
 }
 
 function Vertebra3D({ v, i, detail, on, onSelect }) {
-  const r = v.w / 2;
-  const sides = detail ? 8 : 6;
+  const r = (v.w / 2) * BODY;
+  const sides = 8;
   return (
     <div className="p3" style={{ transform: place(v.cx, v.cy, v.angle) }} onClick={onSelect ? () => onSelect(v.region) : undefined}>
       <m.div
@@ -93,7 +94,7 @@ function Vertebra3D({ v, i, detail, on, onSelect }) {
             transform: `translateZ(${-(r + 6)}px) rotateY(90deg) rotateZ(${v.region === "dorsal" ? 32 : 18}deg)`,
           }}
         />
-        {detail && (
+        {
           <>
             {/* arco y canal */}
             <div
@@ -118,7 +119,7 @@ function Vertebra3D({ v, i, detail, on, onSelect }) {
               }}
             />
           </>
-        )}
+        }
       </m.div>
     </div>
   );
@@ -131,7 +132,7 @@ function Disc3D({ d, i, detail }) {
         className="p3 d3"
         variants={{ hidden: { opacity: 0, scale: 0.4 }, show: { opacity: 1, scale: 1, transition: { delay: 1.1 + i * 0.025 } } }}
       >
-        <Prism r={d.w / 2} h={Math.max(3, d.h)} n={detail ? 8 : 6} />
+        <Prism r={(d.w / 2) * BODY} h={Math.max(3, d.h)} n={8} />
       </m.div>
     </div>
   );
@@ -142,7 +143,7 @@ const CORD = [];
 for (let y = 22; y < SACRUM_TOP + 40; y += 14) {
   const p = pointAt(y + 7);
   const v = VERTEBRAE.find((vv) => y <= vv.cy + vv.h) || VERTEBRAE[VERTEBRAE.length - 1];
-  const r = v.w / 2;
+  const r = (v.w / 2) * BODY;
   CORD.push({ y: y + 7, cx: p.x, angle: p.angle, depth: r + r * 0.55, cauda: y > CORD_END });
 }
 
@@ -253,7 +254,7 @@ export default function Spine3D({
                 className={`p3 v3 sacro${isOn("sacro") ? " on" : ""}`}
                 variants={{ hidden: { opacity: 0, y: -90 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: 0.15 + (24 + i) * 0.04 } } }}
               >
-                <Prism r={s.w / 2} h={s.h} n={detail ? 8 : 6} />
+                <Prism r={(s.w / 2) * BODY} h={s.h} n={8} />
               </m.div>
             </div>
           ))}

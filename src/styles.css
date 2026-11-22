@@ -408,11 +408,11 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
 [data-theme="dark"] { --bone-3d: #a9bcc5; }
 .spine3d { position: relative; user-select: none; -webkit-user-select: none; }
 .s3-stage {
-  --s3: 0.62; height: 470px; perspective: 1400px; perspective-origin: 50% 40%;
+  --s3: 0.76; height: 540px; perspective: 1400px; perspective-origin: 50% 40%;
   position: relative; overflow: hidden; cursor: grab; touch-action: pan-y;
 }
 .s3-stage:active { cursor: grabbing; }
-.spine3d.detail .s3-stage { --s3: 0.86; height: 640px; }
+.spine3d.detail .s3-stage { --s3: 0.9; height: 660px; }
 .s3-scale { position: absolute; left: 50%; top: 50%; transform-style: preserve-3d; transform: scale(var(--s3)); }
 .s3-scene { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
 .p3 { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
@@ -467,7 +467,7 @@ details p { margin: 0 0 1.1rem; color: var(--muted); }
   .condition-art { position: static; display: flex; justify-content: center; padding: 0.8rem; }
   .spine-illus { max-width: 70px; }
   .stat-row, .func-grid { grid-template-columns: 1fr; }
-  .s3-stage { --s3: 0.48; height: 360px; }
+  .s3-stage { --s3: 0.56; height: 400px; }
   .spine3d.detail .s3-stage { --s3: 0.66; height: 490px; }
   .checker { grid-template-columns: 1fr; }
   .hero-actions .btn { flex: 1 1 auto; }
