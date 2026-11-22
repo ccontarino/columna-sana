@@ -6,6 +6,8 @@ Sitio web informativo sobre **cervicalgia** (dolor de cuello) y **lumbalgia** (d
 
 ## Qué incluye
 
+- **Ilustraciones SVG propias** (hero, cada ejercicio, puesto de trabajo, columna interactiva), **modo oscuro**, animaciones al scrollear y menú que marca la sección activa.
+
 - **Condiciones**: qué son, causas, síntomas y qué ayuda (pestañas cervical / lumbar).
 - **Señales de alarma**: checklist interactivo de banderas rojas con orientación (guardia / turno / sin alarma).
 - **Ejercicios**: 9 ejercicios suaves filtrables por zona, con temporizador por ejercicio.
@@ -17,7 +19,7 @@ Sitio web informativo sobre **cervicalgia** (dolor de cuello) y **lumbalgia** (d
 
 React (JSX + hooks) compilado con **Vite** y **Preact** como runtime (`preact/compat`): mismo código React, ~4 KB de runtime en vez de ~45 KB. Sin otras dependencias, CSS plano, sin fuentes externas ni imágenes.
 
-Hosting gratis en **GitHub Pages**: cada push a `main` dispara `.github/workflows/deploy.yml`, que buildea y publica.
+Hosting gratis en **GitHub Pages**: cada push a `main` dispara `.github/workflows/deploy.yml`, que buildea, reporta el tamaño del bundle y publica. En pull requests solo buildea.
 
 ```
 src/

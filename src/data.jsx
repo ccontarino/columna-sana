@@ -111,24 +111,24 @@ export const RED_FLAGS = {
 };
 
 export const EXERCISES = [
-  { zone: "cervical", name: "Retracción de mentón", dose: "10 repeticiones", seconds: 50, steps: ["Sentado con la espalda derecha, mirando al frente.", "Llevá el mentón hacia atrás, como haciendo \"papada\", sin inclinar la cabeza.", "Sostené 5 segundos y soltá."] },
-  { zone: "cervical", name: "Rotaciones suaves de cuello", dose: "8 por lado", seconds: 60, steps: ["Girá la cabeza lentamente hacia un lado hasta donde sea cómodo.", "Sostené 3 segundos y volvé al centro.", "Repetí hacia el otro lado."] },
-  { zone: "cervical", name: "Estiramiento de trapecio", dose: "2 por lado", seconds: 120, steps: ["Incliná la oreja hacia el hombro, sin elevar el hombro.", "Podés apoyar suavemente la mano del mismo lado sobre la cabeza.", "Sostené 20–30 segundos respirando lento. Cambiá de lado."] },
-  { zone: "cervical", name: "Retracción escapular", dose: "12 repeticiones", seconds: 60, steps: ["Brazos relajados al costado del cuerpo.", "Juntá los omóplatos hacia atrás y abajo, sin subir los hombros.", "Sostené 5 segundos y soltá."] },
-  { zone: "lumbar", name: "Gato-camello", dose: "10 ciclos", seconds: 60, steps: ["En cuatro apoyos: manos bajo hombros, rodillas bajo caderas.", "Redondeá la espalda hacia arriba llevando la mirada al ombligo.", "Luego hundí suavemente la espalda mirando al frente. Movimiento lento."] },
-  { zone: "lumbar", name: "Rodilla al pecho", dose: "3 por pierna", seconds: 120, steps: ["Acostado boca arriba con las rodillas flexionadas.", "Llevá una rodilla hacia el pecho tomándola con las manos.", "Sostené 20 segundos. Cambiá de pierna."] },
-  { zone: "lumbar", name: "Báscula pélvica", dose: "10 repeticiones", seconds: 50, steps: ["Boca arriba, rodillas flexionadas y pies apoyados.", "Apretá suavemente el abdomen y aplaná la zona lumbar contra el piso.", "Sostené 5 segundos y soltá."] },
-  { zone: "lumbar", name: "Puente de glúteos", dose: "10 repeticiones", seconds: 60, steps: ["Boca arriba, rodillas flexionadas, brazos al costado.", "Elevá la cadera apretando los glúteos hasta alinear hombros y rodillas.", "Sostené 3 segundos y bajá despacio."] },
-  { zone: "lumbar", name: "Bird-dog (perro de caza)", dose: "8 por lado", seconds: 90, steps: ["En cuatro apoyos, con la espalda neutra.", "Estirá un brazo hacia adelante y la pierna opuesta hacia atrás.", "Sostené 5 segundos sin girar la cadera. Alterná."] },
+  { id: "chin-tuck", zone: "cervical", name: "Retracción de mentón", dose: "10 repeticiones", seconds: 50, steps: ["Sentado con la espalda derecha, mirando al frente.", "Llevá el mentón hacia atrás, como haciendo \"papada\", sin inclinar la cabeza.", "Sostené 5 segundos y soltá."] },
+  { id: "neck-rotation", zone: "cervical", name: "Rotaciones suaves de cuello", dose: "8 por lado", seconds: 60, steps: ["Girá la cabeza lentamente hacia un lado hasta donde sea cómodo.", "Sostené 3 segundos y volvé al centro.", "Repetí hacia el otro lado."] },
+  { id: "trap-stretch", zone: "cervical", name: "Estiramiento de trapecio", dose: "2 por lado", seconds: 120, steps: ["Incliná la oreja hacia el hombro, sin elevar el hombro.", "Podés apoyar suavemente la mano del mismo lado sobre la cabeza.", "Sostené 20–30 segundos respirando lento. Cambiá de lado."] },
+  { id: "scapular", zone: "cervical", name: "Retracción escapular", dose: "12 repeticiones", seconds: 60, steps: ["Brazos relajados al costado del cuerpo.", "Juntá los omóplatos hacia atrás y abajo, sin subir los hombros.", "Sostené 5 segundos y soltá."] },
+  { id: "cat-camel", zone: "lumbar", name: "Gato-camello", dose: "10 ciclos", seconds: 60, steps: ["En cuatro apoyos: manos bajo hombros, rodillas bajo caderas.", "Redondeá la espalda hacia arriba llevando la mirada al ombligo.", "Luego hundí suavemente la espalda mirando al frente. Movimiento lento."] },
+  { id: "knee-chest", zone: "lumbar", name: "Rodilla al pecho", dose: "3 por pierna", seconds: 120, steps: ["Acostado boca arriba con las rodillas flexionadas.", "Llevá una rodilla hacia el pecho tomándola con las manos.", "Sostené 20 segundos. Cambiá de pierna."] },
+  { id: "pelvic-tilt", zone: "lumbar", name: "Báscula pélvica", dose: "10 repeticiones", seconds: 50, steps: ["Boca arriba, rodillas flexionadas y pies apoyados.", "Apretá suavemente el abdomen y aplaná la zona lumbar contra el piso.", "Sostené 5 segundos y soltá."] },
+  { id: "bridge", zone: "lumbar", name: "Puente de glúteos", dose: "10 repeticiones", seconds: 60, steps: ["Boca arriba, rodillas flexionadas, brazos al costado.", "Elevá la cadera apretando los glúteos hasta alinear hombros y rodillas.", "Sostené 3 segundos y bajá despacio."] },
+  { id: "bird-dog", zone: "lumbar", name: "Bird-dog (perro de caza)", dose: "8 por lado", seconds: 90, steps: ["En cuatro apoyos, con la espalda neutra.", "Estirá un brazo hacia adelante y la pierna opuesta hacia atrás.", "Sostené 5 segundos sin girar la cadera. Alterná."] },
 ];
 
 export const ERGONOMICS = [
-  { icon: "🖥️", title: "Monitor", text: "El borde superior a la altura de los ojos, a un brazo de distancia. Con notebook, usá un soporte y teclado externo." },
-  { icon: "🪑", title: "Silla", text: "Espalda apoyada, con soporte en la zona lumbar. Caderas un poco más altas que las rodillas." },
-  { icon: "🦶", title: "Pies", text: "Apoyados planos en el piso o en un apoyapiés. Evitá cruzar las piernas por mucho tiempo." },
-  { icon: "⌨️", title: "Brazos", text: "Codos a 90° cerca del cuerpo, hombros relajados, muñecas neutras." },
-  { icon: "📱", title: "Celular", text: "Subí el teléfono a la altura de la vista en vez de bajar la cabeza." },
-  { icon: "⏱️", title: "Movimiento", text: "La mejor postura es la próxima: cambiá de posición y levantate cada 30–45 minutos." },
+  { title: "Monitor", text: "El borde superior a la altura de los ojos, a un brazo de distancia. Con notebook, usá un soporte y teclado externo." },
+  { title: "Silla y zona lumbar", text: "Espalda apoyada, con soporte en la zona lumbar. Caderas un poco más altas que las rodillas." },
+  { title: "Pies", text: "Apoyados planos en el piso o en un apoyapiés. Evitá cruzar las piernas por mucho tiempo." },
+  { title: "Brazos", text: "Codos a 90° cerca del cuerpo, hombros relajados, muñecas neutras." },
+  { title: "Cuello y celular", text: "Subí el teléfono a la altura de la vista en vez de bajar la cabeza." },
+  { title: "Movimiento", text: "La mejor postura es la próxima: cambiá de posición y levantate cada 30–45 minutos." },
 ];
 
 export const PAUSE_TIPS = [

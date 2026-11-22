@@ -9,4 +9,7 @@ Proyecto: sitio estático "Columna Sana" sobre cervicalgia y lumbalgia.
 - Deploy: GitHub Actions (`.github/workflows/deploy.yml`) buildea y publica en GitHub Pages en cada push a `main`. `base` en vite.config.js es `/columna-sana/`.
 - En el entorno de Claude puede no haber acceso a npm: validar sintaxis con esbuild si está disponible y dejar que CI haga el build.
 - Contenido médico: mantener tono prudente, sin dosis de medicamentos, siempre con aviso de que no reemplaza la consulta. Las señales de alarma deben seguir guías clínicas estándar.
+- Imágenes: ilustraciones SVG propias en `src/components/Illustrations.jsx` (sin fotos externas). Usan clases .fig/.hl/.ghost/.arrow y CSS vars, así funcionan en modo claro y oscuro. Cada ejercicio de `EXERCISES` necesita una figura con el mismo `id` en `FIGURES`.
+- Tema: claro/oscuro con `data-theme` en <html> y variables en `:root` / `[data-theme="dark"]`. Todo color nuevo debe ser una variable.
+- Animaciones: clase `.reveal` + hook `useReveal` (respeta prefers-reduced-motion).
 - Mobile first: verificar que todo funcione bien en pantallas de ~380px.

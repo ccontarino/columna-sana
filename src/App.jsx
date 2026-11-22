@@ -6,8 +6,10 @@ import Exercises from "./components/Exercises.jsx";
 import Ergonomics from "./components/Ergonomics.jsx";
 import PauseTimer from "./components/PauseTimer.jsx";
 import Faq from "./components/Faq.jsx";
+import { useReveal } from "./hooks.js";
 
 export default function App() {
+  useReveal();
   return (
     <>
       <Header />

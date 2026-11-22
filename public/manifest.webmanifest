@@ -1,0 +1,12 @@
+{
+  "name": "Columna Sana",
+  "short_name": "Columna Sana",
+  "description": "Guía sobre cervicalgia y lumbalgia",
+  "start_url": "/columna-sana/",
+  "scope": "/columna-sana/",
+  "display": "standalone",
+  "background_color": "#f6f8f9",
+  "theme_color": "#0f766e",
+  "lang": "es-AR",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

@@ -63,8 +63,9 @@ export default function RedFlags() {
   return (
     <section id="alarma" className="section section-alt">
       <div className="container">
-        <h2>Señales de alarma</h2>
-        <p className="section-intro">
+        <p className="eyebrow reveal">Cuándo consultar</p>
+        <h2 className="reveal">Señales de alarma</h2>
+        <p className="section-intro reveal">
           Marcá lo que te pase. Estas señales ("banderas rojas") no significan que algo grave esté ocurriendo, pero sí
           que necesitás que te evalúe un médico.
         </p>

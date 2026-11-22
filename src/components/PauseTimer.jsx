@@ -59,11 +59,12 @@ export default function PauseTimer() {
   return (
     <section id="pausas" className="section">
       <div className="container narrow">
-        <h2>Pausas activas</h2>
-        <p className="section-intro">
+        <p className="eyebrow reveal">Hábitos</p>
+        <h2 className="reveal">Pausas activas</h2>
+        <p className="section-intro reveal">
           Configurá un recordatorio para levantarte y moverte. Dejá esta pestaña abierta mientras trabajás.
         </p>
-        <div className="timer-card">
+        <div className="timer-card reveal">
           <div className="timer-display">{fmt(remaining)}</div>
           <div className="timer-controls">
             <label htmlFor="timer-minutes">Cada</label>
