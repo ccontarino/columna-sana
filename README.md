@@ -15,20 +15,25 @@ Sitio web informativo sobre **cervicalgia** (dolor de cuello) y **lumbalgia** (d
 
 ## Stack
 
-HTML + CSS + JavaScript puro. Sin dependencias ni build. Publicado con GitHub Pages desde `main`.
+React (JSX + hooks) compilado con **Vite** y **Preact** como runtime (`preact/compat`): mismo código React, ~4 KB de runtime en vez de ~45 KB. Sin otras dependencias, CSS plano, sin fuentes externas ni imágenes.
+
+Hosting gratis en **GitHub Pages**: cada push a `main` dispara `.github/workflows/deploy.yml`, que buildea y publica.
 
 ```
-index.html
-css/styles.css
-js/main.js
+src/
+  main.jsx          entrada
+  App.jsx           layout
+  data.jsx          todo el contenido (condiciones, alarmas, ejercicios, FAQ)
+  components/       una sección por archivo
+  styles.css
 ```
 
-## Correr localmente
-
-Abrí `index.html` en el navegador, o:
+## Desarrollo
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev      # http://localhost:5173/columna-sana/
+npm run build    # genera dist/
 ```
 
 > ⚕️ Contenido informativo. No reemplaza la consulta médica.
