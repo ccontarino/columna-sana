@@ -43,12 +43,14 @@ npm run build    # genera dist/
 
 ## Skills de diseño incluidas
 
-En `.claude/skills/` hay tres skills de terceros que Claude usa al trabajar en este repo:
+En `.claude/skills/` hay cinco skills de terceros que Claude usa al trabajar en este repo:
 
 | Skill | Autor | Licencia | Para qué |
 |---|---|---|---|
 | `emil-design-eng` | [Emil Kowalski](https://github.com/emilkowalski/skills) | MIT | Animaciones, interacciones y pulido de componentes |
 | `impeccable` | [Paul Bakaus](https://github.com/pbakaus/impeccable) | Apache 2.0 | Diseñar, criticar, auditar y pulir interfaces (comandos `/impeccable …`) |
 | `design-taste-frontend` (carpeta `taste-skill`) | [Leonxlnx](https://github.com/Leonxlnx/taste-skill) | MIT | Criterio visual anti "AI slop" para webs |
+| `frontend-design` | [Anthropic](https://github.com/anthropics/skills) | Apache 2.0 | Dirección visual con intención, tipografía y evitar diseños genéricos |
+| `find-skills` | [Vercel](https://github.com/vercel-labs/skills) | MIT | Buscar e instalar otras skills con `npx skills` |
 
 Cada carpeta incluye su licencia. Impeccable descarga su motor desde los releases oficiales de GitHub (verificado por checksum) solo cuando se ejecutan sus comandos.
