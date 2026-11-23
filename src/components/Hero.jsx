@@ -22,8 +22,8 @@ export default function Hero() {
           cervicalgia y la lumbalgia, cuándo preocuparse y qué podés hacer hoy.
         </m.p>
         <m.div className="hero__actions" {...enter(0.5)}>
-          <a className="btn" href="#anatomia">Explorar la columna</a>
-          <a className="link" href="#condiciones">Cervicalgia y lumbalgia</a>
+          <a className="btn" href="#columna">Explorar la columna</a>
+          <a className="link" href="#cuello">Cervicalgia y lumbalgia</a>
         </m.div>
       </div>
 

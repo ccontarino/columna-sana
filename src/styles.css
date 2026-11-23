@@ -281,6 +281,39 @@ button { font-family: inherit; }
 .cto__list a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 2rem; padding-block: 1.75rem; font-size: 0.85rem; color: var(--muted); }
 
+
+/* ========== Capítulos ========== */
+.chapter { padding: 7rem 0 0; scroll-margin-top: 64px; }
+.chapter__in { display: grid; grid-template-columns: 9rem 1fr; gap: 2rem; align-items: start; border-top: 2px solid var(--ink); padding-top: 2rem; }
+.chapter__n { font-size: clamp(3rem, 6vw, 5rem); font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; color: var(--green); font-variant-numeric: tabular-nums; }
+.chapter__title { font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: -0.035em; max-width: 16ch; }
+.chapter__lead { margin-top: 1.1rem; font-size: 1.2rem; color: var(--muted); max-width: 52ch; }
+.chapter + .sec { padding-top: 4.5rem; }
+.chapter + .sec--soft { margin-top: 4.5rem; padding-top: 6rem; }
+.sec--tight { padding-bottom: 6rem; }
+
+/* ========== Pictogramas animados ========== */
+.af { width: 100%; height: 100%; max-height: 220px; display: block; overflow: visible; }
+.af .af-limb, .af .af-torso, .af .af-hl, .af .af-prop, .af .af-ghost, .af .af-arrow, .af .af-gaze, .af .af-spine, .af .af-face-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.af .af-limb { stroke: var(--ink); stroke-width: 8; }
+.af .af-back { opacity: 0.3; }
+.af .af-torso { stroke: var(--ink); stroke-width: 11; }
+.af .af-head { fill: var(--ink); }
+.af .af-fill { fill: var(--ink); }
+.af .af-hl { stroke-width: 9; }
+.ex__art.cervical .af .af-hl { stroke: var(--cervical); }
+.ex__art.lumbar .af .af-hl { stroke: var(--lumbar); }
+.af .af-blade { fill: var(--cervical); }
+.af .af-spine { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 3 4; }
+.af .af-face { fill: #fff; }
+.af .af-face-line { stroke: #fff; stroke-width: 1.8; }
+.af .af-prop { stroke: var(--prop); stroke-width: 5; }
+.af .af-mat { fill: var(--line); }
+.af .af-ghost { stroke: var(--prop); stroke-width: 2.5; stroke-dasharray: 3 5; }
+.af .af-gaze { stroke: var(--green); stroke-width: 1.6; stroke-dasharray: 2 5; }
+.af .af-arrow { stroke: var(--muted); stroke-width: 2.2; }
+.af .af-arrowhead { fill: var(--muted); }
+
 /* ========== Pantallas chicas ========== */
 @media (max-width: 960px) {
   .nav__links { display: none; }
@@ -305,6 +338,10 @@ button { font-family: inherit; }
   .ex-grid { grid-template-columns: 1fr 1fr; }
   .ergo__art { position: static; }
   .sec { padding: 5rem 0; }
+  .chapter { padding-top: 4.5rem; }
+  .chapter__in { grid-template-columns: 1fr; gap: 0.5rem; padding-top: 1.5rem; }
+  .chapter + .sec { padding-top: 3rem; }
+  .chapter + .sec--soft { margin-top: 3rem; padding-top: 4rem; }
 }
 @media (max-width: 560px) {
   .trio, .ex-grid { grid-template-columns: 1fr; }

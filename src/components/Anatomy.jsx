@@ -96,11 +96,7 @@ export default function Anatomy() {
               <div className="actions">
                 <button className="btn" onClick={() => setSel(ORDER[(idx + 1) % ORDER.length])}>Siguiente región</button>
                 {r.pain && (
-                  <a
-                    className="link"
-                    href="#condiciones"
-                    onClick={() => window.dispatchEvent(new CustomEvent("select-condition", { detail: r.link }))}
-                  >
+                  <a className="link" href={r.link === "cervical" ? "#cuello" : "#lumbar"}>
                     Ver {r.pain.toLowerCase()}
                   </a>
                 )}

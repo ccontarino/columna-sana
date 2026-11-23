@@ -3,7 +3,7 @@ import * as m from "motion/react-m";
 import { EXERCISES } from "../data.jsx";
 import { ExerciseFigure } from "./Illustrations.jsx";
 import { Reveal, fadeUp, stagger } from "../motion.jsx";
-import Modes from "./Modes.jsx";
+import { AnimatedExercise, HAS_ANIMATION } from "./AnimatedFigures.jsx";
 
 const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 const COLOR = { cervical: "var(--cervical)", lumbar: "var(--lumbar)" };
@@ -42,7 +42,11 @@ function Exercise({ e }) {
         </figure>
       ) : (
         <div className={`ex__art ${e.zone}`}>
-          <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
+          {HAS_ANIMATION(e.id) ? (
+            <AnimatedExercise id={e.id} title={`Animación del ejercicio: ${e.name}`} />
+          ) : (
+            <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
+          )}
         </div>
       )}
       <p className="ex__tag">
@@ -68,27 +72,19 @@ function Exercise({ e }) {
   );
 }
 
-export default function Exercises() {
-  const [filter, setFilter] = useState("all");
-  const list = EXERCISES.filter((e) => filter === "all" || e.zone === filter);
+export default function Exercises({ zone, id }) {
+  const list = EXERCISES.filter((e) => e.zone === zone);
   return (
-    <section id="ejercicios" className="sec">
+    <section id={id} className="sec sec--soft">
       <div className="wrap">
         <div className="head">
-          <Reveal as="h2">Ejercicios suaves</Reveal>
+          <Reveal as="h2">{zone === "cervical" ? "Ejercicios para el cuello" : "Ejercicios para la zona lumbar"}</Reveal>
           <Reveal as="p" delay={0.1}>
-            Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por el brazo o la
-            pierna, pará. Si tenés alguna señal de alarma, consultá antes.
+            Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por el{" "}
+            {zone === "cervical" ? "brazo" : "pierna"}, pará. Si tenés alguna <a className="link" href="#alarma">señal de alarma</a>, consultá antes.
           </Reveal>
         </div>
-        <Modes
-          className="ex-modes"
-          label="Filtrar ejercicios"
-          options={[["all", "Todos"], ["cervical", "Cuello"], ["lumbar", "Lumbar"]]}
-          value={filter}
-          onChange={setFilter}
-        />
-        <m.div key={filter} className="ex-grid" initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -5% 0px" }} variants={stagger(0.06)}>
+        <m.div className="ex-grid" initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -5% 0px" }} variants={stagger(0.06)}>
           {list.map((e) => (
             <Exercise e={e} key={e.id} />
           ))}

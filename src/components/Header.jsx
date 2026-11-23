@@ -2,18 +2,17 @@ import { useState, useEffect } from "react";
 import { useActiveSection } from "../hooks.js";
 
 const LINKS = [
-  ["anatomia", "Anatomía"],
-  ["vertebra", "Vértebra y disco"],
-  ["condiciones", "Cervicalgia y lumbalgia"],
-  ["ejercicios", "Ejercicios"],
-  ["ergonomia", "Ergonomía"],
+  ["columna", "Tu columna"],
+  ["cuello", "Cuello"],
+  ["lumbar", "Zona lumbar"],
+  ["habitos", "Hábitos"],
   ["faq", "Preguntas"],
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const active = useActiveSection([...LINKS.map(([id]) => id), "alarma"]);
+  const active = useActiveSection([...LINKS.map(([id]) => id), "consultar"]);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 8);
@@ -24,7 +23,7 @@ export default function Header() {
 
   return (
     <header className={`nav${scrolled ? " nav--line" : ""}`}>
-      <a className="skip" href="#anatomia">Saltar al contenido</a>
+      <a className="skip" href="#columna">Saltar al contenido</a>
       <div className="wrap nav__in">
         <a href="#top" className="nav__brand" aria-label="Columna Sana, inicio">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -42,7 +41,7 @@ export default function Header() {
             </li>
           ))}
           <li>
-            <a href="#alarma" className="nav__cta">Señales de alarma</a>
+            <a href="#consultar" className="nav__cta" aria-current={active === "consultar" ? "true" : undefined}>Señales de alarma</a>
           </li>
         </ul>
         <button className="nav__menu" aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
