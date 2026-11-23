@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useActiveSection } from "../hooks.js";
 import { useLang } from "../i18n.jsx";
 import Modes from "./Modes.jsx";
+import { useBestScore } from "../score.js";
 
-const LINK_IDS = ["dolor", "ejercicios", "habitos", "columna", "faq"];
+const LINK_IDS = ["dolor", "ejercicios", "habitos", "columna", "quiz", "faq"];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -11,6 +12,7 @@ export default function Header() {
   const { lang, setLang, t } = useLang();
   const ui = t.ui.nav;
   const active = useActiveSection([...LINK_IDS, "consultar"]);
+  const best = useBestScore();
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 8);
@@ -35,7 +37,16 @@ export default function Header() {
         <ul className={`nav__links${open ? " open" : ""}`} onClick={() => setOpen(false)}>
           {LINK_IDS.map((id) => (
             <li key={id}>
-              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>{ui.links[id]}</a>
+              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>
+                {ui.links[id]}
+                {/* El juego muestra el mejor puntaje de este navegador */}
+                {id === "quiz" && best && (
+                  <>
+                    <span className="nav__score" aria-hidden="true">{best.score}/{best.total}</span>
+                    <span className="sr-only">{ui.best(best.score, best.total)}</span>
+                  </>
+                )}
+              </a>
             </li>
           ))}
           <li>

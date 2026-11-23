@@ -3,6 +3,7 @@ import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
 import { Reveal, swap, ease } from "../motion.jsx";
+import { saveScore, useBestScore } from "../score.js";
 
 const LETTERS = ["A", "B", "C", "D"];
 
@@ -17,6 +18,8 @@ export default function Quiz() {
   const [picked, setPicked] = useState(null);
   const [answers, setAnswers] = useState([]); // true/false por pregunta
   const nextRef = useRef(null);
+  const best = useBestScore();
+  const [record, setRecord] = useState(false);
   const firstRef = useRef(null);
   const done = answers.length === n && picked === null;
   const score = answers.filter(Boolean).length;
@@ -36,6 +39,7 @@ export default function Quiz() {
   }
   function next() {
     setPicked(null);
+    if (i === n - 1) setRecord(saveScore(answers.filter(Boolean).length, n));
     if (i < n - 1) {
       setI(i + 1);
       requestAnimationFrame(() => firstRef.current?.focus({ preventScroll: true }));
@@ -45,6 +49,7 @@ export default function Quiz() {
     setI(0);
     setPicked(null);
     setAnswers([]);
+    setRecord(false);
     if (focus) requestAnimationFrame(() => firstRef.current?.focus({ preventScroll: true }));
   }
 
@@ -61,7 +66,10 @@ export default function Quiz() {
 
         <div className="quiz">
           <div className="quiz__top">
-            <span>{done ? ui.scoreLabel : ui.progress(i + 1, n)}</span>
+            <span>
+              {done ? ui.scoreLabel : ui.progress(i + 1, n)}
+              {best && <span className="quiz__best"> · {ui.best(best.score, best.total)}</span>}
+            </span>
             <ol className="quiz__dots" aria-hidden="true">
               {qs.map((_, k) => (
                 <li key={k} className={k < answers.length ? (answers[k] ? "is-ok" : "is-no") : k === i && !done ? "is-now" : ""} />
@@ -75,6 +83,11 @@ export default function Quiz() {
                 <p className="quiz__score">
                   <strong>{score}</strong>
                   <span>/ {n}</span>
+                  {record && (
+                    <m.em className="quiz__record" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, type: "spring", duration: 0.4, bounce: 0.25 }}>
+                      {ui.record}
+                    </m.em>
+                  )}
                 </p>
                 <p className="quiz__verdict" aria-live="polite"><span className="sr-only">{ui.score(score, n)}. </span>{ui.verdict(score, n)}</p>
                 <button className="btn" onClick={() => restart()}>{ui.again}</button>

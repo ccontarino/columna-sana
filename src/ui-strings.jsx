@@ -8,7 +8,8 @@ export const UI = {
         "Guía práctica para el dolor de cuello (cervicalgia) y de espalda baja (lumbalgia): qué es, qué hacer hoy, ejercicios, cuándo consultar y cómo está formada la columna.",
     },
     nav: {
-      links: { dolor: "Tu dolor", ejercicios: "Ejercicios", habitos: "Hábitos", columna: "Tu columna", faq: "Preguntas" },
+      links: { dolor: "Tu dolor", ejercicios: "Ejercicios", habitos: "Hábitos", columna: "Tu columna", quiz: "Juego", faq: "Preguntas" },
+      best: (s, n) => `Mejor puntaje: ${s} de ${n}`,
       cta: "Cuándo consultar",
       skip: "Saltar al contenido",
       open: "Abrir menú",
@@ -123,6 +124,8 @@ export const UI = {
       score: (s, n) => `${s} de ${n}`,
       verdict: (s, n) => (s === n ? "Perfecto: sabés mucho de tu columna." : s >= n * 0.75 ? "Muy bien. Repasá las que fallaste." : s >= n * 0.5 ? "Vas bien. Volvé a leer los capítulos y probá de nuevo." : "Hay cosas para repasar: la guía está arriba."),
       scoreLabel: "Aciertos",
+      best: (s, n) => `Tu mejor puntaje: ${s} de ${n}`,
+      record: "¡Nuevo récord!",
     },
     footer: {
       kicker: "Columna Sana",
@@ -144,7 +147,8 @@ export const UI = {
         "A practical guide to neck pain and low back pain: what it is, what to do today, exercises, when to see a doctor and how the spine is built.",
     },
     nav: {
-      links: { dolor: "Your pain", ejercicios: "Exercises", habitos: "Habits", columna: "Your spine", faq: "FAQ" },
+      links: { dolor: "Your pain", ejercicios: "Exercises", habitos: "Habits", columna: "Your spine", quiz: "Quiz", faq: "FAQ" },
+      best: (s, n) => `Best score: ${s} of ${n}`,
       cta: "When to see a doctor",
       skip: "Skip to content",
       open: "Open menu",
@@ -259,6 +263,8 @@ export const UI = {
       score: (s, n) => `${s} of ${n}`,
       verdict: (s, n) => (s === n ? "Perfect: you know your spine well." : s >= n * 0.75 ? "Very good. Review the ones you missed." : s >= n * 0.5 ? "Good start. Reread the chapters and try again." : "Some things to review: the guide is above."),
       scoreLabel: "Correct answers",
+      best: (s, n) => `Your best score: ${s} of ${n}`,
+      record: "New record!",
     },
     footer: {
       kicker: "Columna Sana",

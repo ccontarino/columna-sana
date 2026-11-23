@@ -121,6 +121,8 @@ button { font-family: inherit; }
 .quiz__why p { flex: 1 1 22rem; color: var(--muted); max-width: 60ch; }
 .quiz__why strong { color: var(--ink); }
 .quiz__end { padding: 2rem 0 0.5rem; }
+.quiz__best { color: var(--green-ink); }
+.quiz__record { align-self: center; margin-left: 0.6rem; padding: 0.3rem 0.6rem; border-radius: 2px; background: var(--ok-soft); color: var(--green-ink); font-style: normal; font-size: 0.95rem; font-weight: 600; }
 .quiz__score { display: flex; align-items: baseline; gap: 0.6rem; line-height: 1; }
 .quiz__score strong { font-size: clamp(4rem, 10vw, 6.5rem); font-weight: 600; letter-spacing: -0.05em; color: var(--green); font-variant-numeric: tabular-nums; }
 .quiz__score span { font-size: 1.6rem; color: var(--muted); }
@@ -143,6 +145,7 @@ button { font-family: inherit; }
 .nav__links { display: flex; gap: 2.25rem; align-items: center; font-size: 0.95rem; list-style: none; margin: 0; padding: 0; }
 .nav__links a { text-decoration: none; color: rgba(255, 255, 255, 0.72); transition: color 0.2s; }
 .nav__links a[aria-current] { color: #fff; }
+.nav__score { display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.4rem; border-radius: 2px; background: rgba(167, 210, 122, 0.18); color: var(--green-light); font-size: 0.78em; font-weight: 600; font-variant-numeric: tabular-nums; }
 .nav__links .nav__cta { color: var(--green-light); font-weight: 600; }
 .nav__menu { transition: transform var(--press) var(--ease-out); display: none; background: none; border: 0; color: #fff; width: 40px; height: 40px; cursor: pointer; }
 .nav__menu svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; }
@@ -426,11 +429,12 @@ button { font-family: inherit; }
 .rows > li.is-active { padding-left: 0.75rem; box-shadow: inset 2px 0 0 var(--green); }
 
 /* ========== Pantallas chicas ========== */
-@media (max-width: 1180px) and (min-width: 961px) {
+@media (max-width: 1180px) and (min-width: 1101px) {
   .nav__links { gap: 1.4rem; margin-left: 1.5rem; }
   .nav .modes.lang { margin-left: 1.25rem; }
 }
-@media (max-width: 960px) {
+/* Con 6 links + "Cuándo consultar" el menú no entra antes de 1100px: pasa a hamburguesa. */
+@media (max-width: 1100px) {
   .nav__links { display: none; }
   .nav__links.open {
     display: flex; flex-direction: column; align-items: flex-start; gap: 0; position: absolute; top: 72px; left: 0; right: 0;
@@ -441,6 +445,8 @@ button { font-family: inherit; }
   .nav__links.open a { display: block; padding: 0.8rem 0; font-size: 1.05rem; }
   .nav__menu { display: grid; place-items: center; }
   .nav .modes.lang { margin-left: auto; margin-right: 0.5rem; }
+}
+@media (max-width: 960px) {
   /* En celular: texto arriba, la columna grande y centrada, y después los datos */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
   .hero__text { padding: 2.5rem var(--gut) 0; }
