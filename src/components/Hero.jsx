@@ -27,9 +27,14 @@ export default function Hero() {
         </m.div>
       </div>
 
-      <div className="hero__spine">
+      <m.div
+        className="hero__spine"
+        initial={{ opacity: 0, rotateY: -35, scale: 0.9 }}
+        animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+        transition={{ duration: 1.6, ease, delay: 0.05 }}
+      >
         <HeroSpine nombres={NOMBRES} aria="Columna vertebral en 3D con sus regiones: cervical, dorsal, lumbar y sacro." />
-      </div>
+      </m.div>
 
       <figure className="hero__facts">
         <m.span

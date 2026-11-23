@@ -124,11 +124,11 @@ var we = [
   ],
   Wa = Object.fromEntries(we.map((a, e) => [a.id, e])),
   Mo = 0.045,
-  Pe = [0.15, 2.4],
+  Pe = [0.15, 2.9],
   Ke = 2.35,
   ea = 0.45,
   Be = Ke + we.length * ea + 0.3,
-  Fe = 80,
+  Fe = 90,
   De = 32,
   Eo = 0.3,
   pe = 26,
@@ -184,6 +184,13 @@ var we = [
       t = Math.sin(o);
     return [-n - 0.24 * Math.pow(Math.max(0, -n), 3), t];
   });
+// Ángulo durante la animación de carga: primero gira de frente a perfil, después vuelve a su ángulo de reposo.
+function giro(M, desde, hasta) {
+  const corte = 1.55;
+  if (M < corte) return desde + (2 - desde) * Ae(Te((M - Pe[0]) / (corte - Pe[0])));
+  const k = Te((M - corte) / (Pe[1] - corte));
+  return 2 + (hasta - 2) * (1 - Math.pow(1 - k, 3));
+}
 function Po(a) {
   let e = (a * Math.PI) / 180,
     o = Math.cos(e),
@@ -437,7 +444,7 @@ function aa({ nombres: a, aria: e, selected: sel = null, angle: ang = null, rang
         let M = (x - w) / 1e3,
           _;
         (M < Pe[1]
-          ? ((_ = Fe + (De - Fe) * Ae(Te((M - Pe[0]) / (Pe[1] - Pe[0])))),
+          ? ((_ = giro(M, Fe, angRef.current ?? De)),
             (m.current = _))
           : ((_ = (angRef.current ?? De) + r.current * rng), (m.current += (_ - m.current) * 0.08)),
           i(m.current),
