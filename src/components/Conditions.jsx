@@ -1,4 +1,5 @@
 import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { swap } from "../motion.jsx";
 import { useT } from "../i18n.jsx";
 import { useZone } from "../zone.jsx";
@@ -23,12 +24,8 @@ export default function Condition() {
             {c.intro}
           </m.p>
         </div>
-        <m.div
-          key={zone}
-          className="cols3"
-          initial={swap.initial}
-          animate={{ ...swap.animate, transition: { ...swap.animate.transition, delay: 0.06 } }}
-        >
+        <AnimatePresence mode="wait" initial={false}>
+        <m.div key={zone} className="cols3" {...swap}>
           {c.cards.map((card) => (
             <div key={card.title}>
               <h4>{card.title}</h4>
@@ -40,6 +37,7 @@ export default function Condition() {
             </div>
           ))}
         </m.div>
+        </AnimatePresence>
       </div>
     </section>
   );

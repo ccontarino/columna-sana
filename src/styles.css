@@ -257,7 +257,8 @@ button { font-family: inherit; }
 .ex__foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 .ex__dose { font-weight: 500; font-size: 0.95rem; }
 .ex__bar { height: 2px; background: var(--line); margin-top: 1rem; overflow: hidden; }
-.ex__bar span { display: block; height: 100%; background: var(--green); transform-origin: left; transform: scaleX(0); }
+.ex__bar span { display: block; height: 100%; background: var(--green); transform-origin: left; transform: scaleX(0); transition: background 0.3s ease; }
+.ex__bar.is-done span { background: var(--green-ink); }
 
 /* Ilustraciones lineales */
 .illus { width: 100%; height: auto; display: block; overflow: visible; }
@@ -326,7 +327,10 @@ button { font-family: inherit; }
 
 /* ========== Capítulos ========== */
 .chapter { padding: 7rem 0 0; scroll-margin-top: 64px; }
-.chapter__in { display: grid; grid-template-columns: 9rem 1fr; gap: 2rem; align-items: start; border-top: 2px solid var(--ink); padding-top: 2rem; }
+.chapter__in { position: relative; display: grid; grid-template-columns: 9rem 1fr; gap: 2rem; align-items: start; padding-top: 2rem; }
+.chapter__rule { position: absolute; top: 0; left: var(--gut); right: var(--gut); height: 2px; background: var(--ink); transform-origin: left; }
+.chapter__mask { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.chapter__n { display: block; }
 .chapter__n { font-size: clamp(3rem, 6vw, 5rem); font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; color: var(--green); font-variant-numeric: tabular-nums; }
 .chapter__title { font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: -0.035em; max-width: 16ch; }
 .chapter__lead { margin-top: 1.1rem; font-size: 1.2rem; color: var(--muted); max-width: 52ch; }

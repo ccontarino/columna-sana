@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
 import { ExerciseFigure } from "./Illustrations.jsx";
-import { fadeUp, stagger } from "../motion.jsx";
+import { fadeUp, stagger, ease } from "../motion.jsx";
 import { useZone } from "../zone.jsx";
 import ZoneSwitch from "./ZoneSwitch.jsx";
 import { AnimatedExercise, HAS_ANIMATION } from "./AnimatedFigures.jsx";
@@ -27,6 +28,7 @@ function Exercise({ e, ui }) {
     return () => clearTimeout(t);
   }, [left]);
   const running = left !== null && left >= 0;
+  const phase = left === null ? "idle" : left < 0 ? "done" : "run";
   const progress = left === null ? 0 : left < 0 ? 1 : 1 - left / e.seconds;
 
   return (
@@ -69,10 +71,20 @@ function Exercise({ e, ui }) {
       <div className="ex__foot">
         <span className="ex__dose">{e.dose}</span>
         <button className="btn btn--ghost btn--sm" onClick={() => setLeft(running ? null : e.seconds)}>
-          {clock(left === null ? ui.start(fmt(e.seconds)) : left < 0 ? ui.done : ui.stop(fmt(left)))}
+          {/* El fundido con blur marca el cambio de estado (iniciar → contando → listo), no cada segundo. */}
+          <AnimatePresence mode="popLayout" initial={false}>
+            <m.span
+              key={phase}
+              initial={{ opacity: 0, filter: "blur(3px)", y: 4 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { duration: 0.22, ease } }}
+              exit={{ opacity: 0, filter: "blur(3px)", y: -4, transition: { duration: 0.12, ease } }}
+            >
+              {clock(left === null ? ui.start(fmt(e.seconds)) : left < 0 ? ui.done : ui.stop(fmt(left)))}
+            </m.span>
+          </AnimatePresence>
         </button>
       </div>
-      <div className="ex__bar" aria-hidden="true">
+      <div className={`ex__bar${left !== null && left < 0 ? " is-done" : ""}`} aria-hidden="true">
         <m.span initial={false} animate={{ scaleX: progress }} transition={{ duration: left === null ? 0.3 : 1, ease: "linear" }} />
       </div>
     </m.article>

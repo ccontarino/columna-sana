@@ -440,28 +440,34 @@ function aa({ nombres: a, aria: e, selected: sel = null, angle: ang = null, rang
       return;
     }
     let w = performance.now(),
+      prev = w,
       N = (x) => {
         let M = (x - w) / 1e3,
+          // mismo suavizado a 60 o 120 Hz: el factor 0.08 por cuadro se escala según el tiempo real
+          k = 1 - Math.pow(0.92, Math.min(4, (x - prev) / 16.67)),
           _;
+        prev = x;
         (M < Pe[1]
           ? ((_ = giro(M, Fe, angRef.current ?? De)),
             (m.current = _))
-          : ((_ = (angRef.current ?? De) + r.current * rng), (m.current += (_ - m.current) * 0.08)),
+          : ((_ = (angRef.current ?? De) + r.current * rng), (m.current += (_ - m.current) * k)),
           i(m.current),
           M < Be + 2 && n(M));
         let h = M > Be + 2 && Math.abs(_ - m.current) < 0.05;
         s.current = h ? 0 : requestAnimationFrame(N);
       };
     s.current = requestAnimationFrame(N);
-    kick.current = () => {
-      s.current || (s.current = requestAnimationFrame(N));
+    // al reanudar el loop, el primer cuadro no debe "saltar" por el tiempo que estuvo quieto
+    let wake = () => {
+      s.current || ((prev = performance.now()), (s.current = requestAnimationFrame(N)));
     };
+    kick.current = wake;
     let v = (x) => {
       ((r.current = Math.max(
         -1,
         Math.min(1, (x.clientX / window.innerWidth) * 2 - 1),
       )),
-        s.current || (s.current = requestAnimationFrame(N)));
+        wake());
     };
     return (
       rng > 0 && window.addEventListener("pointermove", v, { passive: !0 }),

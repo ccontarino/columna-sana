@@ -13,7 +13,7 @@ const Defs = () => (
 );
 
 // Animación de ida y vuelta con pausa: reposo → posición → sostener → reposo → descanso
-const loop = (dur, times = [0, 0.25, 0.65, 0.85, 1]) => ({ duration: dur, times, repeat: Infinity, ease: "easeInOut" });
+const loop = (dur, times = [0, 0.25, 0.65, 0.85, 1]) => ({ duration: dur, times, repeat: Infinity, ease: [0.65, 0, 0.35, 1] });
 const kf = (a, b) => [a, b, b, a, a];
 
 function Anim({ reduce, as: Tag, a, b, attr, t, ...props }) {
@@ -50,7 +50,7 @@ function ChinTuck({ reduce }) {
 
 // ---------- Rotación de cuello (vista de frente) ----------
 function NeckRotation({ reduce }) {
-  const t = { duration: 5.2, times: [0, 0.18, 0.38, 0.5, 0.68, 0.88, 1], repeat: Infinity, ease: "easeInOut" };
+  const t = { duration: 5.2, times: [0, 0.18, 0.38, 0.5, 0.68, 0.88, 1], repeat: Infinity, ease: [0.65, 0, 0.35, 1] };
   const face = reduce ? {} : { variants: { rest: { x: 0 }, move: { x: [0, -9, -9, 0, 9, 9, 0], transition: t } } };
   return (
     <>
