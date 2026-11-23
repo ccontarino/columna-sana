@@ -1,4 +1,4 @@
-// English content. Same structure as data.jsx; non-text fields (ids, photos, timings) are reused from Spanish.
+// English content. Same structure as data.jsx; non-text fields (ids, timings) are reused from Spanish.
 import { EXERCISES as EXERCISES_ES } from "./data.jsx";
 
 export const CONDITIONS = {

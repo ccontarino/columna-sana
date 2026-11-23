@@ -15,11 +15,6 @@ export const clock = (txt) => {
   return i < 0 ? txt : <span>{txt.slice(0, i)}<span className="colon">:</span>{txt.slice(i + 1)}</span>;
 };
 const COLOR = { cervical: "var(--cervical)", lumbar: "var(--lumbar)" };
-// Fotos de Pexels (licencia gratuita, uso comercial sin atribución obligatoria; igual damos crédito).
-// Se sirven desde su CDN con el ancho justo para cada pantalla.
-const pexels = (id, w) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${Math.round(w * 0.75)}`;
-
 function Exercise({ e, ui }) {
   const [left, setLeft] = useState(null);
   useEffect(() => {
@@ -33,31 +28,13 @@ function Exercise({ e, ui }) {
 
   return (
     <m.article className="ex" variants={fadeUp}>
-      {e.photo ? (
-        <figure className="ex__photo">
-          <img
-            src={pexels(e.photo.id, 640)}
-            srcSet={`${pexels(e.photo.id, 480)} 480w, ${pexels(e.photo.id, 960)} 960w`}
-            sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 360px"
-            alt={ui.alt(e.name)}
-            width="640"
-            height="480"
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption>
-            {ui.photo}: <a href={e.photo.page} target="_blank" rel="noreferrer">{e.photo.author}</a> · Pexels
-          </figcaption>
-        </figure>
-      ) : (
-        <div className={`ex__art ${e.zone}`}>
-          {HAS_ANIMATION(e.id) ? (
-            <AnimatedExercise id={e.id} title={ui.anim(e.name)} />
-          ) : (
-            <ExerciseFigure id={e.id} title={ui.ill(e.name)} />
-          )}
-        </div>
-      )}
+      <div className={`ex__art ${e.zone}`}>
+        {HAS_ANIMATION(e.id) ? (
+          <AnimatedExercise id={e.id} title={ui.anim(e.name)} />
+        ) : (
+          <ExerciseFigure id={e.id} title={ui.ill(e.name)} />
+        )}
+      </div>
       <p className="ex__tag">
         <i style={{ background: COLOR[e.zone] }} />
         {ui.tag[e.zone]}

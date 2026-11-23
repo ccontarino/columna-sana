@@ -1,5 +1,9 @@
-// Pictogramas animados para los ejercicios sin foto real.
-// Cada figura repite el movimiento en loop (con pausas para "sostener") mientras está en pantalla.
+// Pictogramas animados de los ejercicios. Todos comparten el mismo lenguaje:
+// - cabeza llena, tronco y miembros como trazos redondeados de tinta (tronco 11, miembros 8);
+// - la zona que trabaja, en el color de la región (cervical azul, lumbar naranja);
+// - los miembros que no se mueven y quedan "del otro lado", en tinta clara;
+// - piso (colchoneta) o silla gris; una flecha gris que se marca mientras se hace el movimiento.
+// Cada figura repite el movimiento en loop, con pausa para "sostener", solo mientras está en pantalla.
 // Con "reducir movimiento" se muestra quieta en la posición final del ejercicio.
 import * as m from "motion/react-m";
 import { useReducedMotion } from "motion/react";
@@ -12,128 +16,213 @@ const Defs = () => (
   </defs>
 );
 
-// Animación de ida y vuelta con pausa: reposo → posición → sostener → reposo → descanso
-const loop = (dur, times = [0, 0.25, 0.65, 0.85, 1]) => ({ duration: dur, times, repeat: Infinity, ease: [0.65, 0, 0.35, 1] });
+const EASE = [0.65, 0, 0.35, 1]; // arranca y frena como un cuerpo real
+// Ida y vuelta con pausa: reposo → posición → sostener → reposo → descanso
+const loop = (dur, times = [0, 0.25, 0.65, 0.85, 1]) => ({ duration: dur, times, repeat: Infinity, ease: EASE });
 const kf = (a, b) => [a, b, b, a, a];
+// Ciclo de dos posiciones (gato-camello, rotación): reposo → A → sostener → reposo → B → sostener → reposo
+const T2 = [0, 0.16, 0.36, 0.5, 0.66, 0.86, 1];
+const loop2 = (dur) => ({ duration: dur, times: T2, repeat: Infinity, ease: EASE });
+const kf2 = (r, a, b) => [r, a, a, r, b, b, r];
 
-function Anim({ reduce, as: Tag, a, b, attr, t, ...props }) {
-  if (reduce) return <Tag {...props} {...{ [attr]: b }} />;
-  const MT = Tag === "path" ? m.path : Tag === "circle" ? m.circle : m.line;
+const MT = { path: m.path, circle: m.circle, g: m.g };
+
+// Anima atributos SVG (d, cx, cy…) entre reposo y posición. `vals` permite ciclos propios.
+function A({ reduce, as = "path", from, to, vals, t, ...props }) {
+  const Tag = MT[as];
+  const keys = Object.keys(to);
+  if (reduce) return <Tag {...props} {...to} />;
+  const move = { transition: t };
+  for (const k of keys) move[k] = vals ? vals[k] : kf(from[k], to[k]);
+  return <Tag {...props} {...from} variants={{ rest: from, move }} />;
+}
+
+// Flecha que se marca mientras se hace el movimiento (y se apaga al volver).
+function Cue({ reduce, d, t, both, values }) {
+  const props = { className: "af-arrow", d, markerEnd: "url(#af-arrow)", ...(both ? { markerStart: "url(#af-arrow)" } : {}) };
+  if (reduce) return <path {...props} />;
   return (
-    <MT
+    <m.path
       {...props}
-      variants={{ rest: { [attr]: a }, move: { [attr]: kf(a, b), transition: t } }}
+      variants={{ rest: { opacity: 0.2 }, move: { opacity: values || kf(0.2, 1), transition: t } }}
     />
   );
 }
 
-// ---------- Retracción de mentón (vista lateral, sentado) ----------
+const Mat = () => <rect className="af-mat" x="14" y="124" width="172" height="5" rx="2.5" />;
+
+// ---------- Retracción de mentón (sentado, de perfil) ----------
 function ChinTuck({ reduce }) {
   const t = loop(3.6);
-  const g = (a, b) => (reduce ? {} : { variants: { rest: { x: a }, move: { x: kf(a, b), transition: t } } });
   return (
     <>
-      <path className="af-prop" d="M68 102 L114 102 M74 102 L70 128 M108 102 L112 128" />
+      <path className="af-prop" d="M68 104 L116 104 M74 104 L70 130 M110 104 L114 130" />
       <path className="af-limb" d="M90 100 L128 100 L130 126 L142 126" />
-      <path className="af-torso" d="M90 100 L92 60" />
-      <path className="af-limb" d="M92 64 L104 84 L122 90" />
-      <circle className="af-ghost" cx="102" cy="36" r="12" />
-      <Anim reduce={reduce} as="path" attr="d" a="M92 60 L99 46" b="M92 60 L92 46" t={t} className="af-hl" />
-      <m.g {...g(0, -9)} style={{ x: reduce ? -9 : 0 }}>
-        <circle className="af-head" cx="102" cy="36" r="12" />
-        <path className="af-gaze" d="M116 34 L172 34" />
-      </m.g>
-      <path className="af-arrow" d="M128 16 L108 16" markerEnd="url(#af-arrow)" />
+      <path className="af-torso" d="M90 100 L92 62" />
+      <path className="af-limb" d="M92 66 L104 86 L122 92" />
+      <circle className="af-ghost" cx="103" cy="38" r="12" />
+      <A reduce={reduce} t={t} className="af-hl" from={{ d: "M92 62 L100 48" }} to={{ d: "M92 62 L93 48" }} />
+      <A reduce={reduce} t={t} as="circle" className="af-head" r="12" from={{ cx: 103, cy: 38 }} to={{ cx: 94, cy: 38 }} />
+      <Cue reduce={reduce} t={t} d="M130 22 L110 22" />
     </>
   );
 }
 
-// ---------- Rotación de cuello (vista de frente) ----------
+// ---------- Rotación de cuello (de frente) ----------
 function NeckRotation({ reduce }) {
-  const t = { duration: 5.2, times: [0, 0.18, 0.38, 0.5, 0.68, 0.88, 1], repeat: Infinity, ease: [0.65, 0, 0.35, 1] };
-  const face = reduce ? {} : { variants: { rest: { x: 0 }, move: { x: [0, -9, -9, 0, 9, 9, 0], transition: t } } };
+  const t = loop2(5.4);
+  const dx = (r, a, b) => (reduce ? {} : { variants: { rest: { x: 0 }, move: { x: kf2(r, a, b), transition: t } } });
   return (
     <>
-      <path className="af-fill" d="M62 100 Q100 86 138 100 L130 140 L70 140 Z" />
-      <path className="af-hl" d="M100 76 L100 92" />
-      <circle className="af-head" cx="100" cy="56" r="19" />
-      <m.g {...face} style={{ x: reduce ? -9 : 0 }}>
-        <circle className="af-face" cx="93" cy="53" r="2.2" />
-        <circle className="af-face" cx="107" cy="53" r="2.2" />
-        <path className="af-face-line" d="M100 56 L98 62 L101 62" />
+      <path className="af-torso" d="M62 92 Q100 80 138 92" />
+      <path className="af-torso" d="M100 88 L100 140" />
+      <path className="af-limb" d="M62 94 L56 140 M138 94 L144 140" />
+      <path className="af-hl" d="M100 66 L100 84" />
+      <circle className="af-head" cx="100" cy="50" r="16" />
+      <m.g {...dx(0, -8, 8)} style={{ x: reduce ? -8 : 0 }}>
+        <circle className="af-face" cx="94" cy="48" r="2" />
+        <circle className="af-face" cx="106" cy="48" r="2" />
+        <path className="af-face-line" d="M100 51 L98 56 L101 56" />
       </m.g>
-      <path className="af-arrow" d="M78 28 Q100 12 122 28" markerStart="url(#af-arrow)" markerEnd="url(#af-arrow)" />
+      <Cue reduce={reduce} t={t} both d="M80 22 Q100 8 120 22" values={kf2(0.2, 1, 1)} />
     </>
   );
 }
 
-// ---------- Retracción escapular (vista de espalda) ----------
-// Los omóplatos se deslizan hacia la columna y apenas hacia abajo; los hombros acompañan
-// yendo un poco atrás y abajo (sin subir). Las flechas aparecen mientras se sostiene.
+// ---------- Estiramiento de trapecio (de frente) ----------
+// La cabeza se inclina hacia un hombro (que no sube); la mano del mismo lado acompaña sobre la cabeza.
+// El cuello, en el color de la región, muestra la inclinación.
+function TrapStretch({ reduce }) {
+  const t = loop(4.6, [0, 0.28, 0.7, 0.88, 1]);
+  return (
+    <>
+      <path className="af-torso" d="M62 92 Q100 80 138 92" />
+      <path className="af-torso" d="M100 88 L100 140" />
+      <path className="af-limb" d="M62 94 L56 140" />
+      <A reduce={reduce} t={t} className="af-hl" from={{ d: "M100 84 L100 66" }} to={{ d: "M100 84 L109 68" }} />
+      <A reduce={reduce} t={t} as="circle" className="af-head" r="15" from={{ cx: 100, cy: 52 }} to={{ cx: 116, cy: 57 }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M138 94 L142 118 L144 140" }} to={{ d: "M138 94 L150 66 L110 46" }} />
+      <Cue reduce={reduce} t={t} d="M88 26 Q108 20 124 32" />
+    </>
+  );
+}
+
+// ---------- Retracción escapular (de espalda) ----------
+// Los omóplatos se deslizan hacia la columna y un poco hacia abajo; los hombros van atrás y abajo, sin subir.
 function Scapular({ reduce }) {
   const t = loop(4.2, [0, 0.22, 0.62, 0.84, 1]);
   const blade = (dir) =>
     reduce
-      ? { style: { x: 7 * dir, y: 2, rotate: -3 * dir } }
-      : { variants: { rest: { x: 0, y: 0, rotate: 0 }, move: { x: kf(0, 7 * dir), y: kf(0, 2), rotate: kf(0, -3 * dir), transition: t } } };
-  const cue = (dir) =>
-    reduce
-      ? { style: { opacity: 1, x: 3 * dir } }
-      : { variants: { rest: { opacity: 0.25, x: 0 }, move: { opacity: kf(0.25, 1), x: kf(0, 3 * dir), transition: t } } };
+      ? { style: { x: 8 * dir, y: 2 } }
+      : { variants: { rest: { x: 0, y: 0 }, move: { x: kf(0, 8 * dir), y: kf(0, 2), transition: t } } };
   return (
     <>
-      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-limb"
-        a="M55 74 L47 136" b="M58 77 L51 136" />
-      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-limb"
-        a="M145 74 L153 136" b="M142 77 L149 136" />
-      <path className="af-limb" d="M100 44 L100 58" />
-      <circle className="af-head" cx="100" cy="30" r="14" />
-      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-body"
-        a="M80 57 Q100 52 120 57 L139 64 Q147 68 145 79 L131 140 L69 140 L55 79 Q53 68 61 64 Z"
-        b="M81 59 Q100 54 119 59 L136 67 Q144 71 142 82 L131 140 L69 140 L58 82 Q56 71 64 67 Z" />
-      <path className="af-spine" d="M100 62 L100 136" />
-      <m.g {...blade(1)} className="af-blade-g">
-        <path className="af-blade" d="M84 69 L69 67 Q64 68 66 73 Q71 90 79 103 Q82 107 84 103 Z" />
-        <path className="af-ridge" d="M84 78 L68 71" />
+      <circle className="af-head" cx="100" cy="34" r="14" />
+      <path className="af-limb" d="M100 48 L100 62" />
+      <A reduce={reduce} t={t} className="af-torso" from={{ d: "M60 72 Q100 62 140 72" }} to={{ d: "M64 75 Q100 66 136 75" }} />
+      <path className="af-torso" d="M100 66 L100 140" />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M60 74 L54 138" }} to={{ d: "M64 77 L58 138" }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M140 74 L146 138" }} to={{ d: "M136 77 L142 138" }} />
+      <m.g {...blade(1)}>
+        <path className="af-blade" d="M86 76 L71 74 Q66 75 68 80 Q73 96 81 108 Q84 112 86 108 Z" />
       </m.g>
-      <m.g {...blade(-1)} className="af-blade-g">
-        <path className="af-blade" d="M116 69 L131 67 Q136 68 134 73 Q129 90 121 103 Q118 107 116 103 Z" />
-        <path className="af-ridge" d="M116 78 L132 71" />
+      <m.g {...blade(-1)}>
+        <path className="af-blade" d="M114 76 L129 74 Q134 75 132 80 Q127 96 119 108 Q116 112 114 108 Z" />
       </m.g>
-      <m.path {...cue(1)} className="af-arrow" d="M30 60 L46 60" markerEnd="url(#af-arrow)" />
-      <m.path {...cue(-1)} className="af-arrow" d="M170 60 L154 60" markerEnd="url(#af-arrow)" />
+      <Cue reduce={reduce} t={t} d="M30 96 L44 96" />
+      <Cue reduce={reduce} t={t} d="M170 96 L156 96" />
     </>
   );
 }
 
-// ---------- Báscula pélvica (acostado boca arriba) ----------
-function PelvicTilt({ reduce }) {
-  const t = loop(3.6);
+// ---------- Gato-camello (cuatro apoyos, de perfil) ----------
+// Espalda redondeada arriba con la mirada al ombligo, luego hundida mirando al frente.
+function CatCamel({ reduce }) {
+  const t = loop2(6);
+  const back = (c) => `M66 84 Q99 ${c} 132 84`;
+  const lumbar = (c) => `M99 ${(168 + 2 * c) / 4} Q115.5 ${(c + 84) / 2} 132 84`;
+  const v = (r, a, b) => kf2(r, a, b);
   return (
     <>
-      <rect className="af-mat" x="18" y="122" width="164" height="5" rx="2.5" />
-      <circle className="af-head" cx="36" cy="106" r="10" />
-      <Anim reduce={reduce} as="path" attr="d" a="M50 114 C66 114 84 103 110 114" b="M50 114 C66 114 84 114 110 114" t={t} className="af-torso" />
-      <Anim reduce={reduce} as="path" attr="d" a="M76 108 C88 103 100 106 110 114" b="M76 114 C88 114 100 114 110 114" t={t} className="af-hl" />
-      <path className="af-limb" d="M110 114 L138 88 L156 120 L166 120" />
-      <path className="af-limb" d="M56 112 L92 119" />
-      <path className="af-arrow" d="M93 80 L93 98" markerEnd="url(#af-arrow)" />
+      <Mat />
+      <path className="af-limb af-back" d="M70 86 L72 122 M128 86 L130 120 L164 122" />
+      <path className="af-limb" d="M66 86 L64 122" />
+      <path className="af-limb" d="M132 86 L134 120 L170 122" />
+      <A reduce={reduce} t={t} className="af-torso" from={{ d: back(84) }} to={{ d: back(60) }} vals={{ d: v(back(84), back(60), back(100)) }} />
+      <A reduce={reduce} t={t} className="af-hl" from={{ d: lumbar(84) }} to={{ d: lumbar(60) }} vals={{ d: v(lumbar(84), lumbar(60), lumbar(100)) }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M66 84 L54 82" }} to={{ d: "M66 84 L56 94" }} vals={{ d: v("M66 84 L54 82", "M66 84 L56 94", "M66 84 L54 74") }} />
+      <A reduce={reduce} t={t} as="circle" className="af-head" r="11" from={{ cx: 46, cy: 80 }} to={{ cx: 50, cy: 100 }} vals={{ cx: v(46, 50, 44), cy: v(80, 100, 66) }} />
+      <Cue reduce={reduce} t={t} both d="M99 40 L99 56" values={kf2(0.2, 1, 1)} />
     </>
   );
 }
 
-// ---------- Rodilla al pecho (acostado boca arriba) ----------
+// ---------- Rodilla al pecho (boca arriba) ----------
 function KneeChest({ reduce }) {
-  const t = loop(4.2);
+  const t = loop(4.4);
   return (
     <>
-      <rect className="af-mat" x="18" y="122" width="164" height="5" rx="2.5" />
-      <path className="af-limb af-back" d="M110 114 L140 88 L158 120 L168 120" />
-      <circle className="af-head" cx="36" cy="106" r="10" />
-      <path className="af-torso" d="M50 114 L110 114" />
-      <path className="af-hl" d="M80 114 L110 114" />
-      <Anim reduce={reduce} as="path" attr="d" a="M110 114 L134 88 L150 120" b="M110 114 L86 86 L112 80" t={t} className="af-limb" />
-      <Anim reduce={reduce} as="path" attr="d" a="M56 112 L88 119" b="M56 110 L84 90" t={t} className="af-limb" />
+      <Mat />
+      <path className="af-limb af-back" d="M112 116 L140 90 L158 122 L170 122" />
+      <circle className="af-head" cx="34" cy="108" r="11" />
+      <path className="af-torso" d="M50 116 L112 116" />
+      <path className="af-hl" d="M82 116 L112 116" />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M112 116 L136 90 L152 122" }} to={{ d: "M112 116 L88 88 L114 82" }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M56 114 L90 121" }} to={{ d: "M56 112 L86 92" }} />
+      <Cue reduce={reduce} t={t} d="M150 72 Q128 56 106 62" />
+    </>
+  );
+}
+
+// ---------- Báscula pélvica (boca arriba) ----------
+function PelvicTilt({ reduce }) {
+  const t = loop(3.8);
+  return (
+    <>
+      <Mat />
+      <circle className="af-head" cx="34" cy="108" r="11" />
+      <A reduce={reduce} t={t} className="af-torso" from={{ d: "M50 116 C66 116 84 105 112 116" }} to={{ d: "M50 116 C66 116 84 116 112 116" }} />
+      <A reduce={reduce} t={t} className="af-hl" from={{ d: "M78 110 C90 105 102 108 112 116" }} to={{ d: "M78 116 C90 116 102 116 112 116" }} />
+      <path className="af-limb" d="M112 116 L140 90 L158 122 L170 122" />
+      <path className="af-limb" d="M56 114 L92 121" />
+      <Cue reduce={reduce} t={t} d="M94 80 L94 98" />
+    </>
+  );
+}
+
+// ---------- Puente de glúteos (boca arriba) ----------
+// La cadera sube hasta alinear hombros, cadera y rodillas.
+function Bridge({ reduce }) {
+  const t = loop(3.8, [0, 0.3, 0.6, 0.88, 1]);
+  return (
+    <>
+      <Mat />
+      <circle className="af-head" cx="34" cy="108" r="11" />
+      <path className="af-limb" d="M54 116 L90 122" />
+      <A reduce={reduce} t={t} className="af-torso" from={{ d: "M50 116 L106 117" }} to={{ d: "M50 116 L106 96" }} />
+      <A reduce={reduce} t={t} className="af-hl" from={{ d: "M84 117 L106 117" }} to={{ d: "M84 104 L106 96" }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M106 117 L136 88 L150 122 L162 122" }} to={{ d: "M106 96 L136 86 L150 122 L162 122" }} />
+      <Cue reduce={reduce} t={t} d="M96 74 L96 58" />
+    </>
+  );
+}
+
+// ---------- Bird-dog (cuatro apoyos, de perfil) ----------
+// Brazo adelante y pierna opuesta atrás, con la espalda quieta y la cadera sin girar.
+function BirdDog({ reduce }) {
+  const t = loop(4.6, [0, 0.28, 0.66, 0.88, 1]);
+  return (
+    <>
+      <Mat />
+      <path className="af-limb af-back" d="M70 86 L72 122 M128 86 L130 120 L164 122" />
+      <path className="af-torso" d="M66 84 L132 84" />
+      <path className="af-hl" d="M100 84 L132 84" />
+      <path className="af-limb" d="M66 84 L56 76" />
+      <circle className="af-head" cx="48" cy="70" r="11" />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M66 86 L64 122" }} to={{ d: "M66 86 L24 90" }} />
+      <A reduce={reduce} t={t} className="af-limb" from={{ d: "M132 86 L134 120 L170 122" }} to={{ d: "M132 86 L156 82 L182 78" }} />
+      <Cue reduce={reduce} t={t} d="M44 46 L26 46" />
+      <Cue reduce={reduce} t={t} d="M154 56 L172 56" />
     </>
   );
 }
@@ -141,9 +230,13 @@ function KneeChest({ reduce }) {
 const FIGS = {
   "chin-tuck": ChinTuck,
   "neck-rotation": NeckRotation,
+  "trap-stretch": TrapStretch,
   scapular: Scapular,
-  "pelvic-tilt": PelvicTilt,
+  "cat-camel": CatCamel,
   "knee-chest": KneeChest,
+  "pelvic-tilt": PelvicTilt,
+  bridge: Bridge,
+  "bird-dog": BirdDog,
 };
 
 export const HAS_ANIMATION = (id) => id in FIGS;

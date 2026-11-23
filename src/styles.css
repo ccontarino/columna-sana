@@ -240,15 +240,7 @@ button { font-family: inherit; }
 .ex { border-top: 1px solid var(--line); padding-top: 1.25rem; display: flex; flex-direction: column; }
 .ex__art { background: var(--soft); aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 1.5rem; margin-bottom: 1.2rem; }
 .ex__art .illus { max-height: 100%; }
-.sec--soft .ex__art, .sec--soft .ex__photo { background: #fff; }
-.ex__photo { position: relative; margin: 0 0 1.2rem; overflow: hidden; background: var(--soft); aspect-ratio: 4 / 3; }
-.ex__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter 0.4s ease, transform 0.6s var(--ease-out); }
-@media (hover: hover) and (pointer: fine) {
-  .ex__photo img { filter: grayscale(1); }
-  .ex:hover .ex__photo img { filter: grayscale(0); transform: scale(1.03); }
-}
-.ex__photo figcaption { position: absolute; right: 0; bottom: 0; padding: 0.25rem 0.55rem; background: rgba(255, 255, 255, 0.88); font-size: 0.72rem; color: var(--muted); }
-.ex__photo figcaption a { color: inherit; }
+.sec--soft .ex__art { background: #fff; }
 .ex__tag { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
 .ex__tag i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.45rem; }
 .ex h3 { font-size: 1.15rem; margin-bottom: 0.7rem; }
@@ -340,26 +332,20 @@ button { font-family: inherit; }
 
 /* ========== Pictogramas animados ========== */
 .af { width: 100%; height: 100%; max-height: 220px; display: block; overflow: visible; }
-.af .af-limb, .af .af-torso, .af .af-hl, .af .af-prop, .af .af-ghost, .af .af-arrow, .af .af-gaze, .af .af-spine, .af .af-face-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.af .af-limb, .af .af-torso, .af .af-hl, .af .af-prop, .af .af-ghost, .af .af-arrow, .af .af-face-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .af .af-limb { stroke: var(--ink); stroke-width: 8; }
 .af .af-back { opacity: 0.3; }
 .af .af-torso { stroke: var(--ink); stroke-width: 11; }
 .af .af-head { fill: var(--ink); }
-.af .af-fill { fill: var(--ink); }
 .af .af-hl { stroke-width: 9; }
 .ex__art.cervical .af .af-hl { stroke: var(--cervical); }
 .ex__art.lumbar .af .af-hl { stroke: var(--lumbar); }
-.af .af-body { fill: var(--ink); stroke: #fff; stroke-width: 3; stroke-linejoin: round; }
 .af .af-blade { fill: var(--cervical); }
-.af .af-blade-g { transform-box: fill-box; transform-origin: center; }
-.af .af-ridge { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: 1.6; stroke-linecap: round; }
-.af .af-spine { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 3 4; }
 .af .af-face { fill: #fff; }
 .af .af-face-line { stroke: #fff; stroke-width: 1.8; }
 .af .af-prop { stroke: var(--prop); stroke-width: 5; }
 .af .af-mat { fill: var(--line); }
 .af .af-ghost { stroke: var(--prop); stroke-width: 2.5; stroke-dasharray: 3 5; }
-.af .af-gaze { stroke: var(--green); stroke-width: 1.6; stroke-dasharray: 2 5; }
 .af .af-arrow { stroke: var(--muted); stroke-width: 2.2; }
 .af .af-arrowhead { fill: var(--muted); }
 
