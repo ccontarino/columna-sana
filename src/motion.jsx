@@ -17,7 +17,7 @@ export const stagger = (gap = 0.07, delay = 0) => ({
 const viewport = { once: true, margin: "0px 0px -8% 0px" };
 
 // Acceso estático a cada etiqueta para que el bundler descarte las que no se usan.
-const TAGS = { div: m.div, p: m.p, h2: m.h2, ol: m.ol, fieldset: m.fieldset };
+const TAGS = { div: m.div, p: m.p, h2: m.h2, ol: m.ol, li: m.li, fieldset: m.fieldset };
 
 // Aparece al entrar en pantalla. `as` elige la etiqueta (div, h2, p, li, article...).
 export function Reveal({ as = "div", delay = 0, children, ...props }) {

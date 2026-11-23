@@ -1,118 +1,122 @@
 import { useState } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
-import { REGIONS, SPINE_STATS, FUNCTIONS } from "../data.jsx";
-import Spine3D from "./Spine3D.jsx";
-import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
+import { REGIONS, FUNCTIONS } from "../data.jsx";
+import { HeroSpine, SPINE_REGIONS } from "./ErSpine.jsx";
+import { Reveal } from "../motion.jsx";
+import Modes from "./Modes.jsx";
 
 const ORDER = ["cervical", "dorsal", "lumbar", "sacro"];
+const COLOR = Object.fromEntries(SPINE_REGIONS.map((r) => [r.id, r.color]));
+const NOMBRES = { cervical: "Cervical", dorsal: "Dorsal", lumbar: "Lumbar", sacro: "Sacro" };
+// 0° = perfil (adelante a la izquierda), 90° = de frente
+const VIEWS = [
+  ["perfil", "Perfil", 0],
+  ["oblicua", "Oblicua", 32],
+  ["frente", "Frente", 88],
+];
 
 export default function Anatomy() {
-  const [selected, setSelected] = useState("cervical");
-  const [showCord, setShowCord] = useState(true);
-  const r = REGIONS[selected];
+  const [sel, setSel] = useState("cervical");
+  const [angle, setAngle] = useState(32);
+  const r = REGIONS[sel];
+  const idx = ORDER.indexOf(sel);
+  const view = (VIEWS.find(([, , a]) => a === angle) || [null])[0];
 
   return (
-    <section id="anatomia" className="section">
-      <div className="container">
-        <Reveal as="p" className="eyebrow">Anatomía</Reveal>
-        <Reveal as="h2">¿Cómo está formada la columna?</Reveal>
-        <Reveal as="p" className="section-intro">
-          La columna es una pila de vértebras unidas por discos, articulaciones, ligamentos y músculos. Vista de perfil
-          no es recta: tiene cuatro curvas que forman una "S" y funcionan como un resorte para absorber los impactos.
-          Girala, mirala de perfil y tocá una zona para conocerla.
-        </Reveal>
-
-        <div className="anatomy-layout">
-          <div className="anatomy-figure">
-            <Spine3D
-              detail
-              controls
-              selected={selected}
-              onSelect={setSelected}
-              showCord={showCord}
-              label="Columna vertebral en 3D con la región seleccionada resaltada. Arrastrá para girarla."
-            />
-            <div className="anatomy-toggles">
-              <label className="switch">
-                <input type="checkbox" checked={showCord} onChange={(e) => setShowCord(e.currentTarget.checked)} />
-                <span>Médula espinal</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="anatomy-side">
-            <div className="region-tabs" role="tablist" aria-label="Regiones de la columna">
-              {ORDER.map((key) => (
-                <button
-                  key={key}
-                  role="tab"
-                  aria-selected={selected === key}
-                  className={`region-tab ${key}${selected === key ? " active" : ""}`}
-                  onClick={() => setSelected(key)}
-                >
-                  <span className="dot" />
-                  {REGIONS[key].name}
-                </button>
-              ))}
-            </div>
-
-            <AnimatePresence mode="wait" initial={false}>
-              <m.article
-                key={selected}
-                className={`region-card ${selected}`}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease }}
-              >
-                <div className="region-head">
-                  <h3>{r.name}</h3>
-                  <span className="region-range">{r.range}</span>
-                </div>
-                <dl className="region-facts">
-                  <div><dt>Vértebras</dt><dd>{r.count}</dd></div>
-                  <div><dt>Curvatura</dt><dd>{r.curve}</dd></div>
-                </dl>
-                <p>{r.text}</p>
-                {r.pain && (
-                  <a className="region-link" href="#condiciones" onClick={() => window.dispatchEvent(new CustomEvent("select-condition", { detail: r.link }))}>
-                    Ver {r.pain.toLowerCase()} →
-                  </a>
-                )}
-              </m.article>
-            </AnimatePresence>
-
-            {showCord && (
-              <p className="cord-note">
-                <span className="cord-swatch" />
-                <span>
-                  La médula termina a la altura de L1–L2. Más abajo, el canal lleva solo raíces nerviosas: la{" "}
-                  <em>cola de caballo</em>.
-                </span>
-              </p>
-            )}
-          </div>
+    <section id="anatomia" className="sec">
+      <div className="wrap">
+        <div className="head">
+          <Reveal as="h2">¿Cómo está formada la columna?</Reveal>
+          <Reveal as="p" delay={0.1}>
+            Es una pila de vértebras unidas por discos, articulaciones, ligamentos y músculos. De perfil no es recta:
+            tiene cuatro curvas que forman una “S” y funcionan como un resorte. Elegí una región y girá la columna.
+          </Reveal>
         </div>
 
-        <Stagger className="stat-row" gap={0.1}>
-          {SPINE_STATS.map((s) => (
-            <m.div variants={fadeUp} className="stat" key={s.num}>
-              <span className="stat-num">{s.num}</span>
-              <span className="stat-txt">{s.txt}</span>
-            </m.div>
-          ))}
-        </Stagger>
+        <div className="trio">
+          <ul className="tabs-list" role="tablist" aria-label="Regiones de la columna">
+            {ORDER.map((k) => (
+              <li key={k}>
+                <button
+                  role="tab"
+                  className="tab-row"
+                  aria-selected={sel === k}
+                  style={{ "--accent": COLOR[k] }}
+                  onClick={() => setSel(k)}
+                >
+                  {REGIONS[k].name}
+                  <span>{REGIONS[k].range}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
 
-        <Stagger className="func-grid" gap={0.1}>
+          <div className="view">
+            <div className="anat-view">
+              <HeroSpine
+                nombres={NOMBRES}
+                aria={`Columna vertebral en 3D con la región ${r.name.toLowerCase()} resaltada`}
+                selected={sel}
+                angle={angle}
+                range={0}
+              />
+            </div>
+            <Modes
+              label="Vista de la columna"
+              options={VIEWS.map(([k, l]) => [k, l])}
+              value={view}
+              onChange={(k) => setAngle(VIEWS.find(([kk]) => kk === k)[2])}
+            />
+            <label className="angle">
+              <span className="angle__row"><span>Perfil</span><span>Girar</span><span>Frente</span></span>
+              <input type="range" min="0" max="88" value={angle} onInput={(e) => setAngle(Number(e.currentTarget.value))} aria-label="Ángulo de la columna" />
+            </label>
+          </div>
+
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
+              key={sel}
+              className="detail"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
+            >
+              <p className="step">Región {idx + 1} de {ORDER.length}</p>
+              <h3>{r.name}</h3>
+              <p>{r.text}</p>
+              <h4>Vértebras</h4>
+              <p>{r.count} · {r.range}</p>
+              <h4>Curvatura</h4>
+              <p>{r.curve}</p>
+              <div className="legend">
+                <i style={{ background: COLOR[sel] }} /> Resaltada en la columna
+              </div>
+              <div className="actions">
+                <button className="btn" onClick={() => setSel(ORDER[(idx + 1) % ORDER.length])}>Siguiente región</button>
+                {r.pain && (
+                  <a
+                    className="link"
+                    href="#condiciones"
+                    onClick={() => window.dispatchEvent(new CustomEvent("select-condition", { detail: r.link }))}
+                  >
+                    Ver {r.pain.toLowerCase()}
+                  </a>
+                )}
+              </div>
+            </m.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="functions">
           {FUNCTIONS.map((f, i) => (
-            <m.div variants={fadeUp} className="func" key={f.title}>
-              <span className="func-num">0{i + 1}</span>
+            <Reveal key={f.title} delay={i * 0.08}>
               <h3>{f.title}</h3>
               <p>{f.text}</p>
-            </m.div>
+            </Reveal>
           ))}
-        </Stagger>
+        </div>
       </div>
     </section>
   );

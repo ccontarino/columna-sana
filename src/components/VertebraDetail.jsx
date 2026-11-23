@@ -2,7 +2,8 @@ import { useState } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { VERTEBRA_PARTS, DISC_STATES } from "../data.jsx";
-import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
+import { Reveal, ease } from "../motion.jsx";
+import Modes from "./Modes.jsx";
 
 // Contorno del disco (vista superior). `b` abomba la parte posterior derecha.
 function discPath(b) {
@@ -39,58 +40,47 @@ const MARKERS = [
 
 export default function VertebraDetail() {
   const [state, setState] = useState("sano");
+  const [part, setPart] = useState(0);
   const shape = STATE_SHAPES[state];
   const t = { duration: 0.7, ease };
 
   return (
-    <section id="vertebra" className="section section-alt">
-      <div className="container">
-        <Reveal as="p" className="eyebrow">De cerca</Reveal>
-        <Reveal as="h2">La vértebra y el disco</Reveal>
-        <Reveal as="p" className="section-intro">
-          Así se ve un segmento de la columna desde arriba. Entre cada par de vértebras hay un disco: un anillo de
-          fibras con un núcleo gelatinoso en el centro. Por detrás pasa la médula, y a los costados salen las raíces
-          nerviosas. Probá cómo cambia el disco.
-        </Reveal>
+    <section id="vertebra" className="sec sec--soft">
+      <div className="wrap">
+        <div className="head">
+          <Reveal as="h2">La vértebra y el disco</Reveal>
+          <Reveal as="p" delay={0.1}>
+            Así se ve un segmento desde arriba. Entre cada par de vértebras hay un disco: un anillo de fibras con un
+            núcleo gelatinoso. Por detrás pasa la médula y a los costados salen las raíces nerviosas.
+          </Reveal>
+        </div>
 
-        <div className="vertebra-layout">
-          <Reveal className="vertebra-figure">
-            <div className="state-tabs" role="tablist" aria-label="Estado del disco">
-              {Object.entries(DISC_STATES).map(([key, s]) => (
-                <button
-                  key={key}
-                  role="tab"
-                  aria-selected={state === key}
-                  className={`state-tab ${key}${state === key ? " active" : ""}`}
-                  onClick={() => setState(key)}
-                >
-                  {s.label}
+        <div className="trio">
+          <ul className="tabs-list" role="tablist" aria-label="Partes de la vértebra">
+            {VERTEBRA_PARTS.map((p, i) => (
+              <li key={p.title}>
+                <button role="tab" className="tab-row" aria-selected={part === i} onClick={() => setPart(i)}>
+                  {p.title}
+                  <span>{String(i + 1).padStart(2, "0")}</span>
                 </button>
-              ))}
-            </div>
+              </li>
+            ))}
+          </ul>
 
-            <svg viewBox="0 0 320 300" className="illus vertebra-svg" role="img" aria-label={`Vértebra vista desde arriba, disco ${DISC_STATES[state].label.toLowerCase()}`}>
+          <div className="view">
+            <svg viewBox="0 0 320 300" className="vert-svg" role="img" aria-label={`Vértebra vista desde arriba, disco ${DISC_STATES[state].label.toLowerCase()}`}>
               <text x="160" y="20" className="dir-label" textAnchor="middle">Adelante</text>
               <text x="160" y="298" className="dir-label" textAnchor="middle">Atrás</text>
-
               <path className="bone" d={ARCH} />
               <ellipse className="facet" cx="112" cy="178" rx="8" ry="5" />
               <ellipse className="facet" cx="208" cy="178" rx="8" ry="5" />
-
-              {/* raíces nerviosas */}
               <path className="root" d="M144 180 Q118 170 100 152 T40 134" />
               <path className={`root${shape.hernia ? " compressed" : ""}`} d="M176 180 Q202 170 220 152 T280 134" />
-
-              {/* médula */}
               <ellipse className="cord-x" cx="160" cy="182" rx="20" ry="14" />
-
-              {/* disco */}
               <m.path className="annulus" initial={false} animate={{ d: shape.disc }} transition={t} />
               <ellipse className="ring" cx="160" cy="92" rx="62" ry="41" />
               <ellipse className="ring" cx="160" cy="92" rx="45" ry="29" />
               <m.ellipse className="nucleus" initial={false} animate={shape.nucleus} transition={t} />
-
-              {/* material herniado */}
               <m.path
                 className="nucleus"
                 d="M182 122 Q194 136 190 150 Q202 160 212 152 Q214 140 200 132 Z"
@@ -99,40 +89,45 @@ export default function VertebraDetail() {
                 style={{ transformOrigin: "182px 122px" }}
                 transition={t}
               />
-
               {MARKERS.map(([x, y], i) => (
-                <g key={i} className="marker small">
+                <m.g
+                  key={i}
+                  className="marker"
+                  animate={{ opacity: part === i ? 1 : 0.22, scale: part === i ? 1.25 : 1 }}
+                  style={{ transformOrigin: `${x}px ${y}px` }}
+                  onClick={() => setPart(i)}
+                >
                   <circle cx={x} cy={y} r="9" />
                   <text x={x} y={y + 3.5}>{i + 1}</text>
-                </g>
+                </m.g>
               ))}
             </svg>
+            <Modes
+              label="Estado del disco"
+              options={Object.entries(DISC_STATES).map(([k, s]) => [k, s.label])}
+              value={state}
+              onChange={setState}
+            />
+          </div>
 
+          <div className="detail">
             <AnimatePresence mode="wait" initial={false}>
-              <m.p
-                key={state}
-                className={`state-text ${state}`}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.25, ease }}
-              >
-                <strong>{DISC_STATES[state].label}:</strong> {DISC_STATES[state].text}
+              <m.div key={part} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
+                <p className="step">Parte {part + 1} de {VERTEBRA_PARTS.length}</p>
+                <h3>{VERTEBRA_PARTS[part].title}</h3>
+                <p>{VERTEBRA_PARTS[part].text}</p>
+              </m.div>
+            </AnimatePresence>
+            <h4>Disco: {DISC_STATES[state].label.toLowerCase()}</h4>
+            <AnimatePresence mode="wait" initial={false}>
+              <m.p key={state} className={`state-text ${state}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+                {DISC_STATES[state].text}
               </m.p>
             </AnimatePresence>
-          </Reveal>
-
-          <Stagger as="ol" className="parts-list" gap={0.06}>
-            {VERTEBRA_PARTS.map((p, i) => (
-              <m.li variants={fadeUp} key={p.title} className="part">
-                <span className="ergo-num">{i + 1}</span>
-                <div>
-                  <h3>{p.title}</h3>
-                  <p>{p.text}</p>
-                </div>
-              </m.li>
-            ))}
-          </Stagger>
+            <div className="actions">
+              <button className="btn" onClick={() => setPart((part + 1) % VERTEBRA_PARTS.length)}>Siguiente parte</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

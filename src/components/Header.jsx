@@ -1,13 +1,10 @@
-import { useState } from "react";
-import * as m from "motion/react-m";
-import { AnimatePresence } from "motion/react";
-import { useActiveSection, useTheme } from "../hooks.js";
+import { useState, useEffect } from "react";
+import { useActiveSection } from "../hooks.js";
 
 const LINKS = [
   ["anatomia", "Anatomía"],
   ["vertebra", "Vértebra y disco"],
-  ["condiciones", "Dolor"],
-  ["alarma", "Alarmas"],
+  ["condiciones", "Cervicalgia y lumbalgia"],
   ["ejercicios", "Ejercicios"],
   ["ergonomia", "Ergonomía"],
   ["faq", "Preguntas"],
@@ -15,70 +12,45 @@ const LINKS = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [theme, toggleTheme] = useTheme();
-  const active = useActiveSection(LINKS.map(([id]) => id));
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection([...LINKS.map(([id]) => id), "alarma"]);
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
 
   return (
-    <header className="site-header">
-      <nav className="nav container">
-        <a href="#inicio" className="logo" aria-label="Columna Sana, inicio">
-          <svg viewBox="0 0 24 24" className="logo-mark" aria-hidden="true">
-            <rect x="9" y="2" width="6" height="4" rx="2" />
-            <rect x="8.5" y="7.5" width="7" height="4" rx="2" />
-            <rect x="8" y="13" width="8" height="4" rx="2" />
-            <rect x="7.5" y="18.5" width="9" height="4" rx="2" />
+    <header className={`nav${scrolled ? " nav--line" : ""}`}>
+      <a className="skip" href="#anatomia">Saltar al contenido</a>
+      <div className="wrap nav__in">
+        <a href="#top" className="nav__brand" aria-label="Columna Sana, inicio">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="1.5" width="6" height="4" rx="1.5" fill="#3E8FB0" />
+            <rect x="8.5" y="7" width="7" height="4" rx="1.5" fill="#6E9F3F" />
+            <rect x="8" y="12.5" width="8" height="4.5" rx="1.5" fill="#D9862B" />
+            <path d="M9 18.5h6l-2 4h-2z" fill="#8C96A0" />
           </svg>
-          Columna<span>Sana</span>
+          Columna <b>Sana</b>
         </a>
-        <ul className={`nav-links${open ? " open" : ""}`} onClick={() => setOpen(false)}>
+        <ul className={`nav__links${open ? " open" : ""}`} onClick={() => setOpen(false)}>
           {LINKS.map(([id, label]) => (
             <li key={id}>
-              <a href={`#${id}`} className={active === id ? "active" : ""}>
-                {label}
-              </a>
+              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>{label}</a>
             </li>
           ))}
+          <li>
+            <a href="#alarma" className="nav__cta">Señales de alarma</a>
+          </li>
         </ul>
-        <div className="nav-actions">
-          <m.button
-            whileTap={{ scale: 0.9 }}
-            className="icon-btn"
-            onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <m.svg
-                key={theme}
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                initial={{ rotate: -90, scale: 0.4, opacity: 0 }}
-                animate={{ rotate: 0, scale: 1, opacity: 1 }}
-                exit={{ rotate: 90, scale: 0.4, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                {theme === "dark" ? (
-                  <>
-                    <circle cx="12" cy="12" r="4.5" />
-                    <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
-                  </>
-                ) : (
-                  <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
-                )}
-              </m.svg>
-            </AnimatePresence>
-          </m.button>
-          <button
-            className="icon-btn nav-toggle"
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-            </svg>
-          </button>
-        </div>
-      </nav>
+        <button className="nav__menu" aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          </svg>
+        </button>
+      </div>
     </header>
   );
 }

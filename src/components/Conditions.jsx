@@ -2,76 +2,64 @@ import { useState, useEffect } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { CONDITIONS, STATS } from "../data.jsx";
-import { SpineDiagram } from "./Illustrations.jsx";
-import { Reveal, Stagger, fadeUp, ease } from "../motion.jsx";
+import { Reveal } from "../motion.jsx";
+import Modes from "./Modes.jsx";
 
 export default function Conditions() {
   const [tab, setTab] = useState("cervical");
-  // Permite que la sección de anatomía abra directamente la pestaña correspondiente.
+  // La sección de anatomía puede abrir directamente la pestaña correspondiente.
   useEffect(() => {
     const onSelect = (e) => CONDITIONS[e.detail] && setTab(e.detail);
     window.addEventListener("select-condition", onSelect);
     return () => window.removeEventListener("select-condition", onSelect);
   }, []);
-  const current = CONDITIONS[tab];
+  const c = CONDITIONS[tab];
+
   return (
-    <section id="condiciones" className="section">
-      <div className="container">
-        <Reveal as="p" className="eyebrow">Cuando la columna duele</Reveal>
-        <Reveal as="h2">Cervicalgia y lumbalgia</Reveal>
-        <Reveal as="p" className="section-intro">
-          Las dos zonas más móviles de la columna, el cuello y la cintura, son también las que más duelen. En la mayoría
-          de los casos el dolor es mecánico: viene de músculos, articulaciones o discos, y mejora en pocas semanas.
-        </Reveal>
-        <div className="tabs" role="tablist">
-          {Object.entries(CONDITIONS).map(([key, c]) => (
-            <button
-              key={key}
-              role="tab"
-              aria-selected={tab === key}
-              className={`tab tab-${key}${tab === key ? " active" : ""}`}
-              onClick={() => setTab(key)}
-            >
-              {c.label}
-            </button>
+    <section id="condiciones" className="sec">
+      <div className="wrap">
+        <div className="head">
+          <Reveal as="h2">Cervicalgia y lumbalgia</Reveal>
+          <Reveal as="p" delay={0.1}>
+            Las zonas más móviles de la columna, el cuello y la cintura, son también las que más duelen. Casi siempre el
+            dolor es mecánico: viene de músculos, articulaciones o discos, y mejora en pocas semanas.
+          </Reveal>
+        </div>
+
+        <Modes
+          className="cond-modes"
+          label="Elegí la zona"
+          options={Object.entries(CONDITIONS).map(([k, v]) => [k, v.label])}
+          value={tab}
+          onChange={setTab}
+        />
+
+        <AnimatePresence mode="wait" initial={false}>
+          <m.div key={tab} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3 }}>
+            <p className="cond-intro">{c.intro}</p>
+            <div className="cols3">
+              {c.cards.map((card) => (
+                <div key={card.title}>
+                  <h4>{card.title}</h4>
+                  <ul className="list">
+                    {card.items.map((i) => (
+                      <li key={i}>{i}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </m.div>
+        </AnimatePresence>
+
+        <div className="figures">
+          {STATS.map((s, i) => (
+            <Reveal key={s.num} delay={i * 0.08}>
+              <strong>{s.num}</strong>
+              <span>{s.txt}</span>
+            </Reveal>
           ))}
         </div>
-        <div role="tabpanel" className="condition-layout">
-          <div className="condition-art">
-            <SpineDiagram zone={tab} />
-          </div>
-          <AnimatePresence mode="wait" initial={false}>
-            <m.div
-              key={tab}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -24 }}
-              transition={{ duration: 0.35, ease }}
-            >
-              <p className="panel-intro">{current.intro}</p>
-              <Stagger className="cards" inView={false} gap={0.08} delay={0.05}>
-                {current.cards.map((card) => (
-                  <m.article variants={fadeUp} className={`card card-${tab}`} key={card.title}>
-                    <h3>{card.title}</h3>
-                    <ul>
-                      {card.items.map((i) => (
-                        <li key={i}>{i}</li>
-                      ))}
-                    </ul>
-                  </m.article>
-                ))}
-              </Stagger>
-            </m.div>
-          </AnimatePresence>
-        </div>
-        <Stagger className="stat-row" gap={0.12}>
-          {STATS.map((s) => (
-            <m.div variants={fadeUp} className="stat" key={s.num}>
-              <span className="stat-num">{s.num}</span>
-              <span className="stat-txt">{s.txt}</span>
-            </m.div>
-          ))}
-        </Stagger>
       </div>
     </section>
   );

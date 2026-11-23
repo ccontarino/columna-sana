@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { PAUSE_TIPS } from "../data.jsx";
-import { Reveal, ease } from "../motion.jsx";
+import { Reveal } from "../motion.jsx";
 
 const TITLE = "Columna Sana · Tu columna, cervicalgia y lumbalgia";
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -12,7 +12,7 @@ export default function PauseTimer() {
   const [remaining, setRemaining] = useState(30 * 60);
   const [running, setRunning] = useState(false);
   const [tip, setTip] = useState(null);
-  // Guardamos el instante objetivo: el timer no se desfasa si el navegador pausa la pestaña.
+  // Se guarda el instante objetivo para que no se desfase si el navegador pausa la pestaña.
   const endRef = useRef(0);
 
   useEffect(() => {
@@ -25,15 +25,11 @@ export default function PauseTimer() {
       if (left <= 0) {
         const t = PAUSE_TIPS[Math.floor(Math.random() * PAUSE_TIPS.length)];
         setTip(t);
-        if ("Notification" in window && Notification.permission === "granted") {
-          new Notification("Pausa activa · Columna Sana", { body: t });
-        }
+        if ("Notification" in window && Notification.permission === "granted") new Notification("Pausa activa · Columna Sana", { body: t });
         navigator.vibrate?.([200, 100, 200]);
         endRef.current = Date.now() + minutes * 60 * 1000;
         setRemaining(minutes * 60);
-      } else {
-        setRemaining(left);
-      }
+      } else setRemaining(left);
     }, 1000);
     return () => clearInterval(id);
   }, [running, minutes]);
@@ -43,69 +39,60 @@ export default function PauseTimer() {
   }, [remaining, running]);
 
   const start = () => {
-    if (running) {
-      setRunning(false);
-      return;
-    }
+    if (running) return setRunning(false);
     if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
     endRef.current = Date.now() + remaining * 1000;
     setTip(null);
     setRunning(true);
   };
-
-  const reset = (m = minutes) => {
+  const reset = (mm = minutes) => {
     setRunning(false);
     setTip(null);
-    setRemaining(m * 60);
+    setRemaining(mm * 60);
   };
 
   return (
-    <section id="pausas" className="section">
-      <div className="container narrow">
-        <Reveal as="p" className="eyebrow">Hábitos</Reveal>
-        <Reveal as="h2">Pausas activas</Reveal>
-        <Reveal as="p" className="section-intro">
-          Configurá un recordatorio para levantarte y moverte. Dejá esta pestaña abierta mientras trabajás.
-        </Reveal>
-        <Reveal className="timer-card">
-          <m.div className="timer-display" animate={running ? { scale: [1, 1.015, 1] } : { scale: 1 }} transition={running ? { duration: 1, repeat: Infinity, ease } : {}}>
-            {fmt(remaining)}
-          </m.div>
-          <div className="timer-controls">
-            <label htmlFor="timer-minutes">Cada</label>
-            <select
-              id="timer-minutes"
-              value={minutes}
-              onChange={(e) => {
-                const m = Number(e.currentTarget.value);
-                setMinutes(m);
-                reset(m);
-              }}
-            >
-              {[20, 30, 45, 60].map((m) => (
-                <option key={m} value={m}>
-                  {m} min
-                </option>
-              ))}
-            </select>
-            <button className="btn btn-primary" onClick={start}>
-              {running ? "Pausar" : remaining < minutes * 60 ? "Continuar" : "Iniciar"}
-            </button>
-            <button className="btn btn-ghost" onClick={() => reset()}>
-              Reiniciar
-            </button>
-          </div>
-          <AnimatePresence>
-            {tip && (
-              <m.div
-                className="timer-tip"
-                initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 380, damping: 24 }}
+    <section id="pausas" className="sec">
+      <div className="wrap">
+        <div className="head">
+          <Reveal as="h2">Pausas activas</Reveal>
+          <Reveal as="p" delay={0.1}>
+            La mejor postura es la próxima. Configurá un recordatorio para levantarte y moverte, y dejá esta pestaña
+            abierta mientras trabajás.
+          </Reveal>
+        </div>
+        <Reveal className="timer">
+          <div>
+            <div className="timer__num">{fmt(remaining)}</div>
+            <div className="timer__ctrl">
+              <select
+                aria-label="Intervalo"
+                value={minutes}
+                onChange={(e) => {
+                  const v = Number(e.currentTarget.value);
+                  setMinutes(v);
+                  reset(v);
+                }}
               >
-                ¡Hora de moverse! {tip}
-              </m.div>
+                {[20, 30, 45, 60].map((v) => (
+                  <option key={v} value={v}>Cada {v} min</option>
+                ))}
+              </select>
+              <button className="btn" onClick={start}>
+                {running ? "Pausar" : remaining < minutes * 60 ? "Continuar" : "Iniciar"}
+              </button>
+              <button className="btn btn--ghost" onClick={() => reset()}>Reiniciar</button>
+            </div>
+          </div>
+          <AnimatePresence mode="wait">
+            {tip ? (
+              <m.p key={tip} className="timer__tip" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
+                Hora de moverse. {tip}
+              </m.p>
+            ) : (
+              <m.p key="idle" className="muted" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                Cuando se cumpla el tiempo vas a ver acá una sugerencia de movimiento y, si lo permitís, una notificación.
+              </m.p>
             )}
           </AnimatePresence>
         </Reveal>

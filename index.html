@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0f766e" />
-  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#101B27" />
+  <meta name="color-scheme" content="light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <title>Columna Sana · Tu columna, cervicalgia y lumbalgia</title>
   <meta name="description" content="Guía interactiva de la columna vertebral: cómo está formada, discos y nervios, y después cervicalgia y lumbalgia con señales de alarma, ejercicios y ergonomía." />
   <meta property="og:type" content="website" />
@@ -14,14 +17,6 @@
   <meta property="og:locale" content="es_AR" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="manifest" href="/manifest.webmanifest" />
-  <script>
-    // Aplica el tema antes de pintar para evitar parpadeo.
-    try {
-      var t = localStorage.getItem("theme");
-      document.documentElement.dataset.theme =
-        t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    } catch (e) {}
-  </script>
 </head>
 <body>
   <div id="app"></div>
