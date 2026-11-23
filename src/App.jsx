@@ -12,9 +12,10 @@ import PauseTimer from "./components/PauseTimer.jsx";
 import Faq from "./components/Faq.jsx";
 import { ReadingSpine } from "./components/ErSpine.jsx";
 import { useT } from "./i18n.jsx";
+import { ZoneProvider } from "./zone.jsx";
 
-// La web se organiza en capítulos temáticos:
-// 01 Tu columna · 02 Cuello · 03 Zona lumbar · 04 Cuándo consultar · 05 Hábitos · Preguntas
+// Se entra por el dolor y la anatomía queda para profundizar:
+// 01 Tu dolor · 02 Qué hacer hoy · 03 Cuándo consultar · 04 Hábitos · 05 Tu columna · Preguntas
 export default function App() {
   const t = useT();
   const ch = t.ui.chapters;
@@ -22,27 +23,20 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <LazyMotion features={domAnimation} strict>
+        <ZoneProvider>
         <Header />
         <ReadingSpine />
         <main>
           <Hero />
 
-          <div id="columna">
-            <Chapter {...ch.columna} />
-            <Anatomy />
-            <VertebraDetail />
+          <div id="dolor">
+            <Chapter {...ch.dolor} />
+            <Condition />
           </div>
 
-          <div id="cuello">
-            <Chapter {...ch.cuello} />
-            <Condition zone="cervical" id="cervicalgia" />
-            <Exercises zone="cervical" id="ejercicios-cuello" />
-          </div>
-
-          <div id="lumbar">
-            <Chapter {...ch.lumbar} />
-            <Condition zone="lumbar" id="lumbalgia" />
-            <Exercises zone="lumbar" id="ejercicios-lumbar" />
+          <div id="ejercicios">
+            <Chapter {...ch.ejercicios} />
+            <Exercises />
           </div>
 
           <div id="consultar">
@@ -54,6 +48,12 @@ export default function App() {
             <Chapter {...ch.habitos} />
             <Ergonomics />
             <PauseTimer />
+          </div>
+
+          <div id="columna">
+            <Chapter {...ch.columna} />
+            <Anatomy />
+            <VertebraDetail />
           </div>
 
           <Faq />
@@ -72,7 +72,7 @@ export default function App() {
                 <div>
                   <dt>{f.chapters}</dt>
                   <dd>
-                    {["columna", "cuello", "lumbar", "consultar", "habitos"].map((id, i) => (
+                    {["dolor", "ejercicios", "consultar", "habitos", "columna"].map((id, i) => (
                       <span key={id}>{i > 0 && " · "}<a href={`#${id}`}>{ch[id].title}</a></span>
                     ))}
                   </dd>
@@ -85,6 +85,7 @@ export default function App() {
             <span>{f.note}</span>
           </div>
         </footer>
+        </ZoneProvider>
       </LazyMotion>
     </MotionConfig>
   );

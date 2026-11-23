@@ -3,12 +3,12 @@
 export const UI = {
   es: {
     meta: {
-      title: "Columna Sana · Tu columna, cervicalgia y lumbalgia",
+      title: "Columna Sana · Dolor de cuello y de espalda baja",
       description:
-        "Guía interactiva de la columna vertebral: cómo está formada, y después cervicalgia y lumbalgia con señales de alarma, ejercicios y ergonomía.",
+        "Guía práctica para el dolor de cuello (cervicalgia) y de espalda baja (lumbalgia): qué es, qué hacer hoy, ejercicios, cuándo consultar y cómo está formada la columna.",
     },
     nav: {
-      links: { columna: "Tu columna", cuello: "Cuello", lumbar: "Zona lumbar", habitos: "Hábitos", faq: "Preguntas" },
+      links: { dolor: "Tu dolor", ejercicios: "Ejercicios", habitos: "Hábitos", columna: "Tu columna", faq: "Preguntas" },
       cta: "Cuándo consultar",
       skip: "Saltar al contenido",
       open: "Abrir menú",
@@ -17,22 +17,23 @@ export const UI = {
       lang: "Idioma",
     },
     hero: {
-      meta: "Guía práctica de la columna vertebral",
-      h1: "Conocé tu columna, del cuello a la espalda baja",
-      lead: "Primero, cómo está formada: vértebras, discos, médula y nervios. Después, los dos dolores más frecuentes, la cervicalgia y la lumbalgia, cuándo preocuparse y qué podés hacer hoy.",
-      explore: "Explorar la columna",
-      conditions: "Cervicalgia y lumbalgia",
-      factsTitle: "La columna en números",
+      meta: "Guía práctica de la columna",
+      h1: "¿Te duele el cuello o la espalda baja?",
+      lead: "Casi siempre mejora con movimiento y tiempo. Elegí la zona y te contamos qué es, qué podés hacer hoy y cuándo conviene consultar.",
+      pick: { cervical: "Me duele el cuello", lumbar: "Me duele la espalda baja" },
+      explore: "O entendé cómo es tu columna",
+      factsTitle: "El dolor de espalda en números",
       note: "Información general. No reemplaza la consulta médica.",
       spineAria: "Columna vertebral en 3D con sus regiones: cervical, dorsal, lumbar y sacro.",
     },
     regionLabels: { cervical: "Cervical", dorsal: "Dorsal", lumbar: "Lumbar", sacro: "Sacro" },
+    zone: { aria: "Zona del dolor", cervical: "Cuello", lumbar: "Espalda baja" },
     chapters: {
-      columna: { n: "01", title: "Tu columna", lead: "Cómo está formada, qué la hace fuerte y flexible, y qué pasa dentro de cada segmento." },
-      cuello: { n: "02", title: "Cuello: cervicalgia", lead: "El dolor de cuello es muy frecuente y casi siempre mejora con movimiento, buena postura y tiempo." },
-      lumbar: { n: "03", title: "Zona lumbar: lumbalgia", lead: "La causa más común de dolor de espalda. Moverse, más que hacer reposo, es lo que más ayuda." },
-      consultar: { n: "04", title: "Cuándo consultar", lead: "Algunas señales indican que conviene que te vea un médico." },
-      habitos: { n: "05", title: "Hábitos que cuidan tu columna", lead: "Pequeños ajustes en el escritorio y pausas para moverte reducen la carga del día a día." },
+      dolor: { n: "01", title: "Tu dolor", lead: "Qué es, por qué aparece y qué suele ayudar. Cambiá de zona cuando quieras." },
+      ejercicios: { n: "02", title: "Qué hacer hoy", lead: "Ejercicios suaves, cada uno con su temporizador. Moverse, más que hacer reposo, es lo que más ayuda." },
+      columna: { n: "05", title: "Tu columna", lead: "Para entender por qué duele: cómo está formada, qué la hace fuerte y flexible, y qué pasa dentro de cada segmento." },
+      consultar: { n: "03", title: "Cuándo consultar", lead: "Algunas señales indican que conviene que te vea un médico." },
+      habitos: { n: "04", title: "Hábitos que cuidan tu columna", lead: "Pequeños ajustes en el escritorio y pausas para moverte reducen la carga del día a día." },
     },
     anatomy: {
       h2: "¿Cómo está formada la columna?",
@@ -63,7 +64,7 @@ export const UI = {
     },
     condition: { cervical: "¿Qué es la cervicalgia?", lumbar: "¿Qué es la lumbalgia?" },
     exercises: {
-      title: { cervical: "Ejercicios para el cuello", lumbar: "Ejercicios para la zona lumbar" },
+      title: { cervical: "Ejercicios para el cuello", lumbar: "Ejercicios para la espalda baja" },
       lead: (zone, alarm) => (
         <>
           Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por{" "}
@@ -127,12 +128,12 @@ export const UI = {
 
   en: {
     meta: {
-      title: "Columna Sana · Your spine, neck pain and low back pain",
+      title: "Columna Sana · Neck pain and low back pain",
       description:
-        "An interactive guide to the spine: how it is built, then neck pain and low back pain with warning signs, exercises and ergonomics.",
+        "A practical guide to neck pain and low back pain: what it is, what to do today, exercises, when to see a doctor and how the spine is built.",
     },
     nav: {
-      links: { columna: "Your spine", cuello: "Neck", lumbar: "Lower back", habitos: "Habits", faq: "FAQ" },
+      links: { dolor: "Your pain", ejercicios: "Exercises", habitos: "Habits", columna: "Your spine", faq: "FAQ" },
       cta: "When to see a doctor",
       skip: "Skip to content",
       open: "Open menu",
@@ -141,22 +142,23 @@ export const UI = {
       lang: "Language",
     },
     hero: {
-      meta: "A practical guide to the spine",
-      h1: "Get to know your spine, from neck to lower back",
-      lead: "First, how it is built: vertebrae, discs, spinal cord and nerves. Then the two most common kinds of pain, neck pain and low back pain, when to worry and what you can do today.",
-      explore: "Explore the spine",
-      conditions: "Neck and low back pain",
-      factsTitle: "The spine in numbers",
+      meta: "A practical guide to your spine",
+      h1: "Does your neck or lower back hurt?",
+      lead: "It almost always gets better with movement and time. Pick the area and we will explain what it is, what you can do today and when to see a doctor.",
+      pick: { cervical: "My neck hurts", lumbar: "My lower back hurts" },
+      explore: "Or learn how your spine works",
+      factsTitle: "Back pain in numbers",
       note: "General information. It does not replace a medical consultation.",
       spineAria: "3D spine showing its regions: cervical, thoracic, lumbar and sacrum.",
     },
     regionLabels: { cervical: "Cervical", dorsal: "Thoracic", lumbar: "Lumbar", sacro: "Sacrum" },
+    zone: { aria: "Pain area", cervical: "Neck", lumbar: "Lower back" },
     chapters: {
-      columna: { n: "01", title: "Your spine", lead: "How it is built, what makes it strong and flexible, and what happens inside each segment." },
-      cuello: { n: "02", title: "Neck: neck pain", lead: "Neck pain is very common and almost always improves with movement, good posture and time." },
-      lumbar: { n: "03", title: "Lower back: low back pain", lead: "The most common cause of back pain. Staying active, rather than resting, is what helps most." },
-      consultar: { n: "04", title: "When to see a doctor", lead: "Some signs mean it is a good idea to have a doctor check you." },
-      habitos: { n: "05", title: "Habits that protect your spine", lead: "Small changes at your desk and regular movement breaks reduce everyday strain." },
+      dolor: { n: "01", title: "Your pain", lead: "What it is, why it happens and what usually helps. Switch areas at any time." },
+      ejercicios: { n: "02", title: "What to do today", lead: "Gentle exercises, each with its own timer. Staying active, rather than resting, is what helps most." },
+      columna: { n: "05", title: "Your spine", lead: "To understand why it hurts: how it is built, what makes it strong and flexible, and what happens inside each segment." },
+      consultar: { n: "03", title: "When to see a doctor", lead: "Some signs mean it is a good idea to have a doctor check you." },
+      habitos: { n: "04", title: "Habits that protect your spine", lead: "Small changes at your desk and regular movement breaks reduce everyday strain." },
     },
     anatomy: {
       h2: "How is the spine built?",

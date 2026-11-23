@@ -1,39 +1,45 @@
+import * as m from "motion/react-m";
 import { useT } from "../i18n.jsx";
-import { Reveal } from "../motion.jsx";
+import { useZone } from "../zone.jsx";
+import ZoneSwitch from "./ZoneSwitch.jsx";
 
-// Qué es, causas, síntomas y qué ayuda para una zona (cervical o lumbar).
-export default function Condition({ zone, id }) {
+// Qué es, causas, síntomas y qué ayuda para la zona elegida (cuello o espalda baja).
+export default function Condition() {
   const t = useT();
+  const { zone } = useZone();
   const c = t.CONDITIONS[zone];
   return (
-    <section id={id} className="sec sec--tight">
+    <section id="que-es" className="sec sec--tight">
       <div className="wrap">
         <div className="head">
-          <Reveal as="h2">{t.ui.condition[zone]}</Reveal>
-          <Reveal as="p" delay={0.1}>{c.intro}</Reveal>
+          <div>
+            <ZoneSwitch />
+            <m.h2 key={zone} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+              {t.ui.condition[zone]}
+            </m.h2>
+          </div>
+          <m.p key={zone} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35, delay: 0.05 }}>
+            {c.intro}
+          </m.p>
         </div>
-        <div className="cols3">
-          {c.cards.map((card, i) => (
-            <Reveal key={card.title} delay={i * 0.06}>
+        <m.div
+          key={zone}
+          className="cols3"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.08 }}
+        >
+          {c.cards.map((card) => (
+            <div key={card.title}>
               <h4>{card.title}</h4>
               <ul className="list">
                 {card.items.map((it) => (
                   <li key={it}>{it}</li>
                 ))}
               </ul>
-            </Reveal>
+            </div>
           ))}
-        </div>
-        {zone === "lumbar" && (
-          <div className="figures">
-            {t.STATS.map((s, i) => (
-              <Reveal key={s.num} delay={i * 0.08}>
-                <strong>{s.num}</strong>
-                <span>{s.txt}</span>
-              </Reveal>
-            ))}
-          </div>
-        )}
+        </m.div>
       </div>
     </section>
   );

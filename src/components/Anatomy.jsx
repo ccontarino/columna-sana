@@ -5,6 +5,7 @@ import { useT } from "../i18n.jsx";
 import { HeroSpine, SPINE_REGIONS } from "./ErSpine.jsx";
 import { Reveal } from "../motion.jsx";
 import Modes from "./Modes.jsx";
+import { useZone } from "../zone.jsx";
 
 const ORDER = ["cervical", "dorsal", "lumbar", "sacro"];
 const COLOR = Object.fromEntries(SPINE_REGIONS.map((r) => [r.id, r.color]));
@@ -19,6 +20,7 @@ export default function Anatomy() {
   const t = useT();
   const ui = t.ui.anatomy;
   const REGIONS = t.REGIONS;
+  const { choose } = useZone();
   const [sel, setSel] = useState("cervical");
   const [angle, setAngle] = useState(32);
   const r = REGIONS[sel];
@@ -95,11 +97,20 @@ export default function Anatomy() {
               <div className="actions">
                 <button className="btn" onClick={() => setSel(ORDER[(idx + 1) % ORDER.length])}>{ui.next}</button>
                 {r.pain && (
-                  <a className="link" href={r.link === "cervical" ? "#cuello" : "#lumbar"}>{ui.seePain(r.pain)}</a>
+                  <a className="link" href="#dolor" onClick={() => choose(r.link)}>{ui.seePain(r.pain)}</a>
                 )}
               </div>
             </m.div>
           </AnimatePresence>
+        </div>
+
+        <div className="figures figures--top">
+          {t.SPINE_STATS.map((s, i) => (
+            <Reveal key={s.num} delay={i * 0.08}>
+              <strong>{s.num}</strong>
+              <span>{s.txt}</span>
+            </Reveal>
+          ))}
         </div>
 
         <div className="functions">

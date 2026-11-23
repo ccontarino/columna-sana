@@ -1,17 +1,17 @@
 # Columna Sana 🦴
 
-Guía web interactiva de la **columna vertebral**: cómo está formada, y después **cervicalgia** (dolor de cuello) y **lumbalgia** (dolor lumbar).
+Guía web práctica para el **dolor de cuello** (cervicalgia) y de **espalda baja** (lumbalgia): elegís la zona y ves qué es, qué hacer hoy y cuándo consultar. Al final, anatomía interactiva de la columna.
 
 🌐 **Sitio en vivo:** https://ccontarino.github.io/columna-sana/
 
 ## Qué incluye
 
 - **Anatomía interactiva**: columna de perfil con sus 4 regiones, curvaturas y médula; vértebra y disco vistos desde arriba con animación sano / protrusión / hernia.
-- **Ilustraciones SVG propias** (hero, cada ejercicio, puesto de trabajo, columna interactiva), **modo oscuro**, animaciones al scrollear y menú que marca la sección activa.
+- **Ilustraciones SVG propias** (hero, cada ejercicio, puesto de trabajo, columna interactiva), animaciones al scrollear y menú que marca la sección activa. Español e inglés.
 
-- **Condiciones**: qué son, causas, síntomas y qué ayuda (pestañas cervical / lumbar).
-- **Señales de alarma**: checklist interactivo de banderas rojas con orientación (guardia / turno / sin alarma).
-- **Ejercicios**: 9 ejercicios suaves filtrables por zona, con temporizador por ejercicio.
+- **Tu dolor**: qué es, causas, síntomas y qué ayuda, con selector cuello / espalda baja compartido con los ejercicios.
+- **Qué hacer hoy**: 9 ejercicios suaves por zona, con temporizador por ejercicio.
+- **Cuándo consultar**: señales de alarma como listas informativas.
 - **Ergonomía**: ajustes del puesto de trabajo.
 - **Pausas activas**: temporizador con notificaciones y sugerencias de movimiento.
 - **FAQ**: imágenes, reposo, frío/calor, analgésicos, hernias, estrés.

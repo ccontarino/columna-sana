@@ -3,6 +3,7 @@ import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
 import { Reveal } from "../motion.jsx";
+import { clock } from "./Exercises.jsx";
 
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
@@ -63,7 +64,7 @@ export default function PauseTimer() {
         </div>
         <Reveal className="timer">
           <div>
-            <div className="timer__num">{fmt(remaining)}</div>
+            <div className="timer__num">{clock(fmt(remaining))}</div>
             <div className="timer__ctrl">
               <select
                 aria-label={ui.interval}

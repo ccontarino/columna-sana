@@ -3,7 +3,7 @@ import { useActiveSection } from "../hooks.js";
 import { useLang } from "../i18n.jsx";
 import Modes from "./Modes.jsx";
 
-const LINK_IDS = ["columna", "cuello", "lumbar", "habitos", "faq"];
+const LINK_IDS = ["dolor", "ejercicios", "habitos", "columna", "faq"];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <header className={`nav${scrolled ? " nav--line" : ""}`}>
-      <a className="skip" href="#columna">{ui.skip}</a>
+      <a className="skip" href="#dolor">{ui.skip}</a>
       <div className="wrap nav__in">
         <a href="#top" className="nav__brand" aria-label={ui.home}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
