@@ -11,7 +11,7 @@ export default function ZoneSwitch() {
     <Modes
       className="zone-switch"
       label={ui.aria}
-      options={[["cervical", ui.cervical], ["lumbar", ui.lumbar]]}
+      options={[["lumbar", ui.lumbar], ["cervical", ui.cervical]]}
       value={zone}
       onChange={choose}
     />

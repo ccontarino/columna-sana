@@ -3,14 +3,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const HASH_ZONE = { "#cuello": "cervical", "#lumbar": "lumbar" };
-const Ctx = createContext({ zone: "cervical", choose: () => {} });
+const Ctx = createContext({ zone: "lumbar", choose: () => {} });
 
 function scrollToPain() {
   document.getElementById("dolor")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export function ZoneProvider({ children }) {
-  const [zone, setZone] = useState(() => HASH_ZONE[typeof location !== "undefined" ? location.hash : ""] || "cervical");
+  const [zone, setZone] = useState(() => HASH_ZONE[typeof location !== "undefined" ? location.hash : ""] || "lumbar"); // espalda baja primero: es el dolor más frecuente
 
   useEffect(() => {
     const onHash = () => {

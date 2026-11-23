@@ -12,7 +12,7 @@ const enter = (delay) => ({
   animate: { opacity: 1, y: 0 },
   transition: { delay, duration: 0.7, ease },
 });
-const ZONES = ["cervical", "lumbar"];
+const ZONES = ["lumbar", "cervical"]; // espalda baja primero: es el dolor más frecuente
 
 // Portada: se entra por el dolor. Elegir zona la marca en la columna y lleva a "Tu dolor".
 export default function Hero() {
