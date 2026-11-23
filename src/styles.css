@@ -207,6 +207,7 @@ button { font-family: inherit; }
 .ex { border-top: 1px solid var(--line); padding-top: 1.25rem; display: flex; flex-direction: column; }
 .ex__art { background: var(--soft); aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 1.5rem; margin-bottom: 1.2rem; }
 .ex__art .illus { max-height: 100%; }
+.sec--soft .ex__art, .sec--soft .ex__photo { background: #fff; }
 .ex__photo { position: relative; margin: 0 0 1.2rem; overflow: hidden; background: var(--soft); aspect-ratio: 4 / 3; }
 .ex__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter 0.5s, transform 0.8s var(--ease); }
 @media (hover: hover) {
