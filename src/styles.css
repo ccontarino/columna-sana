@@ -345,7 +345,10 @@ button { font-family: inherit; }
 .af .af-hl { stroke-width: 9; }
 .ex__art.cervical .af .af-hl { stroke: var(--cervical); }
 .ex__art.lumbar .af .af-hl { stroke: var(--lumbar); }
+.af .af-body { fill: var(--ink); stroke: #fff; stroke-width: 3; stroke-linejoin: round; }
 .af .af-blade { fill: var(--cervical); }
+.af .af-blade-g { transform-box: fill-box; transform-origin: center; }
+.af .af-ridge { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: 1.6; stroke-linecap: round; }
 .af .af-spine { stroke: rgba(255, 255, 255, 0.55); stroke-width: 2; stroke-dasharray: 3 4; }
 .af .af-face { fill: #fff; }
 .af .af-face-line { stroke: #fff; stroke-width: 1.8; }

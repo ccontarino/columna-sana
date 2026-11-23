@@ -68,20 +68,40 @@ function NeckRotation({ reduce }) {
 }
 
 // ---------- Retracción escapular (vista de espalda) ----------
+// Los omóplatos se deslizan hacia la columna y apenas hacia abajo; los hombros acompañan
+// yendo un poco atrás y abajo (sin subir). Las flechas aparecen mientras se sostiene.
 function Scapular({ reduce }) {
-  const t = loop(3.4);
-  const side = (dir) => (reduce ? { style: { x: 5 * dir } } : { variants: { rest: { x: 0 }, move: { x: kf(0, 5 * dir), transition: t } } });
+  const t = loop(4.2, [0, 0.22, 0.62, 0.84, 1]);
+  const blade = (dir) =>
+    reduce
+      ? { style: { x: 7 * dir, y: 2, rotate: -3 * dir } }
+      : { variants: { rest: { x: 0, y: 0, rotate: 0 }, move: { x: kf(0, 7 * dir), y: kf(0, 2), rotate: kf(0, -3 * dir), transition: t } } };
+  const cue = (dir) =>
+    reduce
+      ? { style: { opacity: 1, x: 3 * dir } }
+      : { variants: { rest: { opacity: 0.25, x: 0 }, move: { opacity: kf(0.25, 1), x: kf(0, 3 * dir), transition: t } } };
   return (
     <>
-      <circle className="af-head" cx="100" cy="46" r="17" />
-      <path className="af-limb" d="M100 64 L100 82" />
-      <path className="af-fill" d="M62 92 Q100 80 138 92 L130 140 L70 140 Z" />
-      <path className="af-limb" d="M64 96 L58 140 M136 96 L142 140" />
-      <path className="af-spine" d="M100 88 L100 138" />
-      <m.path {...side(1)} className="af-blade" d="M76 98 L94 102 L84 126 Z" />
-      <m.path {...side(-1)} className="af-blade" d="M124 98 L106 102 L116 126 Z" />
-      <path className="af-arrow" d="M40 112 L58 112" markerEnd="url(#af-arrow)" />
-      <path className="af-arrow" d="M160 112 L142 112" markerEnd="url(#af-arrow)" />
+      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-limb"
+        a="M55 74 L47 136" b="M58 77 L51 136" />
+      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-limb"
+        a="M145 74 L153 136" b="M142 77 L149 136" />
+      <path className="af-limb" d="M100 44 L100 58" />
+      <circle className="af-head" cx="100" cy="30" r="14" />
+      <Anim reduce={reduce} as="path" attr="d" t={t} className="af-body"
+        a="M80 57 Q100 52 120 57 L139 64 Q147 68 145 79 L131 140 L69 140 L55 79 Q53 68 61 64 Z"
+        b="M81 59 Q100 54 119 59 L136 67 Q144 71 142 82 L131 140 L69 140 L58 82 Q56 71 64 67 Z" />
+      <path className="af-spine" d="M100 62 L100 136" />
+      <m.g {...blade(1)} className="af-blade-g">
+        <path className="af-blade" d="M84 69 L69 67 Q64 68 66 73 Q71 90 79 103 Q82 107 84 103 Z" />
+        <path className="af-ridge" d="M84 78 L68 71" />
+      </m.g>
+      <m.g {...blade(-1)} className="af-blade-g">
+        <path className="af-blade" d="M116 69 L131 67 Q136 68 134 73 Q129 90 121 103 Q118 107 116 103 Z" />
+        <path className="af-ridge" d="M116 78 L132 71" />
+      </m.g>
+      <m.path {...cue(1)} className="af-arrow" d="M30 60 L46 60" markerEnd="url(#af-arrow)" />
+      <m.path {...cue(-1)} className="af-arrow" d="M170 60 L154 60" markerEnd="url(#af-arrow)" />
     </>
   );
 }
