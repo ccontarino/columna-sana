@@ -64,7 +64,6 @@ export default function App() {
               <div>
                 <span className="kicker" style={{ color: "rgba(255,255,255,.6)" }}>{f.kicker}</span>
                 <h2>{f.h2}</h2>
-                <a className="cto__big" href="tel:107">{f.call}</a>
                 <p className="cto__hint">{f.hint}</p>
               </div>
               <dl className="cto__list">
