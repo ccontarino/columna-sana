@@ -1,14 +1,15 @@
-import { CONDITIONS, STATS } from "../data.jsx";
+import { useT } from "../i18n.jsx";
 import { Reveal } from "../motion.jsx";
 
 // Qué es, causas, síntomas y qué ayuda para una zona (cervical o lumbar).
 export default function Condition({ zone, id }) {
-  const c = CONDITIONS[zone];
+  const t = useT();
+  const c = t.CONDITIONS[zone];
   return (
     <section id={id} className="sec sec--tight">
       <div className="wrap">
         <div className="head">
-          <Reveal as="h2">{zone === "cervical" ? "¿Qué es la cervicalgia?" : "¿Qué es la lumbalgia?"}</Reveal>
+          <Reveal as="h2">{t.ui.condition[zone]}</Reveal>
           <Reveal as="p" delay={0.1}>{c.intro}</Reveal>
         </div>
         <div className="cols3">
@@ -25,7 +26,7 @@ export default function Condition({ zone, id }) {
         </div>
         {zone === "lumbar" && (
           <div className="figures">
-            {STATS.map((s, i) => (
+            {t.STATS.map((s, i) => (
               <Reveal key={s.num} delay={i * 0.08}>
                 <strong>{s.num}</strong>
                 <span>{s.txt}</span>

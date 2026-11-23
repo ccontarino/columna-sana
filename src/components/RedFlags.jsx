@@ -1,8 +1,11 @@
-import { RED_FLAGS } from "../data.jsx";
+import { useT } from "../i18n.jsx";
 import { Reveal } from "../motion.jsx";
 
 // Señales de alarma como listas informativas, sin checklist ni veredicto automático.
 export default function RedFlags() {
+  const t = useT();
+  const ui = t.ui.flags;
+  const RED_FLAGS = t.RED_FLAGS;
   const group = (lvl, title, sub) => (
     <Reveal className={`flag-group ${lvl}`}>
       <h3>{title}</h3>
@@ -19,15 +22,12 @@ export default function RedFlags() {
     <section id="alarma" className="sec">
       <div className="wrap">
         <div className="head">
-          <Reveal as="h2">Señales de alarma</Reveal>
-          <Reveal as="p" delay={0.1}>
-            Estas señales, llamadas “banderas rojas”, no significan que algo grave esté pasando, pero sí que conviene
-            que te evalúe un médico.
-          </Reveal>
+          <Reveal as="h2">{ui.h2}</Reveal>
+          <Reveal as="p" delay={0.1}>{ui.lead}</Reveal>
         </div>
         <div className="flags">
-          {group("urgent", "Requieren atención inmediata", "Consultá sin demora.")}
-          {group("soon", "Consultá en los próximos días", "Pedí un turno con tu médico.")}
+          {group("urgent", ui.urgent, ui.urgentSub)}
+          {group("soon", ui.soon, ui.soonSub)}
         </div>
       </div>
     </section>

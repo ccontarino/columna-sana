@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import * as m from "motion/react-m";
-import { EXERCISES } from "../data.jsx";
+import { useT } from "../i18n.jsx";
 import { ExerciseFigure } from "./Illustrations.jsx";
 import { Reveal, fadeUp, stagger } from "../motion.jsx";
 import { AnimatedExercise, HAS_ANIMATION } from "./AnimatedFigures.jsx";
@@ -12,7 +12,7 @@ const COLOR = { cervical: "var(--cervical)", lumbar: "var(--lumbar)" };
 const pexels = (id, w) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${Math.round(w * 0.75)}`;
 
-function Exercise({ e }) {
+function Exercise({ e, ui }) {
   const [left, setLeft] = useState(null);
   useEffect(() => {
     if (left === null) return;
@@ -30,28 +30,28 @@ function Exercise({ e }) {
             src={pexels(e.photo.id, 640)}
             srcSet={`${pexels(e.photo.id, 480)} 480w, ${pexels(e.photo.id, 960)} 960w`}
             sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 360px"
-            alt={`Persona haciendo el ejercicio: ${e.name}`}
+            alt={ui.alt(e.name)}
             width="640"
             height="480"
             loading="lazy"
             decoding="async"
           />
           <figcaption>
-            Foto: <a href={e.photo.page} target="_blank" rel="noreferrer">{e.photo.author}</a> · Pexels
+            {ui.photo}: <a href={e.photo.page} target="_blank" rel="noreferrer">{e.photo.author}</a> · Pexels
           </figcaption>
         </figure>
       ) : (
         <div className={`ex__art ${e.zone}`}>
           {HAS_ANIMATION(e.id) ? (
-            <AnimatedExercise id={e.id} title={`Animación del ejercicio: ${e.name}`} />
+            <AnimatedExercise id={e.id} title={ui.anim(e.name)} />
           ) : (
-            <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
+            <ExerciseFigure id={e.id} title={ui.ill(e.name)} />
           )}
         </div>
       )}
       <p className="ex__tag">
         <i style={{ background: COLOR[e.zone] }} />
-        {e.zone === "cervical" ? "Cuello" : "Zona lumbar"}
+        {ui.tag[e.zone]}
       </p>
       <h3>{e.name}</h3>
       <ol>
@@ -62,7 +62,7 @@ function Exercise({ e }) {
       <div className="ex__foot">
         <span className="ex__dose">{e.dose}</span>
         <button className="btn btn--ghost btn--sm" onClick={() => setLeft(running ? null : e.seconds)}>
-          {left === null ? `Iniciar ${fmt(e.seconds)}` : left < 0 ? "Listo" : `Detener ${fmt(left)}`}
+          {left === null ? ui.start(fmt(e.seconds)) : left < 0 ? ui.done : ui.stop(fmt(left))}
         </button>
       </div>
       <div className="ex__bar" aria-hidden="true">
@@ -73,20 +73,21 @@ function Exercise({ e }) {
 }
 
 export default function Exercises({ zone, id }) {
-  const list = EXERCISES.filter((e) => e.zone === zone);
+  const t = useT();
+  const ui = t.ui.exercises;
+  const list = t.EXERCISES.filter((e) => e.zone === zone);
   return (
     <section id={id} className="sec sec--soft">
       <div className="wrap">
         <div className="head">
-          <Reveal as="h2">{zone === "cervical" ? "Ejercicios para el cuello" : "Ejercicios para la zona lumbar"}</Reveal>
+          <Reveal as="h2">{ui.title[zone]}</Reveal>
           <Reveal as="p" delay={0.1}>
-            Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por{" "}
-            {zone === "cervical" ? "el brazo" : "la pierna"}, pará. Si tenés alguna <a className="link" href="#alarma">señal de alarma</a>, consultá antes.
+            {ui.lead(zone, (txt) => <a className="link" href="#alarma">{txt}</a>)}
           </Reveal>
         </div>
         <m.div className="ex-grid" initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -5% 0px" }} variants={stagger(0.06)}>
           {list.map((e) => (
-            <Exercise e={e} key={e.id} />
+            <Exercise e={e} ui={ui} key={e.id} />
           ))}
         </m.div>
       </div>

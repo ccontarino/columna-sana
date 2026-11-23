@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import { useActiveSection } from "../hooks.js";
+import { useLang } from "../i18n.jsx";
+import Modes from "./Modes.jsx";
 
-const LINKS = [
-  ["columna", "Tu columna"],
-  ["cuello", "Cuello"],
-  ["lumbar", "Zona lumbar"],
-  ["habitos", "Hábitos"],
-  ["faq", "Preguntas"],
-];
+const LINK_IDS = ["columna", "cuello", "lumbar", "habitos", "faq"];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const active = useActiveSection([...LINKS.map(([id]) => id), "consultar"]);
+  const { lang, setLang, t } = useLang();
+  const ui = t.ui.nav;
+  const active = useActiveSection([...LINK_IDS, "consultar"]);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 8);
@@ -23,9 +21,9 @@ export default function Header() {
 
   return (
     <header className={`nav${scrolled ? " nav--line" : ""}`}>
-      <a className="skip" href="#columna">Saltar al contenido</a>
+      <a className="skip" href="#columna">{ui.skip}</a>
       <div className="wrap nav__in">
-        <a href="#top" className="nav__brand" aria-label="Columna Sana, inicio">
+        <a href="#top" className="nav__brand" aria-label={ui.home}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="9" y="1.5" width="6" height="4" rx="1.5" fill="#3E8FB0" />
             <rect x="8.5" y="7" width="7" height="4" rx="1.5" fill="#6E9F3F" />
@@ -35,16 +33,17 @@ export default function Header() {
           Columna <b>Sana</b>
         </a>
         <ul className={`nav__links${open ? " open" : ""}`} onClick={() => setOpen(false)}>
-          {LINKS.map(([id, label]) => (
+          {LINK_IDS.map((id) => (
             <li key={id}>
-              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>{label}</a>
+              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>{ui.links[id]}</a>
             </li>
           ))}
           <li>
-            <a href="#consultar" className="nav__cta" aria-current={active === "consultar" ? "true" : undefined}>Señales de alarma</a>
+            <a href="#consultar" className="nav__cta" aria-current={active === "consultar" ? "true" : undefined}>{ui.cta}</a>
           </li>
         </ul>
-        <button className="nav__menu" aria-label={open ? "Cerrar menú" : "Abrir menú"} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+        <Modes className="lang" label={ui.lang} options={[["es", "ES"], ["en", "EN"]]} value={lang} onChange={setLang} />
+        <button className="nav__menu" aria-label={open ? ui.close : ui.open} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
           </svg>

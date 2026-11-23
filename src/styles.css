@@ -307,6 +307,26 @@ button { font-family: inherit; }
 .af .af-arrow { stroke: var(--muted); stroke-width: 2.2; }
 .af .af-arrowhead { fill: var(--muted); }
 
+
+/* ========== Selector de idioma (nav) ========== */
+.nav .modes.lang { width: 92px; margin: 0 0 0 1.75rem; background: transparent; border-color: rgba(255, 255, 255, 0.25); flex: none; }
+.nav .modes.lang button { padding: 0.2rem 0.4rem; font: 600 0.78rem var(--font); color: rgba(255, 255, 255, 0.7); }
+.nav .modes.lang button[aria-pressed="true"] { color: var(--ink); }
+.nav .modes.lang .modes__pill { background: #fff; }
+.nav__in > .nav__links { margin-left: auto; }
+
+/* ========== Escritorio animado ========== */
+.desk-illus .hl-cervical, .desk-illus .hl-lumbar { fill: none; stroke-width: 6; stroke-linecap: round; }
+.desk-illus .hl-cervical { stroke: var(--cervical); }
+.desk-illus .hl-lumbar { stroke: var(--lumbar); }
+.desk-illus .sight.bad { stroke: var(--danger); }
+.desk-illus .warn-label { font: 600 10px var(--font); fill: var(--danger); }
+.desk-illus .marker { cursor: pointer; }
+.desk-illus .marker.active circle { fill: var(--green-ink); }
+.ergo__art .modes { margin-top: 1.5rem; }
+.rows > li { cursor: pointer; transition: padding 0.3s, box-shadow 0.3s; }
+.rows > li.is-active { padding-left: 0.75rem; box-shadow: inset 2px 0 0 var(--green); }
+
 /* ========== Pantallas chicas ========== */
 @media (max-width: 960px) {
   .nav__links { display: none; }
@@ -316,6 +336,7 @@ button { font-family: inherit; }
   }
   .nav__links.open a { display: block; padding: 0.8rem 0; font-size: 1.05rem; }
   .nav__menu { display: grid; place-items: center; }
+  .nav .modes.lang { margin-left: auto; margin-right: 0.5rem; }
   /* En celular: texto arriba, la columna grande y centrada, y después los datos */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
   .hero__text { padding: 2.5rem var(--gut) 0; }
