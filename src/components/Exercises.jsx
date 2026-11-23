@@ -7,6 +7,10 @@ import Modes from "./Modes.jsx";
 
 const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 const COLOR = { cervical: "var(--cervical)", lumbar: "var(--lumbar)" };
+// Fotos de Pexels (licencia gratuita, uso comercial sin atribución obligatoria; igual damos crédito).
+// Se sirven desde su CDN con el ancho justo para cada pantalla.
+const pexels = (id, w) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=${w}&h=${Math.round(w * 0.75)}`;
 
 function Exercise({ e }) {
   const [left, setLeft] = useState(null);
@@ -20,9 +24,27 @@ function Exercise({ e }) {
 
   return (
     <m.article className="ex" variants={fadeUp}>
-      <div className={`ex__art ${e.zone}`}>
-        <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
-      </div>
+      {e.photo ? (
+        <figure className="ex__photo">
+          <img
+            src={pexels(e.photo.id, 640)}
+            srcSet={`${pexels(e.photo.id, 480)} 480w, ${pexels(e.photo.id, 960)} 960w`}
+            sizes="(max-width: 560px) 92vw, (max-width: 960px) 45vw, 360px"
+            alt={`Persona haciendo el ejercicio: ${e.name}`}
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            Foto: <a href={e.photo.page} target="_blank" rel="noreferrer">{e.photo.author}</a> · Pexels
+          </figcaption>
+        </figure>
+      ) : (
+        <div className={`ex__art ${e.zone}`}>
+          <ExerciseFigure id={e.id} title={`Ilustración: ${e.name}`} />
+        </div>
+      )}
       <p className="ex__tag">
         <i style={{ background: COLOR[e.zone] }} />
         {e.zone === "cervical" ? "Cuello" : "Zona lumbar"}

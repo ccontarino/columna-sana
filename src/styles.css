@@ -204,7 +204,16 @@ button { font-family: inherit; }
 .ex-modes { max-width: 380px; margin-top: 2.5rem; }
 .ex-grid { margin-top: 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem 2.5rem; }
 .ex { border-top: 1px solid var(--line); padding-top: 1.25rem; display: flex; flex-direction: column; }
-.ex__art { background: var(--soft); padding: 1.2rem 1.5rem 0.6rem; margin-bottom: 1.2rem; }
+.ex__art { background: var(--soft); aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 1.5rem; margin-bottom: 1.2rem; }
+.ex__art .illus { max-height: 100%; }
+.ex__photo { position: relative; margin: 0 0 1.2rem; overflow: hidden; background: var(--soft); aspect-ratio: 4 / 3; }
+.ex__photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: filter 0.5s, transform 0.8s var(--ease); }
+@media (hover: hover) {
+  .ex__photo img { filter: grayscale(1); }
+  .ex:hover .ex__photo img { filter: grayscale(0); transform: scale(1.03); }
+}
+.ex__photo figcaption { position: absolute; right: 0; bottom: 0; padding: 0.25rem 0.55rem; background: rgba(255, 255, 255, 0.88); font-size: 0.72rem; color: var(--muted); }
+.ex__photo figcaption a { color: inherit; }
 .ex__tag { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
 .ex__tag i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.45rem; }
 .ex h3 { font-size: 1.15rem; margin-bottom: 0.7rem; }
