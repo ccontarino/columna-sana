@@ -4,11 +4,13 @@ import { HeroSpine } from "./ErSpine.jsx";
 import { useT } from "../i18n.jsx";
 import { useZone } from "../zone.jsx";
 
-const ease = [0.22, 0.61, 0.36, 1];
+import { ease } from "../motion.jsx";
+
+// Una sola entrada coreografiada: texto en cascada corta, la columna gira y el panel se abre detrás de las cifras.
 const enter = (delay) => ({
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.9, ease },
+  transition: { delay, duration: 0.7, ease },
 });
 const ZONES = ["cervical", "lumbar"];
 
@@ -22,10 +24,10 @@ export default function Hero() {
   return (
     <section id="top" className="hero">
       <div className="hero__text">
-        <m.p className="hero__meta" {...enter(0.1)}>{ui.meta}</m.p>
-        <m.h1 {...enter(0.2)}>{ui.h1}</m.h1>
-        <m.p className="hero__lead" {...enter(0.35)}>{ui.lead}</m.p>
-        <m.div className="hero__pick" {...enter(0.5)}>
+        <m.p className="hero__meta" {...enter(0.05)}>{ui.meta}</m.p>
+        <m.h1 {...enter(0.12)}>{ui.h1}</m.h1>
+        <m.p className="hero__lead" {...enter(0.22)}>{ui.lead}</m.p>
+        <m.div className="hero__pick" {...enter(0.32)}>
           {ZONES.map((z) => (
             <a
               key={z}
@@ -43,14 +45,14 @@ export default function Hero() {
             </a>
           ))}
         </m.div>
-        <m.a className="link hero__more" href="#columna" {...enter(0.6)}>{ui.explore}</m.a>
+        <m.a className="link hero__more" href="#columna" {...enter(0.42)}>{ui.explore}</m.a>
       </div>
 
       <m.div
         className="hero__spine"
         initial={{ opacity: 0, rotateY: -35, scale: 0.9 }}
         animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-        transition={{ duration: 1.6, ease, delay: 0.05 }}
+        transition={{ duration: 1.4, ease, delay: 0.05 }}
       >
         <HeroSpine nombres={t.ui.regionLabels} aria={ui.spineAria} selected={hover} />
       </m.div>
@@ -61,9 +63,9 @@ export default function Hero() {
           aria-hidden="true"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.1, ease }}
+          transition={{ duration: 0.9, ease, delay: 0.1 }}
         />
-        <m.div className="hero__card" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.9, ease }}>
+        <m.div className="hero__card" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.7, ease }}>
           <h2>{ui.factsTitle}</h2>
           <dl className="facts">
             {t.STATS.map((s) => (

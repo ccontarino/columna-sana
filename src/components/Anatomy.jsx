@@ -3,7 +3,7 @@ import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
 import { HeroSpine, SPINE_REGIONS } from "./ErSpine.jsx";
-import { Reveal } from "../motion.jsx";
+import { Reveal, swap } from "../motion.jsx";
 import Modes from "./Modes.jsx";
 import { useZone } from "../zone.jsx";
 
@@ -79,10 +79,7 @@ export default function Anatomy() {
             <m.div
               key={sel}
               className="detail"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
+              {...swap}
             >
               <p className="step">{ui.step(idx + 1, ORDER.length)}</p>
               <h3>{r.name}</h3>

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
-import { Reveal } from "../motion.jsx";
+import { Reveal, ease } from "../motion.jsx";
 import { clock } from "./Exercises.jsx";
 
 const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -87,11 +87,11 @@ export default function PauseTimer() {
           </div>
           <AnimatePresence mode="wait">
             {tip ? (
-              <m.p key={tip} className="timer__tip" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
+              <m.p key={tip} className="timer__tip" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0, transition: { duration: 0.3, ease } }} exit={{ opacity: 0, transition: { duration: 0.12 } }}>
                 {ui.tip} {tip}
               </m.p>
             ) : (
-              <m.p key="idle" className="muted" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{ui.idle}</m.p>
+              <m.p key="idle" className="muted" initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.24 } }} exit={{ opacity: 0, transition: { duration: 0.12 } }}>{ui.idle}</m.p>
             )}
           </AnimatePresence>
         </Reveal>

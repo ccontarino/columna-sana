@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence, useInView, useReducedMotion } from "motion/react";
 import { useT } from "../i18n.jsx";
-import { Reveal } from "../motion.jsx";
+import { Reveal, easeInOut } from "../motion.jsx";
 import Modes from "./Modes.jsx";
 
 // Escena de escritorio animada: alterna entre la postura a evitar (encorvado, pantalla baja)
@@ -41,7 +41,7 @@ const MARKERS = [
 
 function Desk({ mode, active, onMarker, label, ui }) {
   const p = POSE[mode];
-  const t = { duration: 0.9, ease: [0.22, 0.61, 0.36, 1] };
+  const t = { duration: 0.8, ease: easeInOut }; // la postura se corrige como un movimiento real
   const good = mode === "good";
   return (
     <svg viewBox="0 0 300 244" className="illus desk-illus" role="img" aria-label={label}>
@@ -85,8 +85,8 @@ function Desk({ mode, active, onMarker, label, ui }) {
           key={i}
           className={`marker${active === i ? " active" : ""}`}
           initial={false}
-          animate={{ opacity: good ? 1 : 0, scale: good ? (active === i ? 1.25 : 1) : 0.4 }}
-          transition={{ delay: good ? 0.6 + i * 0.08 : 0, type: "spring", stiffness: 300, damping: 20 }}
+          animate={{ opacity: good ? 1 : 0, scale: good ? (active === i ? 1.25 : 1) : 0.6 }}
+          transition={{ delay: good ? 0.55 + ([0, 0.07, 0.12, 0.17, 0.21, 0.25][i] ?? i * 0.05) : 0, type: "spring", duration: 0.4, bounce: 0.2 }}
           style={{ transformOrigin: `${x}px ${y}px` }}
           onMouseEnter={() => onMarker(i)}
         >

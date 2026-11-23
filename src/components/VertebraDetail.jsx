@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { useT } from "../i18n.jsx";
-import { Reveal, ease } from "../motion.jsx";
+import { Reveal, easeInOut, swap } from "../motion.jsx";
 import Modes from "./Modes.jsx";
 
 // Contorno del disco (vista superior). `b` abomba la parte posterior derecha.
@@ -45,7 +45,7 @@ export default function VertebraDetail() {
   const [state, setState] = useState("sano");
   const [part, setPart] = useState(0);
   const shape = STATE_SHAPES[state];
-  const tr = { duration: 0.7, ease };
+  const tr = { duration: 0.6, ease: easeInOut }; // el disco cambia de forma en el lugar
 
   return (
     <section id="vertebra" className="sec sec--soft">
@@ -112,7 +112,7 @@ export default function VertebraDetail() {
 
           <div className="detail">
             <AnimatePresence mode="wait" initial={false}>
-              <m.div key={part} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
+              <m.div key={part} {...swap}>
                 <p className="step">{ui.step(part + 1, VERTEBRA_PARTS.length)}</p>
                 <h3>{VERTEBRA_PARTS[part].title}</h3>
                 <p>{VERTEBRA_PARTS[part].text}</p>
@@ -120,7 +120,7 @@ export default function VertebraDetail() {
             </AnimatePresence>
             <h4>{ui.disc(DISC_STATES[state].label)}</h4>
             <AnimatePresence mode="wait" initial={false}>
-              <m.p key={state} className={`state-text ${state}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              <m.p key={state} className={`state-text ${state}`} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.2 } }} exit={{ opacity: 0, transition: { duration: 0.1 } }}>
                 {DISC_STATES[state].text}
               </m.p>
             </AnimatePresence>

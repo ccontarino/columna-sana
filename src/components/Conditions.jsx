@@ -1,4 +1,5 @@
 import * as m from "motion/react-m";
+import { swap } from "../motion.jsx";
 import { useT } from "../i18n.jsx";
 import { useZone } from "../zone.jsx";
 import ZoneSwitch from "./ZoneSwitch.jsx";
@@ -14,20 +15,19 @@ export default function Condition() {
         <div className="head">
           <div>
             <ZoneSwitch />
-            <m.h2 key={zone} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+            <m.h2 key={zone} initial={swap.initial} animate={swap.animate}>
               {t.ui.condition[zone]}
             </m.h2>
           </div>
-          <m.p key={zone} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35, delay: 0.05 }}>
+          <m.p key={zone} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.24, delay: 0.04 } }}>
             {c.intro}
           </m.p>
         </div>
         <m.div
           key={zone}
           className="cols3"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.08 }}
+          initial={swap.initial}
+          animate={{ ...swap.animate, transition: { ...swap.animate.transition, delay: 0.06 } }}
         >
           {c.cards.map((card) => (
             <div key={card.title}>

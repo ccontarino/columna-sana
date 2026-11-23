@@ -2,11 +2,18 @@
 // Se usa `m` + LazyMotion(domAnimation) en App.jsx para cargar solo las features necesarias.
 import * as m from "motion/react-m";
 
-export const ease = [0.22, 1, 0.36, 1];
+export const ease = [0.23, 1, 0.32, 1]; // ease-out fuerte: entradas y respuestas
+export const easeInOut = [0.65, 0, 0.35, 1]; // formas que cambian en pantalla
+// Cambio de estado (pestañas, zona): entra rápido, sale más rápido todavía.
+export const swap = {
+  initial: { opacity: 0, y: 6 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.24, ease } },
+  exit: { opacity: 0, y: -4, transition: { duration: 0.12, ease } },
+};
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease } },
 };
 
 export const stagger = (gap = 0.07, delay = 0) => ({
