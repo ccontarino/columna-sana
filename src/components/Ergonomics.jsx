@@ -61,7 +61,7 @@ function Desk({ mode, active, onMarker, label, ui }) {
       <AnimatePresence>
         {!good &&
           [
-            [ui.badHead, 140, 70, "start"],
+            [ui.badHead, 138, 58, "start"],
             [ui.badScreen, 232, 80, "end"],
             [ui.badBack, 58, 112, "end"],
           ].map(([txt, x, y, anchor], i) => (
