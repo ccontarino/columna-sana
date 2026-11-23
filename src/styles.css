@@ -33,6 +33,7 @@
   --ok-soft: #f1f6ec;
   --fig: #101b27;
   --prop: #a9b2ba;
+  --body-far: #9aa6b1; /* brazo y pierna del otro lado en los pictogramas */
   --font: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --max: 1240px;
   --gut: clamp(1.5rem, 4vw, 3.5rem);
@@ -332,15 +333,26 @@ button { font-family: inherit; }
 
 /* ========== Pictogramas animados ========== */
 .af { width: 100%; height: 100%; max-height: 220px; display: block; overflow: visible; }
-.af .af-limb, .af .af-torso, .af .af-hl, .af .af-prop, .af .af-ghost, .af .af-arrow, .af .af-face-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.af .af-limb { stroke: var(--ink); stroke-width: 8; }
-.af .af-back { opacity: 0.3; }
-.af .af-torso { stroke: var(--ink); stroke-width: 11; }
+/* Cuerpo con volumen: cada segmento es un trazo redondeado con su grosor. */
+.af .af-body, .af .af-far, .af .af-hl, .af .af-prop, .af .af-ghost, .af .af-arrow, .af .af-spine, .af .af-face-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.af .af-body { stroke: var(--ink); }
+.af .af-gap { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; }
+.af .af-gap.af-w-thigh { stroke-width: 19; }
+.af .af-gap.af-w-arm { stroke-width: 15; }
+.af path.af-body:not([class*="af-w-"]) { fill: var(--ink); stroke: none; } /* tronco de frente/espalda */
+.af .af-far { stroke: var(--body-far); }
 .af .af-head { fill: var(--ink); }
-.af .af-hl { stroke-width: 9; }
+.af .af-w-torso { stroke-width: 22; }
+.af .af-w-thigh { stroke-width: 15; }
+.af .af-w-shin { stroke-width: 12; }
+.af .af-w-foot { stroke-width: 8; }
+.af .af-w-arm { stroke-width: 11; }
+.af .af-w-fore { stroke-width: 9; }
+.af .af-w-neck { stroke-width: 10; }
 .ex__art.cervical .af .af-hl { stroke: var(--cervical); }
 .ex__art.lumbar .af .af-hl { stroke: var(--lumbar); }
 .af .af-blade { fill: var(--cervical); }
+.af .af-spine { stroke: rgba(255, 255, 255, 0.45); stroke-width: 2; stroke-dasharray: 3 4; }
 .af .af-face { fill: #fff; }
 .af .af-face-line { stroke: #fff; stroke-width: 1.8; }
 .af .af-prop { stroke: var(--prop); stroke-width: 5; }
