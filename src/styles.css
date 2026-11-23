@@ -187,19 +187,11 @@ button { font-family: inherit; }
 
 /* ========== Señales de alarma ========== */
 .flags { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; }
-.flags fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
-.flags legend { font-weight: 600; font-size: 1.15rem; margin-bottom: 1rem; padding: 0; }
-.flags legend span { display: block; font-weight: 400; color: var(--muted); font-size: 0.92rem; margin-top: 0.2rem; }
-.flags .group { border-top: 1px solid var(--line); }
-.flags label { display: flex; gap: 0.85rem; align-items: flex-start; padding: 0.85rem 0; border-bottom: 1px solid var(--line); cursor: pointer; font-size: 0.98rem; }
-.flags input { margin-top: 0.3rem; width: 17px; height: 17px; accent-color: var(--ink); flex-shrink: 0; cursor: pointer; }
-.flags .urgent legend::before, .flags .soon legend::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 0.6rem; vertical-align: 1px; }
-.flags .urgent legend::before { background: var(--danger); }
-.flags .soon legend::before { background: var(--warn); }
-.verdict { margin-top: 3rem; padding: 1.4rem 1.6rem; border-left: 3px solid var(--line); background: var(--soft); font-size: 1.05rem; position: sticky; bottom: 16px; }
-.verdict.urgent { border-color: var(--danger); background: var(--danger-soft); }
-.verdict.soon { border-color: var(--warn); background: var(--warn-soft); }
-.verdict.ok { border-color: var(--green); background: var(--ok-soft); }
+.flag-group h3 { font-size: 1.2rem; display: flex; align-items: center; gap: 0.6rem; }
+.flag-group h3::before { content: ""; width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.flag-group.urgent h3::before { background: var(--danger); }
+.flag-group.soon h3::before { background: var(--warn); }
+.flag-sub { color: var(--muted); font-size: 0.95rem; margin: 0.3rem 0 1rem; }
 
 /* ========== Ejercicios ========== */
 .ex-modes { max-width: 380px; margin-top: 2.5rem; }
