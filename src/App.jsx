@@ -57,7 +57,7 @@ export default function App() {
             <Chapter
               n="04"
               title="Cuándo consultar"
-              lead="Algunas señales indican que hay que ver a un médico pronto, o ir a la guardia hoy."
+              lead="Algunas señales indican que conviene que te vea un médico."
             />
             <RedFlags />
           </div>
