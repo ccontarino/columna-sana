@@ -80,8 +80,8 @@ export default function Exercises({ zone, id }) {
         <div className="head">
           <Reveal as="h2">{zone === "cervical" ? "Ejercicios para el cuello" : "Ejercicios para la zona lumbar"}</Reveal>
           <Reveal as="p" delay={0.1}>
-            Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por el{" "}
-            {zone === "cervical" ? "brazo" : "pierna"}, pará. Si tenés alguna <a className="link" href="#alarma">señal de alarma</a>, consultá antes.
+            Hacelos lento y sin forzar. Una molestia leve es aceptable; si el dolor aumenta o baja por{" "}
+            {zone === "cervical" ? "el brazo" : "la pierna"}, pará. Si tenés alguna <a className="link" href="#alarma">señal de alarma</a>, consultá antes.
           </Reveal>
         </div>
         <m.div className="ex-grid" initial="hidden" whileInView="show" viewport={{ once: true, margin: "0px 0px -5% 0px" }} variants={stagger(0.06)}>
