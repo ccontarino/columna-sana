@@ -1,11 +1,20 @@
 /* Lenguaje visual tomado de la web de ejemplo (santiago-erice-web):
    blanco, tinta azul noche, verde de acento, líneas finas en vez de tarjetas, mucho aire. */
+/* Schibsted Grotesk variable (OFL), subset latín, servida desde el propio sitio: sin pedidos a Google Fonts. */
+@font-face {
+  font-family: "Schibsted Grotesk";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/schibsted-grotesk.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 :root {
   --bg: #ffffff;
   --soft: #f4f6f7;
   --panel: #e3e9ed;
   --ink: #101b27;
-  --muted: #69737d;
+  --muted: #5f6973;
   --line: #e1e5e8;
   --green: #6e9f3f;
   --green-ink: #3f6420;
@@ -28,7 +37,12 @@
   --max: 1240px;
   --gut: clamp(1.5rem, 4vw, 3.5rem);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --select: rgba(167, 210, 122, 0.45);
+  accent-color: var(--green-ink);
+  caret-color: var(--green-ink);
+  scrollbar-color: #b9c1c8 transparent;
 }
+::selection { background: var(--select); color: var(--ink); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
@@ -98,7 +112,7 @@ button { font-family: inherit; }
   padding: 2rem 2rem 1.6rem; box-shadow: 0 12px 30px -18px rgba(16, 27, 39, 0.45);
 }
 .hero__card h2 { font-size: 1.05rem; color: var(--muted); font-weight: 500; letter-spacing: 0; margin-bottom: 0.8rem; }
-.facts > div { display: grid; grid-template-columns: 4.5rem 1fr; gap: 1rem; align-items: baseline; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+.facts > div { display: grid; grid-template-columns: 3.25rem 1fr; gap: 1rem; align-items: baseline; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
 .facts > div:first-child { border-top: 1px solid var(--line); }
 .facts dt { font-size: 2rem; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .facts dd { color: var(--muted); font-size: 0.95rem; line-height: 1.4; }
@@ -310,6 +324,7 @@ button { font-family: inherit; }
 
 /* ========== Selector de idioma (nav) ========== */
 .nav .modes.lang { width: 92px; margin: 0 0 0 1.75rem; background: transparent; border-color: rgba(255, 255, 255, 0.25); flex: none; }
+.nav .modes.lang button::after { content: ""; position: absolute; inset: -12px -2px; } /* área táctil ~44px sin agrandar el selector */
 .nav .modes.lang button { padding: 0.2rem 0.4rem; font: 600 0.78rem var(--font); color: rgba(255, 255, 255, 0.7); }
 .nav .modes.lang button[aria-pressed="true"] { color: var(--ink); }
 .nav .modes.lang .modes__pill { background: #fff; }
@@ -328,6 +343,10 @@ button { font-family: inherit; }
 .rows > li.is-active { padding-left: 0.75rem; box-shadow: inset 2px 0 0 var(--green); }
 
 /* ========== Pantallas chicas ========== */
+@media (max-width: 1180px) and (min-width: 961px) {
+  .nav__links { gap: 1.4rem; margin-left: 1.5rem; }
+  .nav .modes.lang { margin-left: 1.25rem; }
+}
 @media (max-width: 960px) {
   .nav__links { display: none; }
   .nav__links.open {

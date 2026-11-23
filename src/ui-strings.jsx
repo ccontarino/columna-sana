@@ -9,7 +9,7 @@ export const UI = {
     },
     nav: {
       links: { columna: "Tu columna", cuello: "Cuello", lumbar: "Zona lumbar", habitos: "Hábitos", faq: "Preguntas" },
-      cta: "Señales de alarma",
+      cta: "Cuándo consultar",
       skip: "Saltar al contenido",
       open: "Abrir menú",
       close: "Cerrar menú",
@@ -133,7 +133,7 @@ export const UI = {
     },
     nav: {
       links: { columna: "Your spine", cuello: "Neck", lumbar: "Lower back", habitos: "Habits", faq: "FAQ" },
-      cta: "Warning signs",
+      cta: "When to see a doctor",
       skip: "Skip to content",
       open: "Open menu",
       close: "Close menu",
