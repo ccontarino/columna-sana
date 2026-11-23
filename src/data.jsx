@@ -212,3 +212,56 @@ export const DISC_STATES = {
   protrusion: { label: "Protrusión", text: "El disco se abomba hacia atrás, pero el núcleo sigue contenido por el anillo. Es muy frecuente y muchas veces no da ningún síntoma." },
   hernia: { label: "Hernia", text: "Parte del núcleo atraviesa el anillo y puede irritar una raíz nerviosa: aparece dolor u hormigueo que baja por el brazo o la pierna. La mayoría mejora sin cirugía." },
 };
+
+// ===== Juego de preguntas =====
+// `a` es el índice de la opción correcta. Las explicaciones salen del contenido de la web.
+export const QUIZ = [
+  {
+    q: "Tenés un dolor lumbar común, sin señales de alarma. ¿Qué suele ayudar más?",
+    options: ["Reposo absoluto en cama varios días", "Mantenerte activo dentro de lo tolerable", "Hacerte una resonancia enseguida", "No moverte hasta que deje de doler"],
+    a: 1,
+    why: "Moverse, más que hacer reposo, es lo que más ayuda. Podés bajar la intensidad unos días, pero el reposo absoluto en cama demora la recuperación.",
+  },
+  {
+    q: "¿Cuántas vértebras móviles tiene la columna?",
+    options: ["33", "12", "24", "7"],
+    a: 2,
+    why: "Son 24: 7 cervicales, 12 dorsales y 5 lumbares. Las del sacro y el cóccix también son vértebras, pero están fusionadas.",
+  },
+  {
+    q: "¿Cuánto suele durar un episodio agudo de dolor lumbar común?",
+    options: ["Uno o dos días", "Entre 2 y 6 semanas", "Más de seis meses", "No se va nunca"],
+    a: 1,
+    why: "Un episodio agudo inespecífico suele durar entre 2 y 6 semanas. Si no mejora después de 4–6 semanas, conviene consultar.",
+  },
+  {
+    q: "Sin señales de alarma, ¿hace falta una radiografía o una resonancia en las primeras semanas?",
+    options: ["Sí, siempre", "Solo si duele mucho", "En la mayoría de los casos, no", "Sí, para elegir los ejercicios"],
+    a: 2,
+    why: "Las guías no recomiendan estudios de rutina al principio: no cambian el tratamiento y suelen mostrar hallazgos que también aparecen en personas sin dolor.",
+  },
+  {
+    q: "¿Qué es una hernia de disco?",
+    options: ["Parte del núcleo del disco atraviesa el anillo y puede irritar una raíz nerviosa", "Una vértebra fracturada", "Un músculo contracturado", "El desgaste de una articulación facetaria"],
+    a: 0,
+    why: "El núcleo pulposo sale a través del anillo fibroso. Puede dar dolor u hormigueo que baja por el brazo o la pierna, y la mayoría mejora sin cirugía.",
+  },
+  {
+    q: "¿Cuál de estas situaciones es una señal para consultar sin demora?",
+    options: ["Dolor que aparece después de estar mucho sentado", "Dificultad para orinar o adormecimiento entre las piernas", "Contractura después de hacer jardinería", "Dolor que mejora al caminar"],
+    a: 1,
+    why: "Los cambios para orinar o el adormecimiento en la \"zona de la montura\" son señales de alarma. Los otros casos son dolores comunes que suelen mejorar solos.",
+  },
+  {
+    q: "¿Dónde conviene que esté el borde superior del monitor?",
+    options: ["Bien abajo, para mirar hacia el teclado", "A la altura de los ojos, a un brazo de distancia", "Por encima de la cabeza", "Da igual mientras la silla sea buena"],
+    a: 1,
+    why: "A la altura de los ojos y a un brazo de distancia, así el cuello queda neutro. Con notebook, usá un soporte y un teclado externo.",
+  },
+  {
+    q: "En la retracción de mentón, ¿qué movimiento hacés?",
+    options: ["Bajás la cabeza hasta tocar el pecho", "Girás la cabeza hacia un costado", "Llevás el mentón hacia atrás sin inclinar la cabeza", "Echás la cabeza hacia atrás mirando al techo"],
+    a: 2,
+    why: "El mentón va hacia atrás, como haciendo \"papada\", mirando al frente. Sostenés 5 segundos y soltás.",
+  },
+];

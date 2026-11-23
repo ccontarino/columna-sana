@@ -10,6 +10,7 @@ import Exercises from "./components/Exercises.jsx";
 import Ergonomics from "./components/Ergonomics.jsx";
 import PauseTimer from "./components/PauseTimer.jsx";
 import Faq from "./components/Faq.jsx";
+import Quiz from "./components/Quiz.jsx";
 import { ReadingSpine } from "./components/ErSpine.jsx";
 import { useT } from "./i18n.jsx";
 import { ZoneProvider } from "./zone.jsx";
@@ -56,6 +57,7 @@ export default function App() {
             <VertebraDetail />
           </div>
 
+          <Quiz />
           <Faq />
         </main>
         <footer>

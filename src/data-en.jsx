@@ -216,3 +216,55 @@ export const DISC_STATES = {
   protrusion: { label: "Bulge", text: "The disc bulges backwards, but the core is still held in by the ring. Very common, and often causes no symptoms at all." },
   hernia: { label: "Herniation", text: "Part of the core pushes through the ring and may irritate a nerve root: pain or tingling travels down the arm or leg. Most improve without surgery." },
 };
+
+// ===== Quiz =====
+export const QUIZ = [
+  {
+    q: "You have common low back pain with no warning signs. What usually helps most?",
+    options: ["Several days of strict bed rest", "Staying active as much as you can tolerate", "Getting an MRI right away", "Not moving until it stops hurting"],
+    a: 1,
+    why: "Staying active, rather than resting, is what helps most. You can ease off for a few days, but strict bed rest slows recovery.",
+  },
+  {
+    q: "How many mobile vertebrae does the spine have?",
+    options: ["33", "12", "24", "7"],
+    a: 2,
+    why: "There are 24: 7 cervical, 12 thoracic and 5 lumbar. The sacrum and coccyx are vertebrae too, but they are fused.",
+  },
+  {
+    q: "How long does an acute episode of common low back pain usually last?",
+    options: ["One or two days", "Between 2 and 6 weeks", "More than six months", "It never goes away"],
+    a: 1,
+    why: "A non-specific acute episode usually lasts 2 to 6 weeks. If it has not improved after 4–6 weeks, see a doctor.",
+  },
+  {
+    q: "With no warning signs, do you need an X-ray or MRI in the first few weeks?",
+    options: ["Yes, always", "Only if it hurts a lot", "In most cases, no", "Yes, to choose your exercises"],
+    a: 2,
+    why: "Guidelines do not recommend routine imaging early on: it does not change treatment and often shows findings that people without pain also have.",
+  },
+  {
+    q: "What is a herniated disc?",
+    options: ["Part of the disc's nucleus pushes through the ring and may irritate a nerve root", "A fractured vertebra", "A tight muscle", "Wear of a facet joint"],
+    a: 0,
+    why: "The nucleus pushes out through the annulus. It can cause pain or tingling down the arm or leg, and most cases improve without surgery.",
+  },
+  {
+    q: "Which of these is a sign to see a doctor without delay?",
+    options: ["Pain after sitting for a long time", "Trouble urinating or numbness between the legs", "A stiff back after gardening", "Pain that eases when you walk"],
+    a: 1,
+    why: "Changes in urination or numbness in the \"saddle area\" are warning signs. The others are common pains that usually get better on their own.",
+  },
+  {
+    q: "Where should the top edge of your monitor be?",
+    options: ["Low, so you look down at the keyboard", "At eye level, an arm's length away", "Above your head", "It doesn't matter if the chair is good"],
+    a: 1,
+    why: "At eye level and an arm's length away, so your neck stays neutral. With a laptop, use a stand and an external keyboard.",
+  },
+  {
+    q: "In a chin tuck, what movement do you make?",
+    options: ["Drop your head until it touches your chest", "Turn your head to the side", "Draw your chin straight back without tilting your head", "Tip your head back to look at the ceiling"],
+    a: 2,
+    why: "Your chin moves back, as if making a double chin, while you look straight ahead. Hold for 5 seconds and release.",
+  },
+];

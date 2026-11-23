@@ -12,6 +12,7 @@ Guía web práctica para el **dolor de cuello** (cervicalgia) y de **espalda baj
 - **Tu dolor**: qué es, causas, síntomas y qué ayuda, con selector cuello / espalda baja compartido con los ejercicios.
 - **Qué hacer hoy**: 9 ejercicios suaves por zona, con temporizador por ejercicio.
 - **Cuándo consultar**: señales de alarma como listas informativas.
+- **Juego de preguntas**: 8 preguntas de opción múltiple sobre la guía, con explicación de cada respuesta y puntaje final.
 - **Ergonomía**: ajustes del puesto de trabajo.
 - **Pausas activas**: temporizador con notificaciones y sugerencias de movimiento.
 - **FAQ**: imágenes, reposo, frío/calor, analgésicos, hernias, estrés.
